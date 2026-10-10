@@ -1,0 +1,128 @@
+[
+  {
+    "variant": "yjs-v2-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yjs-v1-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yjs-v2-no-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yjs-v1-no-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yrs-wasm-v2-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yrs-wasm-v1-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yrs-wasm-v2-no-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yrs-wasm-v1-no-gc",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "loro-snapshot",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "loro-operations",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "automerge",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "json-joy",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "diamond-types",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yjs-v2-gc-tail",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "yrs-wasm-v2-gc-tail",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "loro-snapshot-tail",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "automerge-tail",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  },
+  {
+    "variant": "json-joy-tail",
+    "status": "ok",
+    "save_reload": true,
+    "offline_merge": true,
+    "duplicate_delivery": true
+  }
+]
