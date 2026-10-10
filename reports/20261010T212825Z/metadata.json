@@ -162,5 +162,9 @@
     "campaign/bin/night-native-memory": "78bc63d08a08ed19963caee80028ddb3791cdedeae9b365bae60a92c34ea2b60",
     "campaign/Cargo.lock": "37c717c609a485ba072e69f4b82c001bf41ecf734206ca9c9b3ef5ce7ade4900",
     "package-lock.json": "7d7ec3416d19bbcba8a2d535bf5d4d3ff207d5428449022b843124449a6936a0"
-  }
+  },
+  "standard_offline_complete": true,
+  "standard_upstream_complete": true,
+  "invalid_adapters": [],
+  "resource_limited_adapters": []
 }
