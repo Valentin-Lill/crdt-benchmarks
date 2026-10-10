@@ -1,5 +1,6 @@
 
-import { AbstractCrdt, CrdtFactory } from '../../js-lib/index.js' // eslint-disable-line
+// The upstream interface is documented in js-lib/utils.js. Avoid importing the
+// entire editing dataset merely to obtain types used only in JSDoc comments.
 import { OpLog, Doc } from 'diamond-types-node'
 import * as random from 'lib0/random'
 import * as error from 'lib0/error'

@@ -5,7 +5,7 @@
   "description": "CRDT benchmarks",
   "type": "module",
   "funding": {
-    "type": "GitHub Sponsors ❤",
+    "type": "GitHub Sponsors \u2764",
     "url": "https://github.com/sponsors/dmonad"
   },
   "workspaces": [
@@ -13,7 +13,6 @@
     "benchmarks/ywasm",
     "benchmarks/loro",
     "benchmarks/automerge",
-    "benchmarks/automerge-wasm",
     "benchmarks/diamond-types"
   ],
   "scripts": {
@@ -21,7 +20,8 @@
     "start": "npm run start -ws",
     "start:bun": "npm run start:bun -ws",
     "table": "node bin/render-table.js benchmarks/results.json 6000 yjs ywasm loro automerge diamond-types",
-    "lint": "standard && tsc"
+    "lint": "standard && tsc",
+    "campaign": "python3 campaign/campaign.py"
   },
   "standard": {
     "ignore": [
@@ -43,10 +43,16 @@
   },
   "homepage": "https://github.com/dmonad/crdt-benchmarks#readme",
   "engines": {
-    "node": "^20.0.0"
+    "node": ">=22.15.0"
   },
   "dependencies": {
-    "lib0": "^0.2.42"
+    "lib0": "0.2.119",
+    "@automerge/automerge": "3.5.0",
+    "diamond-types-node": "1.0.2",
+    "json-joy": "18.30.0",
+    "loro-crdt": "1.16.4",
+    "yjs": "13.6.33",
+    "ywasm": "0.28.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",

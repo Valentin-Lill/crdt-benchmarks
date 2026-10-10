@@ -5,7 +5,8 @@ import * as error from 'lib0/error'
 // @ts-ignore
 import * as perf from 'lib0/performance'
 
-export const N = 6000
+// Preserve upstream's standard size; larger runs can explicitly override it.
+export const N = typeof process !== 'undefined' ? Number(process.env.CRDT_N || 6000) : 6000
 export const disableAutomergeBenchmarks = true
 export const disablePeersCrdtsBenchmarks = true
 export const disableYjsBenchmarks = true

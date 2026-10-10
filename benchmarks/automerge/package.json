@@ -11,6 +11,6 @@
     "dist": "npm run clean && rollup -c && gzip --keep dist/*"
   },
   "dependencies": {
-    "@automerge/automerge": "^2.1.10"
+    "@automerge/automerge": "3.5.0"
   }
 }

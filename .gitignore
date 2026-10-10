@@ -1,3 +1,10 @@
-node_modules
-dist
-.vscode
+node_modules/
+benchmarks/*/node_modules/
+benchmarks/*/dist/
+campaign/target/
+campaign/bin/
+campaign/results/
+campaign/night-runs/
+campaign/runs/
+campaign/__pycache__/
+*.tmp

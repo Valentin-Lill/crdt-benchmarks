@@ -1,0 +1,99 @@
+This fork adds an unattended offline-first CRDT comparison to dmonad/crdt-benchmarks.
+
+Source and versions
+-------------------
+The original B1/B2/B3/B4 tests are retained. Default N is 6000 and B4 is the exact
+259778-entry editing trace, ending in 104852 ASCII characters. B3.5 now compares
+actual text rather than Object.toString(). B4x100 now verifies the expected text
+after editing and after reload. Every upstream case runs in a separate process;
+its deterministic PRNG restarts at seed 42. This differs from the original
+all-cases-in-one-process PRNG sequence and avoids inherited memory/state.
+
+VERSIONS.json records latest stable registry releases verified before this run.
+package-lock.json and campaign/Cargo.lock pin actual resolved versions. JS Loro
+and Rust Loro have distinct release numbers. The legacy standalone Automerge WASM
+workspace is excluded because its npm latest tag is a prerelease; current
+Automerge includes its WASM engine. Native Diamond Types uses the latest stable
+crate 1.0.0, not the unreleased 2.0 development branch from earlier experiments.
+
+Variants
+--------
+18 JS/WASM adapters: Yjs and Yrs/WASM with V1/V2 and GC on/off, Loro full snapshot
+and full operations, current Automerge, json-joy, and text-only Diamond Types.
+Snapshot plus incremental-tail storage is additionally tested for Yjs, Yrs/WASM,
+Loro, Automerge and json-joy. A 16-byte application frame stores the base snapshot
+length, followed by the base and incremental tail. All necessary CRDT metadata
+is retained. json-joy live updates use patches; offline synchronization uses
+state-vector deltas, with a one-byte message discriminator.
+
+13 native Rust variants: Yrs V2/GC, V1/GC, V2/no-GC, V1/no-GC and snapshot-tail;
+Loro full snapshot, full operations and snapshot-tail; Automerge full save,
+64KiB initial text transactions, bounded 32-change imports, and chunked
+snapshot-tail; Diamond Types text only. Native Yrs batches forward text edits
+using a delta to avoid repeated traversal. Default edit batch size is 32.
+
+Reproduction
+------------
+Require Linux, Node >=22.15 (Zstd support), Python 3 with zoneinfo and a Rust 1.96
+toolchain. npm ci at repository root, then bash campaign/build.sh. Always verify
+and update to current stable versions BEFORE creating new lockfiles/campaigns.
+The recorded campaign itself must continue using its pinned versions.
+
+node --expose-gc campaign/validate.mjs
+python3 campaign/overnight.py --smoke --repeats 1
+python3 campaign/campaign.py
+
+The controller performs adapter validation, isolated native/JS/WASM smoke tests,
+three repeats of standard offline scenarios, three repeats of upstream B1–B4,
+and one exact B4 trace per native variant. A fresh campaign started in the evening
+uses 03:00 Europe/Berlin on the following morning as the larger-test gate.
+
+Only if standard stages finish before the gate, a bounded larger real-text-trace
+stage runs, followed by offline scenarios with 32/128/500MiB text, up to one
+million fields, up to one million server edits, and 1GiB of replacement payload.
+Variants failing the standard checks are excluded from the larger stage.
+Larger tests stop by 07:00 Europe/Berlin. Timeouts/memory guards are recorded;
+successful configurations are repeated up to three times within the time budget.
+No AI polling is required. One logical CPU is pinned; no measured workers overlap.
+
+Per-process RSS limit: 12GiB. Host reserves: 4GiB available RAM and 10GiB disk.
+Standard upstream case timeout: 120 seconds; larger case timeout: 600 seconds.
+Offline phases use 120/600 seconds and trials use 360/1200 seconds respectively.
+Limits and sampled guards can overshoot briefly. Inputs and temporary snapshots
+are not uploaded. Raw timings, CPU/RSS accounting, validation, failures, source
+hashes, summaries and HTML reports are copied to reports/<campaign-id> and
+committed/pushed after each major stage and at completion. GitHub pushes retry
+three times; a failure remains visible in the local git.log and delivery.json.
+
+Reading the results
+-------------------
+reports/LATEST.txt points to the latest published report directory.
+DECISION.txt is readable directly on GitHub. Open report.html locally to access
+the scenario tables, with peak processing RAM and storage as well as timings.
+upstream-results.json and offline results.json contain raw measurements.
+Kernel process RSS includes WASM/native memory. Upstream heapUsed values do not.
+Upstream peaks include multiple replicas, input trace data and correctness work;
+they are not representative of one client's RAM. Offline workers isolate init,
+editing, merge, save/reload, reference checks, cold open and storage per process.
+Cold open includes full read and first edit to expose lazy loading costs.
+Editing peaks exclude checkpoint save/load peaks, retained separately in raw data.
+JS/WASM adapters explicitly release the old document before checkpoint reload;
+they do not depend on deferred JavaScript finalizers to release WASM memory.
+Native B4 excludes per-operation wire encoding; compare its timings separately
+from upstream JS/WASM B4. Native live heap uses a separate instrumented binary.
+
+Offline return is simulated by divergent versions and several save/reload
+boundaries, not real elapsed time. Expected local states are checked against a
+non-CRDT Rope reference; merged replicas must agree and retain independent branch
+sentinels/fields. Duplicate delivery is verified. Destructive shallow snapshots,
+JSON resets and removal of required offline merge metadata are excluded.
+
+This is a Linux performance comparison. It does not certify Flutter bridge,
+mobile/Web builds, rich text, production Unicode handling, nested Rust schemas,
+schema migration, database durability, encryption or server concurrency.
+
+Stopping
+--------
+Use systemctl --user stop <unit-name> from RUNNING.json, or create a STOP file in
+the active campaign/runs/<id> directory. The controller then stops its workers,
+retains partial results and attempts a final commit/push.

@@ -1,0 +1,10 @@
+{
+  "crdt-benchmarks": {
+    "url": "https://github.com/dmonad/crdt-benchmarks.git",
+    "commit": "796f70250c8c003dfb3a50369d0b2733a760e54d"
+  },
+  "diamond-types": {
+    "url": "https://github.com/josephg/diamond-types.git",
+    "commit": "89ae3a0ab8d941a2885e6ec89d094bc9ce9d2922"
+  }
+}

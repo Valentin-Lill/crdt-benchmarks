@@ -65,7 +65,7 @@ export const runBenchmarkB4 = async (crdtFactory, filter) => {
   )
 
   await runBenchmark('[B4x100] Apply real-world editing dataset 100 times', filter, benchmarkName => {
-    const multiplicator = 100
+    const multiplicator = typeof process !== 'undefined' ? Number(process.env.CRDT_TRACE_REPEATS || 100) : 100
     let encodedState = /** @type {any} */ (null)
 
     ;(() => {
@@ -87,6 +87,7 @@ export const runBenchmarkB4 = async (crdtFactory, filter) => {
           }
         }
       })
+      t.compareStrings(doc.getText(), finalText.repeat(multiplicator))
       /**
        * @type {any}
        */
@@ -108,6 +109,7 @@ export const runBenchmarkB4 = async (crdtFactory, filter) => {
       benchmarkTime(crdtFactory.getName(), `${benchmarkName} (parseTime)`, () => {
         // eslint-disable-next-line
         doc = crdtFactory.load(() => {}, encodedState)
+        t.compareStrings(doc.getText(), finalText.repeat(multiplicator))
       })
       logMemoryUsed(crdtFactory.getName(), benchmarkName, startHeapUsed)
     })()

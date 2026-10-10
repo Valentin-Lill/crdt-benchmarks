@@ -1,0 +1,83 @@
+{
+  "checked_utc": "2026-10-10T21:20:11.405327+00:00",
+  "packages": [
+    {
+      "registry": "npm",
+      "package": "lib0",
+      "version": "0.2.119",
+      "latest_stable_verified": true,
+      "source": "https://registry.npmjs.org/lib0"
+    },
+    {
+      "registry": "npm",
+      "package": "@automerge/automerge",
+      "version": "3.5.0",
+      "latest_stable_verified": true,
+      "source": "https://registry.npmjs.org/%40automerge%2Fautomerge"
+    },
+    {
+      "registry": "npm",
+      "package": "diamond-types-node",
+      "version": "1.0.2",
+      "latest_stable_verified": true,
+      "source": "https://registry.npmjs.org/diamond-types-node"
+    },
+    {
+      "registry": "npm",
+      "package": "json-joy",
+      "version": "18.30.0",
+      "latest_stable_verified": true,
+      "source": "https://registry.npmjs.org/json-joy"
+    },
+    {
+      "registry": "npm",
+      "package": "loro-crdt",
+      "version": "1.16.4",
+      "latest_stable_verified": true,
+      "source": "https://registry.npmjs.org/loro-crdt"
+    },
+    {
+      "registry": "npm",
+      "package": "yjs",
+      "version": "13.6.33",
+      "latest_stable_verified": true,
+      "source": "https://registry.npmjs.org/yjs"
+    },
+    {
+      "registry": "npm",
+      "package": "ywasm",
+      "version": "0.28.0",
+      "latest_stable_verified": true,
+      "source": "https://registry.npmjs.org/ywasm"
+    },
+    {
+      "registry": "cargo",
+      "package": "yrs",
+      "version": "0.28.0",
+      "latest_stable_verified": true,
+      "source": "https://crates.io/api/v1/crates/yrs"
+    },
+    {
+      "registry": "cargo",
+      "package": "loro",
+      "version": "1.16.2",
+      "latest_stable_verified": true,
+      "source": "https://crates.io/api/v1/crates/loro"
+    },
+    {
+      "registry": "cargo",
+      "package": "automerge",
+      "version": "0.12.0",
+      "latest_stable_verified": true,
+      "source": "https://crates.io/api/v1/crates/automerge"
+    },
+    {
+      "registry": "cargo",
+      "package": "diamond-types",
+      "version": "1.0.0",
+      "latest_stable_verified": true,
+      "source": "https://crates.io/api/v1/crates/diamond-types"
+    }
+  ],
+  "legacy_automerge_wasm_excluded": "latest npm tag is a prerelease; modern Automerge ships its own WASM core"
+}

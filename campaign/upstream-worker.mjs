@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {makeFactory} from './factories.mjs';
+const [lib,id,out]=process.argv.slice(2);
+const {runBenchmarks,benchmarkResults}=await import('../js-lib/index.js');
+const factory=await makeFactory(lib);global.gc?.();const baseline=process.memoryUsage();
+await runBenchmarks(factory,name=>name.startsWith('['+id+']'));
+assert(Object.keys(benchmarkResults).length,'No matching benchmark '+id);
+fs.writeFileSync(out,JSON.stringify({library:lib,test:id,results:benchmarkResults,memory:process.memoryUsage(),baseline_memory:baseline},null,2));
+console.log(JSON.stringify({verified:true,result_file:out}));
