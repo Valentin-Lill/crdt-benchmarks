@@ -18804,5 +18804,870 @@
     },
     "wall_s": 2.841741386000649,
     "finished": "2026-10-11T04:08:32.531371+00:00"
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "automerge-bounded",
+    "trial": 1,
+    "attempt": 2,
+    "started": "2026-10-11T04:08:40.688797+00:00",
+    "status": "ok",
+    "phases": {
+      "init": {
+        "status": "ok",
+        "wall_s": 14.897872066001582,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "init",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 142716928,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-init.stderr.log",
+        "process": {
+          "max_rss_kib": 148052,
+          "elapsed_s": 14.870971666001424,
+          "user_s": 14.730079,
+          "system_s": 0.052613
+        },
+        "action": "init",
+        "baseline_rss_bytes": 3391488,
+        "library": "automerge-bounded",
+        "result": {
+          "init_ms": 14455.137739999996,
+          "init_peak_rss_bytes": 93921280,
+          "peak_reset_supported": true,
+          "save_ms": 379.50660899999997,
+          "save_peak_rss_bytes": 151605248,
+          "snapshot_bytes": 8388359
+        }
+      },
+      "server": {
+        "status": "ok",
+        "wall_s": 32.017528932999994,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3374710784,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-server.stderr.log",
+        "process": {
+          "max_rss_kib": 632532,
+          "elapsed_s": 31.99269380199985,
+          "user_s": 31.102326,
+          "system_s": 0.722777
+        },
+        "action": "server",
+        "baseline_rss_bytes": 3260416,
+        "library": "automerge-bounded",
+        "result": {
+          "batch_p99_ms": 1.798706,
+          "checkpoint_load_ms": 12123.838787,
+          "checkpoint_peak_rss_bytes": 3510542336,
+          "checkpoint_save_ms": 441.946094,
+          "commands": 200002,
+          "edit_ms": 6255.802297999998,
+          "edit_peak_rss_bytes": 498262016,
+          "encode_ms": 744.7281539999999,
+          "export_and_save_peak_rss_bytes": 647712768,
+          "last_delta_bytes": 1943520,
+          "load_ms": 11881.514688,
+          "load_peak_rss_bytes": 3149312000,
+          "peak_reset_supported": true,
+          "save_ms": 472.447035
+        }
+      },
+      "check-server": {
+        "status": "ok",
+        "wall_s": 13.838110025004426,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3173552128,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-check-server.stderr.log",
+        "process": {
+          "max_rss_kib": 3228672,
+          "elapsed_s": 13.813097824997385,
+          "user_s": 13.400697,
+          "system_s": 0.34512899999999996
+        },
+        "action": "check-server",
+        "baseline_rss_bytes": 3387392,
+        "library": "automerge-bounded",
+        "result": {
+          "duplicate_updates_pass": false,
+          "hash": "d21de6c846c604fb923a28399d87714972527aaa89a9001530d5509759dfa12c",
+          "map_keys": 235115,
+          "text_bytes": 33685350
+        }
+      },
+      "offline": {
+        "status": "ok",
+        "wall_s": 14.251833906004322,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3014221824,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 589616,
+          "elapsed_s": 14.2268457090031,
+          "user_s": 13.744167,
+          "system_s": 0.40966199999999997
+        },
+        "action": "offline",
+        "baseline_rss_bytes": 3391488,
+        "library": "automerge-bounded",
+        "result": {
+          "batch_p99_ms": 3.737991,
+          "checkpoint_load_ms": 0.0,
+          "checkpoint_peak_rss_bytes": 0,
+          "checkpoint_save_ms": 0.0,
+          "commands": 50002,
+          "edit_ms": 1634.8762669999971,
+          "edit_peak_rss_bytes": 469516288,
+          "encode_ms": 185.464531,
+          "export_and_save_peak_rss_bytes": 603766784,
+          "last_delta_bytes": 954151,
+          "load_ms": 11952.226794,
+          "load_peak_rss_bytes": 3149357056,
+          "peak_reset_supported": true,
+          "save_ms": 420.430768
+        }
+      },
+      "check-offline": {
+        "status": "ok",
+        "wall_s": 12.959552613996493,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3057885184,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-check-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 3117576,
+          "elapsed_s": 12.9347262720039,
+          "user_s": 12.551983,
+          "system_s": 0.321287
+        },
+        "action": "check-offline",
+        "baseline_rss_bytes": 3305472,
+        "library": "automerge-bounded",
+        "result": {
+          "duplicate_updates_pass": false,
+          "hash": "a9f9f94fc83b137af4c1b2f208266f5d0394cbc57716e21bf863297154585086",
+          "map_keys": 245569,
+          "text_bytes": 33587171
+        }
+      },
+      "merge-server": {
+        "status": "ok",
+        "wall_s": 400.12462120900454,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "merge-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3173785600,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-merge-server.stderr.log",
+        "process": {
+          "max_rss_kib": 1171184,
+          "elapsed_s": 400.10096675699606,
+          "user_s": 397.970758,
+          "system_s": 0.577294
+        },
+        "action": "merge-server",
+        "baseline_rss_bytes": 3309568,
+        "library": "automerge-bounded",
+        "result": {
+          "load_ms": 12485.174411999998,
+          "load_peak_rss_bytes": 3306340352,
+          "merge_ms": 387052.856314,
+          "merge_peak_rss_bytes": 1083084800,
+          "merge_rss_bytes": 1083084800,
+          "peak_reset_supported": true,
+          "save_ms": 499.484284,
+          "save_peak_rss_bytes": 1199292416,
+          "snapshot_bytes": 11008023
+        }
+      },
+      "merge-client": {
+        "status": "ok",
+        "wall_s": 1476.587034698001,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "merge-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3057770496,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-merge-client.stderr.log",
+        "process": {
+          "max_rss_kib": 1016712,
+          "elapsed_s": 1476.5633319389963,
+          "user_s": 1470.334762,
+          "system_s": 0.574321
+        },
+        "action": "merge-client",
+        "baseline_rss_bytes": 3366912,
+        "library": "automerge-bounded",
+        "result": {
+          "load_ms": 12467.309406,
+          "load_peak_rss_bytes": 3192283136,
+          "merge_ms": 1463541.8805510001,
+          "merge_peak_rss_bytes": 924049408,
+          "merge_rss_bytes": 924049408,
+          "peak_reset_supported": true,
+          "save_ms": 492.015978,
+          "save_peak_rss_bytes": 1041113088,
+          "snapshot_bytes": 11008002
+        }
+      },
+      "check-merged-server": {
+        "status": "ok",
+        "wall_s": 14.725413678999757,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-merged-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3211960320,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-check-merged-server.stderr.log",
+        "process": {
+          "max_rss_kib": 3265620,
+          "elapsed_s": 14.700515525997616,
+          "user_s": 14.252317,
+          "system_s": 0.376975
+        },
+        "action": "check-merged-server",
+        "baseline_rss_bytes": 3448832,
+        "library": "automerge-bounded",
+        "result": {
+          "duplicate_updates_pass": true,
+          "hash": "29c03f470ff6d3a265642b886ab43ca070e48474a93a4ed451412fa07c6ae527",
+          "map_keys": 234031,
+          "text_bytes": 33718196
+        }
+      },
+      "check-merged-client": {
+        "status": "ok",
+        "wall_s": 15.125337493002007,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-merged-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3211923456,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-check-merged-client.stderr.log",
+        "process": {
+          "max_rss_kib": 3265580,
+          "elapsed_s": 15.099755969997204,
+          "user_s": 14.65176,
+          "system_s": 0.37399899999999997
+        },
+        "action": "check-merged-client",
+        "baseline_rss_bytes": 3317760,
+        "library": "automerge-bounded",
+        "result": {
+          "duplicate_updates_pass": true,
+          "hash": "29c03f470ff6d3a265642b886ab43ca070e48474a93a4ed451412fa07c6ae527",
+          "map_keys": 234031,
+          "text_bytes": 33718196
+        }
+      },
+      "cold": {
+        "status": "ok",
+        "wall_s": 14.143752244002826,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "cold",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3237183488,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-cold.stderr.log",
+        "process": {
+          "max_rss_kib": 250080,
+          "elapsed_s": 14.11815016100445,
+          "user_s": 13.699849,
+          "system_s": 0.348001
+        },
+        "action": "cold",
+        "baseline_rss_bytes": 3387392,
+        "library": "automerge-bounded",
+        "result": {
+          "allocation_metrics": false,
+          "edited_live_bytes": 0,
+          "edited_rss_bytes": 256188416,
+          "first_edit_ms": 3.262325,
+          "first_edit_peak_rss_bytes": 256188416,
+          "load_ms": 13285.763789,
+          "load_peak_rss_bytes": 3343941632,
+          "loaded_rss_bytes": 235266048,
+          "peak_reset_supported": true,
+          "read_ms": 802.595431,
+          "read_peak_rss_bytes": 269004800
+        }
+      },
+      "storage": {
+        "status": "ok",
+        "wall_s": 0.038072101000580005,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "storage",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 0,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-storage.stderr.log",
+        "process": {
+          "max_rss_kib": 30220,
+          "elapsed_s": 0.013176139997085556,
+          "user_s": 0.004867,
+          "system_s": 0.007816
+        },
+        "action": "storage",
+        "baseline_rss_bytes": 3379200,
+        "library": "automerge-bounded",
+        "result": {
+          "best_disk_bytes": 10992432,
+          "snapshot_bytes": 11008023,
+          "zstd3_bytes": 10992432,
+          "zstd3_ms": 9.799608
+        }
+      },
+      "memory": {
+        "status": "ok",
+        "wall_s": 13.795327056999668,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native-memory",
+          "night",
+          "automerge-bounded",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "cold",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1"
+        ],
+        "observed_rss_bytes": 3276906496,
+        "log": "logs/mixed-32m-250k-automerge-bounded-1-attempt2-memory.stderr.log",
+        "process": {
+          "max_rss_kib": 250112,
+          "elapsed_s": 13.770537277996482,
+          "user_s": 13.333025,
+          "system_s": 0.364876
+        },
+        "action": "cold",
+        "baseline_rss_bytes": 3342336,
+        "library": "automerge-bounded",
+        "result": {
+          "allocation_metrics": true,
+          "edited_live_bytes": 74233301,
+          "edited_rss_bytes": 256147456,
+          "first_edit_ms": 3.243058,
+          "first_edit_peak_rss_bytes": 256147456,
+          "load_ms": 12926.554291,
+          "load_peak_rss_bytes": 3343818752,
+          "loaded_rss_bytes": 235212800,
+          "peak_reset_supported": true,
+          "read_ms": 813.2531710000001,
+          "read_peak_rss_bytes": 269037568
+        }
+      }
+    },
+    "payload_bytes": {
+      "upload.bin": 954151,
+      "download-1.bin": 1910419,
+      "download-2.bin": 1943520
+    },
+    "converged": true,
+    "summary": {
+      "edit_ms": 6255.802297999998,
+      "offline_edit_ms": 1634.8762669999971,
+      "server_merge_ms": 387052.856314,
+      "client_merge_ms": 1463541.8805510001,
+      "server_merge_peak_rss_bytes": 1083084800,
+      "client_merge_peak_rss_bytes": 924049408,
+      "server_merge_load_peak_rss_bytes": 3306340352,
+      "client_merge_load_peak_rss_bytes": 3192283136,
+      "server_merge_rss_bytes": 1083084800,
+      "client_merge_rss_bytes": 924049408,
+      "init_peak_rss_bytes": 151605248,
+      "server_edit_peak_rss_bytes": 498262016,
+      "offline_edit_peak_rss_bytes": 469516288,
+      "server_worker_peak_rss_bytes": 3510542336,
+      "offline_worker_peak_rss_bytes": 3149357056,
+      "cold_ms": 14091.621545,
+      "cold_peak_rss_bytes": 3343941632,
+      "steady_rss_bytes": 256188416,
+      "live_bytes": 74233301,
+      "best_disk_bytes": 10992432,
+      "snapshot_bytes": 11008023,
+      "zstd3_bytes": 10992432,
+      "upload_bytes": 954151,
+      "download_bytes": 3853939,
+      "peak_reset_supported": true
+    },
+    "wall_s": 2022.5287663560011,
+    "finished": "2026-10-11T04:42:23.217575+00:00"
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-wasm-v2-gc",
+    "trial": 1,
+    "attempt": 2,
+    "started": "2026-10-11T04:42:23.232227+00:00",
+    "status": "ok",
+    "phases": {
+      "init": {
+        "status": "ok",
+        "wall_s": 1.2977687189995777,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "init",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 352567296,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-init.stderr.log",
+        "process": {
+          "max_rss_kib": 450024,
+          "elapsed_s": 1.2728092370016384,
+          "user_s": 1.1864379999999999,
+          "system_s": 0.07858899999999999
+        },
+        "action": "init",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 67166208,
+        "result": {
+          "init_ms": 1001.3212449999995,
+          "init_peak_rss_bytes": 335396864,
+          "save_ms": 107.49995100000001,
+          "save_peak_rss_bytes": 460763136,
+          "snapshot_bytes": 41181377,
+          "peak_reset_supported": true
+        }
+      },
+      "server": {
+        "status": "ok",
+        "wall_s": 926.528506922994,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 425795584,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-server.stderr.log",
+        "process": {
+          "max_rss_kib": 454664,
+          "elapsed_s": 926.503017641,
+          "user_s": 921.566325,
+          "system_s": 0.17493
+        },
+        "action": "server",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64327680,
+        "result": {
+          "load_ms": 744.218763,
+          "load_peak_rss_bytes": 420339712,
+          "edit_ms": 924662.9818799989,
+          "edit_peak_rss_bytes": 465575936,
+          "checkpoint_peak_rss_bytes": 465690624,
+          "export_and_save_peak_rss_bytes": 465575936,
+          "encode_ms": 35.96346200001426,
+          "last_delta_bytes": 1593221,
+          "save_ms": 109.36676000000443,
+          "checkpoint_save_ms": 101.31654400000116,
+          "checkpoint_load_ms": 542.3638459999929,
+          "commands": 200002,
+          "batch_p99_ms": 309.83431900001597,
+          "peak_reset_supported": true
+        }
+      },
+      "check-server": {
+        "status": "ok",
+        "wall_s": 1.870277771995461,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 477310976,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-check-server.stderr.log",
+        "process": {
+          "max_rss_kib": 483640,
+          "elapsed_s": 1.845076922007138,
+          "user_s": 1.698089,
+          "system_s": 0.136147
+        },
+        "action": "check-server",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 65052672,
+        "result": {
+          "hash": "d21de6c846c604fb923a28399d87714972527aaa89a9001530d5509759dfa12c",
+          "text_bytes": 33685350,
+          "map_keys": 235115,
+          "duplicate_updates_pass": false
+        }
+      },
+      "offline": {
+        "status": "ok",
+        "wall_s": 220.24307388500165,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 336105472,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 404260,
+          "elapsed_s": 220.2177800779973,
+          "user_s": 219.005883,
+          "system_s": 0.10636899999999999
+        },
+        "action": "offline",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64229376,
+        "result": {
+          "load_ms": 751.961646,
+          "load_peak_rss_bytes": 414433280,
+          "edit_ms": 219209.03426099953,
+          "edit_peak_rss_bytes": 413962240,
+          "checkpoint_peak_rss_bytes": 0,
+          "export_and_save_peak_rss_bytes": 413962240,
+          "encode_ms": 17.20756400001119,
+          "last_delta_bytes": 703537,
+          "save_ms": 100.34418899999582,
+          "checkpoint_save_ms": 0,
+          "checkpoint_load_ms": 0,
+          "commands": 50002,
+          "batch_p99_ms": 282.1403949999949,
+          "peak_reset_supported": true
+        }
+      },
+      "check-offline": {
+        "status": "ok",
+        "wall_s": 1.6990424799951143,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 451792896,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-check-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 462768,
+          "elapsed_s": 1.6736314599984325,
+          "user_s": 1.51948,
+          "system_s": 0.141251
+        },
+        "action": "check-offline",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 65437696,
+        "result": {
+          "hash": "a9f9f94fc83b137af4c1b2f208266f5d0394cbc57716e21bf863297154585086",
+          "text_bytes": 33587171,
+          "map_keys": 245569,
+          "duplicate_updates_pass": false
+        }
+      },
+      "merge-server": {
+        "status": "ok",
+        "wall_s": 1.7379836600011913,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "merge-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 382152704,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-merge-server.stderr.log",
+        "process": {
+          "max_rss_kib": 416756,
+          "elapsed_s": 1.7126556069997605,
+          "user_s": 1.596226,
+          "system_s": 0.106476
+        },
+        "action": "merge-server",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64483328,
+        "result": {
+          "load_ms": 884.326507,
+          "load_peak_rss_bytes": 467976192,
+          "merge_ms": 599.1997399999999,
+          "merge_peak_rss_bytes": 467668992,
+          "merge_rss_bytes": 382787584,
+          "save_ms": 125.2816580000001,
+          "save_peak_rss_bytes": 426496000,
+          "snapshot_bytes": 43131280,
+          "peak_reset_supported": true
+        }
+      },
+      "merge-client": {
+        "status": "ok",
+        "wall_s": 3.4262070299955667,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "merge-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 384765952,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-merge-client.stderr.log",
+        "process": {
+          "max_rss_kib": 438476,
+          "elapsed_s": 3.401097262998519,
+          "user_s": 3.275975,
+          "system_s": 0.10636999999999999
+        },
+        "action": "merge-client",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64888832,
+        "result": {
+          "load_ms": 688.15892,
+          "load_peak_rss_bytes": 436879360,
+          "merge_ms": 2476.2752600000003,
+          "merge_peak_rss_bytes": 437751808,
+          "merge_rss_bytes": 359563264,
+          "save_ms": 129.70380000000023,
+          "save_peak_rss_bytes": 448917504,
+          "snapshot_bytes": 43131280,
+          "peak_reset_supported": true
+        }
+      },
+      "check-merged-server": {
+        "status": "ok",
+        "wall_s": 2.754868718999205,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-merged-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 506380288,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-check-merged-server.stderr.log",
+        "process": {
+          "max_rss_kib": 526760,
+          "elapsed_s": 2.729306090004684,
+          "user_s": 2.552492,
+          "system_s": 0.16108999999999998
+        },
+        "action": "check-merged-server",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64970752,
+        "result": {
+          "hash": "f059c37383f1239adbba374e172d79d1600c274c0d30089fa8d295338d1112d1",
+          "text_bytes": 33718196,
+          "map_keys": 234117,
+          "duplicate_updates_pass": true
+        }
+      },
+      "check-merged-client": {
+        "status": "ok",
+        "wall_s": 2.7926766330056125,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "check-merged-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 507269120,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-check-merged-client.stderr.log",
+        "process": {
+          "max_rss_kib": 526728,
+          "elapsed_s": 2.7678143860030104,
+          "user_s": 2.583681,
+          "system_s": 0.16783399999999998
+        },
+        "action": "check-merged-client",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64745472,
+        "result": {
+          "hash": "f059c37383f1239adbba374e172d79d1600c274c0d30089fa8d295338d1112d1",
+          "text_bytes": 33718196,
+          "map_keys": 234117,
+          "duplicate_updates_pass": true
+        }
+      },
+      "cold": {
+        "status": "ok",
+        "wall_s": 1.6400021880035638,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "cold",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 475324416,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-cold.stderr.log",
+        "process": {
+          "max_rss_kib": 409296,
+          "elapsed_s": 1.6149578349941294,
+          "user_s": 1.475188,
+          "system_s": 0.130184
+        },
+        "action": "cold",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64946176,
+        "result": {
+          "load_ms": 936.844775,
+          "read_ms": 533.8425589999999,
+          "first_edit_ms": 17.711754000000155,
+          "load_peak_rss_bytes": 482295808,
+          "read_peak_rss_bytes": 477081600,
+          "first_edit_peak_rss_bytes": 419119104,
+          "edited_rss_bytes": 414949376,
+          "edited_live_bytes": 0,
+          "loaded_rss_bytes": 396087296,
+          "materialized_rss_bytes": 419119104,
+          "peak_reset_supported": true,
+          "allocation_metrics": "js-heap-plus-arraybuffers"
+        }
+      },
+      "storage": {
+        "status": "ok",
+        "wall_s": 0.26565089699579403,
+        "command": [
+          "node",
+          "--expose-gc",
+          "--max-old-space-size=8192",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs",
+          "yrs-wasm-v2-gc",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json",
+          "storage",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1"
+        ],
+        "observed_rss_bytes": 126914560,
+        "log": "logs/mixed-32m-250k-yrs-wasm-v2-gc-1-attempt2-storage.stderr.log",
+        "process": {
+          "max_rss_kib": 124304,
+          "elapsed_s": 0.24070202699658694,
+          "user_s": 0.20588499999999998,
+          "system_s": 0.032942
+        },
+        "action": "storage",
+        "library": "yrs-wasm-v2-gc",
+        "baseline_rss_bytes": 64548864,
+        "result": {
+          "snapshot_bytes": 43131280,
+          "zstd3_bytes": 9310167,
+          "zstd3_ms": 160.258136,
+          "best_disk_bytes": 9310167
+        }
+      }
+    },
+    "payload_bytes": {
+      "upload.bin": 703537,
+      "download-1.bin": 1398619,
+      "download-2.bin": 1593221
+    },
+    "converged": true,
+    "summary": {
+      "edit_ms": 924662.9818799989,
+      "offline_edit_ms": 219209.03426099953,
+      "server_merge_ms": 599.1997399999999,
+      "client_merge_ms": 2476.2752600000003,
+      "server_merge_peak_rss_bytes": 467668992,
+      "client_merge_peak_rss_bytes": 437751808,
+      "server_merge_load_peak_rss_bytes": 467976192,
+      "client_merge_load_peak_rss_bytes": 436879360,
+      "server_merge_rss_bytes": 382787584,
+      "client_merge_rss_bytes": 359563264,
+      "init_peak_rss_bytes": 460824576,
+      "server_edit_peak_rss_bytes": 465575936,
+      "offline_edit_peak_rss_bytes": 413962240,
+      "server_worker_peak_rss_bytes": 465690624,
+      "offline_worker_peak_rss_bytes": 414433280,
+      "cold_ms": 1488.3990880000001,
+      "cold_peak_rss_bytes": 482295808,
+      "steady_rss_bytes": 414949376,
+      "live_bytes": 0,
+      "best_disk_bytes": 9310167,
+      "snapshot_bytes": 43131280,
+      "zstd3_bytes": 9310167,
+      "upload_bytes": 703537,
+      "download_bytes": 2991840,
+      "peak_reset_supported": true
+    },
+    "wall_s": 1164.2787306969985,
+    "finished": "2026-10-11T05:01:47.510963+00:00"
   }
 ]

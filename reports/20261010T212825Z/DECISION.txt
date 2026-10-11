@@ -1,4 +1,4 @@
-CRDT decision benchmark — resuming-without-time-limits
+CRDT decision benchmark — large-offline
 
 Use native Rust results for Flutter/Rust decisions. JS/WASM results describe those runtimes separately. No mobile, Web or Flutter bridge integration has been measured.
 Only configurations that pass the persistence/offline checks are candidates. A timeout or memory guard is an operational limit, not evidence of incorrect CRDT behavior.

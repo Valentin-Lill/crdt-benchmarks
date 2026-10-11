@@ -1,5 +1,6 @@
 {
-  "state": "resuming-without-time-limits",
-  "updated": "2026-10-11T04:08:38.754108+00:00",
-  "pid": 131103
+  "state": "large-offline",
+  "updated": "2026-10-11T04:08:40.573875+00:00",
+  "pid": 131103,
+  "time_limits_disabled": true
 }
