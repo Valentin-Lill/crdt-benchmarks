@@ -4142,5 +4142,138 @@
       "read_ms": 12.533793999999999,
       "read_peak_rss_bytes": 2909470720
     }
+  },
+  {
+    "library": "loro",
+    "case": "random",
+    "trial": 10,
+    "status": "ok",
+    "failed_stage": null,
+    "server_edit_ms": 9857.506370999998,
+    "server_edit_peak_rss_bytes": 408248320,
+    "server_load_ms": 116.242697,
+    "offline_edit_ms": 969.6970350000001,
+    "offline_edit_peak_rss_bytes": 404791296,
+    "offline_load_ms": 108.043845,
+    "server_merge_merge_ms": 18113.880544,
+    "server_merge_merge_peak_rss_bytes": 636944384,
+    "server_merge_load_ms": 109.769251,
+    "client_merge_merge_ms": 5441.181616,
+    "client_merge_merge_peak_rss_bytes": 634130432,
+    "client_merge_load_ms": 108.549337,
+    "history_points": [],
+    "persisted_storage": {
+      "compress_ms": 719.562991,
+      "compress_peak_rss_bytes": 234176512,
+      "compressed_roundtrip_pass": true,
+      "decompress_ms": 84.333731,
+      "decompress_peak_rss_bytes": 319692800,
+      "minimum_payload_bytes": 54633837,
+      "persist_raw_fsync_ms": 95.896275,
+      "raw_bytes": 82380190,
+      "resident_before_save_bytes": 88784896,
+      "save_ms": 110.416031,
+      "save_peak_rss_bytes": 276979712,
+      "zstd3_bytes": 54633837
+    },
+    "probes": {
+      "edited_rss_bytes": 216993792,
+      "full_read_ms": 22.351857,
+      "full_read_peak_rss_bytes": 330665984,
+      "hash": "ec3ef7c465940be38ef2e1f41b9c469f5107cbbc3c2395cdedc578ffc62a9ad8",
+      "latencies": {
+        "delete-1048576": {
+          "max_ms": 1.278705,
+          "median_ms": 1.278705,
+          "p95_ms": 1.278705,
+          "p99_ms": 1.278705,
+          "samples": 1,
+          "total_ms": 1.278705
+        },
+        "delete-10485760": {
+          "max_ms": 12.754133000000001,
+          "median_ms": 12.754133000000001,
+          "p95_ms": 12.754133000000001,
+          "p99_ms": 12.754133000000001,
+          "samples": 1,
+          "total_ms": 12.754133000000001
+        },
+        "edges": {
+          "max_ms": 63.860319,
+          "median_ms": 28.785518,
+          "p95_ms": 63.860319,
+          "p99_ms": 63.860319,
+          "samples": 3,
+          "total_ms": 92.664612
+        },
+        "first-edit-before-read": {
+          "max_ms": 359.082295,
+          "median_ms": 359.082295,
+          "p95_ms": 359.082295,
+          "p99_ms": 359.082295,
+          "samples": 1,
+          "total_ms": 359.082295
+        },
+        "local-single": {
+          "max_ms": 28.858947,
+          "median_ms": 0.002806,
+          "p95_ms": 0.003337,
+          "p99_ms": 0.0076950000000000005,
+          "samples": 256,
+          "total_ms": 29.620045
+        },
+        "paste-1048576": {
+          "max_ms": 2.8620989999999997,
+          "median_ms": 2.8620989999999997,
+          "p95_ms": 2.8620989999999997,
+          "p99_ms": 2.8620989999999997,
+          "samples": 1,
+          "total_ms": 2.8620989999999997
+        },
+        "paste-10485760": {
+          "max_ms": 21.821257,
+          "median_ms": 21.821257,
+          "p95_ms": 21.821257,
+          "p99_ms": 21.821257,
+          "samples": 1,
+          "total_ms": 21.821257
+        },
+        "random-single": {
+          "max_ms": 61.789525999999995,
+          "median_ms": 0.639127,
+          "p95_ms": 6.019601000000001,
+          "p99_ms": 24.166712999999998,
+          "samples": 512,
+          "total_ms": 969.9383899999999
+        }
+      },
+      "load_ms": 110.663391,
+      "load_peak_rss_bytes": 287834112,
+      "loaded_rss_bytes": 88272896,
+      "operation_peak_rss_bytes": {
+        "delete-1048576": 209649664,
+        "delete-10485760": 216993792,
+        "edges": 206508032,
+        "first-edit-before-read": 416563200,
+        "local-single": 206540800,
+        "paste-1048576": 209649664,
+        "paste-10485760": 231669760,
+        "random-single": 206630912
+      },
+      "text_bytes": 104857600
+    },
+    "cold_after_history": {
+      "allocation_metrics": false,
+      "edited_live_bytes": 0,
+      "edited_rss_bytes": 198955008,
+      "first_edit_ms": 21136.946691999998,
+      "first_edit_peak_rss_bytes": 408080384,
+      "load_ms": 192.65468199999998,
+      "load_peak_rss_bytes": 289177600,
+      "loaded_rss_bytes": 88846336,
+      "peak_reset_supported": true,
+      "read_ms": 128.97117899999998,
+      "read_peak_rss_bytes": 406646784
+    }
   }
 ]
