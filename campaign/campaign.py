@@ -35,7 +35,7 @@ def command(args,log,timeout=300):
 def publish(job,message):
  dest=REPO/'reports'/job.name;dest.mkdir(parents=True,exist_ok=True)
  # Synthetic inputs, checkpoints and binaries are deliberately not uploaded.
- for rel in ['status.json','metadata.json','upstream-results.json','upstream-summary.json','upstream-summary.csv','report.html','DECISION.txt','validation.json','upstream-trace.sha256']:
+ for rel in ['status.json','metadata.json','upstream-results.json','upstream-summary.json','upstream-summary.csv','report.html','DECISION.txt','STANDARD-ANALYSIS.txt','standard-analysis.html','standard-analysis.json','validation.json','upstream-trace.sha256']:
   if (job/rel).exists():shutil.copy2(job/rel,dest/rel)
  for stage in ['smoke','standard-offline','large-offline']:
   if not (job/stage).exists():continue
