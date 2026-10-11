@@ -12923,5 +12923,523 @@
     "finished": "2026-10-11T08:10:09.330641+00:00",
     "wall_s": 109.40910838199488,
     "partial_history_points": []
+  },
+  {
+    "case": "random",
+    "library": "loro-updates",
+    "trial": 8,
+    "started": "2026-10-11T08:10:10.954582+00:00",
+    "status": "ok",
+    "phases": {
+      "init": {
+        "status": "ok",
+        "wall_s": 0.5004986419953639,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "init",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 333262848,
+        "log": "logs/random-loro-updates-8-init.stderr.log",
+        "process": {
+          "max_rss_kib": 344856,
+          "elapsed_s": 0.4729565929956152,
+          "user_s": 0.379289,
+          "system_s": 0.090547
+        },
+        "action": "init",
+        "baseline_rss_bytes": 3346432,
+        "library": "loro-updates",
+        "result": {
+          "init_ms": 252.05396199999998,
+          "init_peak_rss_bytes": 357744640,
+          "peak_reset_supported": true,
+          "save_ms": 176.161613,
+          "save_peak_rss_bytes": 353132544,
+          "snapshot_bytes": 105011782
+        }
+      },
+      "server": {
+        "status": "ok",
+        "wall_s": 2.201119696001115,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 256536576,
+        "log": "logs/random-loro-updates-8-server.stderr.log",
+        "process": {
+          "max_rss_kib": 353380,
+          "elapsed_s": 2.173898768996878,
+          "user_s": 1.992476,
+          "system_s": 0.16908299999999998
+        },
+        "action": "server",
+        "baseline_rss_bytes": 3276800,
+        "library": "loro-updates",
+        "result": {
+          "batch_p99_ms": 33.665552,
+          "checkpoint_load_ms": 732.649073,
+          "checkpoint_peak_rss_bytes": 390938624,
+          "checkpoint_save_ms": 163.17014799999998,
+          "commands": 10002,
+          "edit_ms": 782.3441909999997,
+          "edit_peak_rss_bytes": 151429120,
+          "encode_ms": 2.204098,
+          "export_and_save_peak_rss_bytes": 361861120,
+          "last_delta_bytes": 95725,
+          "load_ms": 260.829779,
+          "load_peak_rss_bytes": 356974592,
+          "peak_reset_supported": true,
+          "save_ms": 160.53831399999999
+        }
+      },
+      "check-server": {
+        "status": "ok",
+        "wall_s": 0.9106326940018334,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 232906752,
+        "log": "logs/random-loro-updates-8-check-server.stderr.log",
+        "process": {
+          "max_rss_kib": 349000,
+          "elapsed_s": 0.8839431689993944,
+          "user_s": 0.825376,
+          "system_s": 0.05368
+        },
+        "action": "check-server",
+        "baseline_rss_bytes": 3276800,
+        "library": "loro-updates",
+        "result": {
+          "duplicate_updates_pass": false,
+          "hash": "cffc987b4cb5e47d914efbbbca43c14cdfa380bf0953e9c35b48b0d5d346544e",
+          "map_keys": 5407,
+          "text_bytes": 104864180
+        }
+      },
+      "offline": {
+        "status": "ok",
+        "wall_s": 1.1755914940004004,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 231202816,
+        "log": "logs/random-loro-updates-8-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 346788,
+          "elapsed_s": 1.150465767001151,
+          "user_s": 1.062236,
+          "system_s": 0.08157299999999999
+        },
+        "action": "offline",
+        "baseline_rss_bytes": 3227648,
+        "library": "loro-updates",
+        "result": {
+          "batch_p99_ms": 258.450685,
+          "checkpoint_load_ms": 0.0,
+          "checkpoint_peak_rss_bytes": 0,
+          "checkpoint_save_ms": 0.0,
+          "commands": 2502,
+          "edit_ms": 711.91579,
+          "edit_peak_rss_bytes": 128466944,
+          "encode_ms": 0.5991920000000001,
+          "export_and_save_peak_rss_bytes": 355110912,
+          "last_delta_bytes": 48292,
+          "load_ms": 238.426345,
+          "load_peak_rss_bytes": 357801984,
+          "peak_reset_supported": true,
+          "save_ms": 162.721552
+        }
+      },
+      "check-offline": {
+        "status": "ok",
+        "wall_s": 0.9224246200028574,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 235614208,
+        "log": "logs/random-loro-updates-8-check-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 348792,
+          "elapsed_s": 0.8978142259948072,
+          "user_s": 0.8411379999999999,
+          "system_s": 0.051599
+        },
+        "action": "check-offline",
+        "baseline_rss_bytes": 3268608,
+        "library": "loro-updates",
+        "result": {
+          "duplicate_updates_pass": false,
+          "hash": "df13427450d0254d2bb3e9842bb871078dd1ef583a0578227e4285e14ec1af6e",
+          "map_keys": 5797,
+          "text_bytes": 104859257
+        }
+      },
+      "merge-server-history": {
+        "status": "ok",
+        "wall_s": 1.05247331999999,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "merge-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 305397760,
+        "log": "logs/random-loro-updates-8-merge-server-history.stderr.log",
+        "process": {
+          "max_rss_kib": 351744,
+          "elapsed_s": 1.027395264005463,
+          "user_s": 0.9340489999999999,
+          "system_s": 0.08743
+        },
+        "action": "merge-server",
+        "baseline_rss_bytes": 3407872,
+        "library": "loro-updates",
+        "result": {
+          "load_ms": 794.689264,
+          "load_peak_rss_bytes": 356638720,
+          "merge_ms": 29.749202999999998,
+          "merge_peak_rss_bytes": 131792896,
+          "merge_rss_bytes": 131792896,
+          "peak_reset_supported": true,
+          "save_ms": 164.750155,
+          "save_peak_rss_bytes": 360185856,
+          "snapshot_bytes": 105250506
+        }
+      },
+      "merge-client-history": {
+        "status": "ok",
+        "wall_s": 1.1916245449974667,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "merge-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 231620608,
+        "log": "logs/random-loro-updates-8-merge-client-history.stderr.log",
+        "process": {
+          "max_rss_kib": 352100,
+          "elapsed_s": 1.1665124549981556,
+          "user_s": 1.07048,
+          "system_s": 0.089529
+        },
+        "action": "merge-client",
+        "baseline_rss_bytes": 3334144,
+        "library": "loro-updates",
+        "result": {
+          "load_ms": 813.4284349999999,
+          "load_peak_rss_bytes": 358506496,
+          "merge_ms": 151.41520500000001,
+          "merge_peak_rss_bytes": 132902912,
+          "merge_rss_bytes": 132902912,
+          "peak_reset_supported": true,
+          "save_ms": 163.689715,
+          "save_peak_rss_bytes": 360550400,
+          "snapshot_bytes": 105250506
+        }
+      },
+      "check-merged-server": {
+        "status": "ok",
+        "wall_s": 35.374011757005064,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-merged-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 3082911744,
+        "log": "logs/random-loro-updates-8-check-merged-server.stderr.log",
+        "process": {
+          "max_rss_kib": 3010700,
+          "elapsed_s": 35.34922459599329,
+          "user_s": 34.076624,
+          "system_s": 1.107868
+        },
+        "action": "check-merged-server",
+        "baseline_rss_bytes": 3276800,
+        "library": "loro-updates",
+        "result": {
+          "duplicate_updates_pass": true,
+          "hash": "2bcc6f179bd04e11f454a166cd3c35db1cf93934fc6e21ca79d288bc70860b52",
+          "map_keys": 5351,
+          "text_bytes": 104865837
+        }
+      },
+      "check-merged-client": {
+        "status": "ok",
+        "wall_s": 35.32361211300304,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-merged-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 3080572928,
+        "log": "logs/random-loro-updates-8-check-merged-client.stderr.log",
+        "process": {
+          "max_rss_kib": 3008300,
+          "elapsed_s": 35.297835639998084,
+          "user_s": 34.002412,
+          "system_s": 1.130613
+        },
+        "action": "check-merged-client",
+        "baseline_rss_bytes": 3227648,
+        "library": "loro-updates",
+        "result": {
+          "duplicate_updates_pass": true,
+          "hash": "2bcc6f179bd04e11f454a166cd3c35db1cf93934fc6e21ca79d288bc70860b52",
+          "map_keys": 5351,
+          "text_bytes": 104865837
+        }
+      },
+      "final-storage": {
+        "status": "ok",
+        "wall_s": 35.92681950199767,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "focus",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "storage",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 3079208960,
+        "log": "logs/random-loro-updates-8-final-storage.stderr.log",
+        "process": {
+          "max_rss_kib": 2944048,
+          "elapsed_s": 35.901761226996314,
+          "user_s": 34.570639,
+          "system_s": 1.110697
+        },
+        "action": "storage",
+        "library": "loro-updates",
+        "result": {
+          "load_ms": 34993.783942999995,
+          "storage": {
+            "compress_ms": 390.29335399999997,
+            "compress_peak_rss_bytes": 3012395008,
+            "compressed_roundtrip_pass": true,
+            "decompress_ms": 68.71416599999999,
+            "decompress_peak_rss_bytes": 3014705152,
+            "minimum_payload_bytes": 23633929,
+            "persist_raw_fsync_ms": 76.439349,
+            "raw_bytes": 105250506,
+            "resident_before_save_bytes": 2904690688,
+            "save_ms": 157.222501,
+            "save_peak_rss_bytes": 3011772416,
+            "zstd3_bytes": 23633929
+          }
+        }
+      },
+      "cold-after-history": {
+        "status": "ok",
+        "wall_s": 35.26890959499724,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "cold",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 3079897088,
+        "log": "logs/random-loro-updates-8-cold-after-history.stderr.log",
+        "process": {
+          "max_rss_kib": 2837492,
+          "elapsed_s": 35.24332504900667,
+          "user_s": 33.987629,
+          "system_s": 1.090818
+        },
+        "action": "cold",
+        "baseline_rss_bytes": 3272704,
+        "library": "loro-updates",
+        "result": {
+          "allocation_metrics": false,
+          "edited_live_bytes": 0,
+          "edited_rss_bytes": 2905686016,
+          "first_edit_ms": 0.255928,
+          "first_edit_peak_rss_bytes": 2905686016,
+          "load_ms": 35025.783771,
+          "load_peak_rss_bytes": 3080007680,
+          "loaded_rss_bytes": 2905460736,
+          "peak_reset_supported": true,
+          "read_ms": 11.951181,
+          "read_peak_rss_bytes": 2905686016
+        }
+      },
+      "probe": {
+        "status": "ok",
+        "wall_s": 1.5946793160037487,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "focus",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "probe",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 229187584,
+        "log": "logs/random-loro-updates-8-probe.stderr.log",
+        "process": {
+          "max_rss_kib": 260344,
+          "elapsed_s": 1.5697202930023195,
+          "user_s": 1.489319,
+          "system_s": 0.07158099999999999
+        },
+        "action": "probe",
+        "library": "loro-updates",
+        "result": {
+          "edited_rss_bytes": 149340160,
+          "full_read_ms": 20.92474,
+          "full_read_peak_rss_bytes": 266657792,
+          "hash": "ec3ef7c465940be38ef2e1f41b9c469f5107cbbc3c2395cdedc578ffc62a9ad8",
+          "latencies": {
+            "delete-1048576": {
+              "max_ms": 1.2623739999999999,
+              "median_ms": 1.2623739999999999,
+              "p95_ms": 1.2623739999999999,
+              "p99_ms": 1.2623739999999999,
+              "samples": 1,
+              "total_ms": 1.2623739999999999
+            },
+            "delete-10485760": {
+              "max_ms": 12.958898999999999,
+              "median_ms": 12.958898999999999,
+              "p95_ms": 12.958898999999999,
+              "p99_ms": 12.958898999999999,
+              "samples": 1,
+              "total_ms": 12.958898999999999
+            },
+            "edges": {
+              "max_ms": 63.700393999999996,
+              "median_ms": 28.950825,
+              "p95_ms": 63.700393999999996,
+              "p99_ms": 63.700393999999996,
+              "samples": 3,
+              "total_ms": 92.659144
+            },
+            "first-edit-before-read": {
+              "max_ms": 92.59471099999999,
+              "median_ms": 92.59471099999999,
+              "p95_ms": 92.59471099999999,
+              "p99_ms": 92.59471099999999,
+              "samples": 1,
+              "total_ms": 92.59471099999999
+            },
+            "local-single": {
+              "max_ms": 28.891492,
+              "median_ms": 0.002785,
+              "p95_ms": 0.003307,
+              "p99_ms": 0.007374,
+              "samples": 256,
+              "total_ms": 29.633822
+            },
+            "paste-1048576": {
+              "max_ms": 1.841658,
+              "median_ms": 1.841658,
+              "p95_ms": 1.841658,
+              "p99_ms": 1.841658,
+              "samples": 1,
+              "total_ms": 1.841658
+            },
+            "paste-10485760": {
+              "max_ms": 19.115194,
+              "median_ms": 19.115194,
+              "p95_ms": 19.115194,
+              "p99_ms": 19.115194,
+              "samples": 1,
+              "total_ms": 19.115194
+            },
+            "random-single": {
+              "max_ms": 61.500204000000004,
+              "median_ms": 0.639578,
+              "p95_ms": 6.048108,
+              "p99_ms": 24.225647,
+              "samples": 512,
+              "total_ms": 972.0592399999999
+            }
+          },
+          "load_ms": 237.723933,
+          "load_peak_rss_bytes": 358936576,
+          "loaded_rss_bytes": 126468096,
+          "operation_peak_rss_bytes": {
+            "delete-1048576": 136433664,
+            "delete-10485760": 149340160,
+            "edges": 136261632,
+            "first-edit-before-read": 136261632,
+            "local-single": 136261632,
+            "paste-1048576": 136433664,
+            "paste-10485760": 149340160,
+            "random-single": 136335360
+          },
+          "text_bytes": 104857600
+        }
+      },
+      "reverse-check": {
+        "status": "ok",
+        "wall_s": 1.1367970400024205,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "focus",
+          "loro-updates",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "reverse-check",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-loro-updates-8"
+        ],
+        "observed_rss_bytes": 230191104,
+        "log": "logs/random-loro-updates-8-reverse-check.stderr.log",
+        "process": {
+          "max_rss_kib": 348720,
+          "elapsed_s": 1.1119252440039418,
+          "user_s": 1.029182,
+          "system_s": 0.076418
+        },
+        "action": "reverse-check",
+        "library": "loro-updates",
+        "result": {
+          "hash": "2bcc6f179bd04e11f454a166cd3c35db1cf93934fc6e21ca79d288bc70860b52",
+          "load_ms": 807.0968630000001,
+          "peak_rss_bytes": 357089280,
+          "reverse_and_duplicate_delivery_pass": true
+        }
+      }
+    },
+    "converged": true,
+    "performance_limits": [],
+    "finished": "2026-10-11T08:12:43.542126+00:00",
+    "wall_s": 152.5875418220021,
+    "partial_history_points": []
   }
 ]
