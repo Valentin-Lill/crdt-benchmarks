@@ -1,13 +1,9 @@
 {
-  "state": "running",
+  "state": "stopped",
   "pid": 131128,
   "started": "2026-10-10T22:51:04.009974+00:00",
-  "updated": "2026-10-11T06:00:10.032628+00:00",
+  "updated": "2026-10-11T06:43:39.204621+00:00",
   "deadline_utc": null,
   "remaining_s": null,
-  "recorded": 75,
-  "scenario": "mixed-32m-250k",
-  "library": "yrs-wasm-v2-gc-tail",
-  "trial": 1,
-  "stage": "server"
+  "recorded": 78
 }

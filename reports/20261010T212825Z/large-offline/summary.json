@@ -787,14 +787,37 @@
   {
     "scenario": "mixed-32m-250k",
     "library": "yrs-wasm-v2-gc-tail",
-    "successful": 0,
+    "successful": 1,
     "attempted": 1,
-    "failures": [
-      {
-        "trial": 1,
-        "stage": "server",
-        "status": "timeout"
-      }
+    "failures": [],
+    "edit_ms": 927218.7156850058,
+    "offline_edit_ms": 219447.47097100024,
+    "server_merge_ms": 601.8030100000001,
+    "client_merge_ms": 2474.2215099999994,
+    "server_merge_peak_rss_bytes": 473587712,
+    "client_merge_peak_rss_bytes": 459337728,
+    "server_merge_load_peak_rss_bytes": 474267648,
+    "client_merge_load_peak_rss_bytes": 459833344,
+    "server_merge_rss_bytes": 386244608,
+    "client_merge_rss_bytes": 382017536,
+    "init_peak_rss_bytes": 503209984,
+    "server_edit_peak_rss_bytes": 457814016,
+    "offline_edit_peak_rss_bytes": 388796416,
+    "server_worker_peak_rss_bytes": 471232512,
+    "offline_worker_peak_rss_bytes": 467218432,
+    "cold_ms": 5077.483795,
+    "cold_peak_rss_bytes": 491233280,
+    "steady_rss_bytes": 431149056,
+    "live_bytes": 43677616,
+    "best_disk_bytes": 9176272,
+    "snapshot_bytes": 44616046,
+    "zstd3_bytes": 9176272,
+    "upload_bytes": 703537,
+    "download_bytes": 2991840,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      927218.7156850058,
+      927218.7156850058
     ]
   },
   {
@@ -1009,14 +1032,37 @@
   {
     "scenario": "random-32m",
     "library": "yrs-v1",
-    "successful": 0,
+    "successful": 1,
     "attempted": 1,
-    "failures": [
-      {
-        "trial": 1,
-        "stage": "server",
-        "status": "timeout"
-      }
+    "failures": [],
+    "edit_ms": 1173995.791467001,
+    "offline_edit_ms": 178811.02763999993,
+    "server_merge_ms": 907.5965219999999,
+    "client_merge_ms": 2432.159435,
+    "server_merge_peak_rss_bytes": 93007872,
+    "client_merge_peak_rss_bytes": 94003200,
+    "server_merge_load_peak_rss_bytes": 122310656,
+    "client_merge_load_peak_rss_bytes": 83996672,
+    "server_merge_rss_bytes": 93007872,
+    "client_merge_rss_bytes": 94003200,
+    "init_peak_rss_bytes": 138059776,
+    "server_edit_peak_rss_bytes": 83992576,
+    "offline_edit_peak_rss_bytes": 71335936,
+    "server_worker_peak_rss_bytes": 138477568,
+    "offline_worker_peak_rss_bytes": 104349696,
+    "cold_ms": 257.467169,
+    "cold_peak_rss_bytes": 134516736,
+    "steady_rss_bytes": 95211520,
+    "live_bytes": 85268239,
+    "best_disk_bytes": 10920150,
+    "snapshot_bytes": 36332250,
+    "zstd3_bytes": 10920150,
+    "upload_bytes": 367809,
+    "download_bytes": 1539554,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      1173995.791467001,
+      1173995.791467001
     ]
   },
   {
@@ -1028,7 +1074,7 @@
       {
         "trial": 1,
         "stage": "server",
-        "status": "timeout"
+        "status": "failed"
       }
     ]
   },

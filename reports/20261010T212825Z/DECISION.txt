@@ -36,8 +36,8 @@ large-offline:
   random-32m, fastest editing: loro-updates, 512.740; successful samples 1
   random-32m, fastest server merge: loro-updates, 216.525; successful samples 1
   random-32m, smallest stored payload: loro-updates, 8480093.000; successful samples 1
-  random-32m, lowest steady process RAM: loro, 129200128.000; successful samples 1
-  random-32m, lowest server merge peak RAM: loro-updates, 237355008.000; successful samples 1
+  random-32m, lowest steady process RAM: yrs-v1, 95211520.000; successful samples 1
+  random-32m, lowest server merge peak RAM: yrs-v1, 93007872.000; successful samples 1
   Per-metric leaders are provisional; compare the full tradeoffs and repeatability in the tables.
   text-128m, fastest editing: loro-updates, 1046.724; successful samples 1
   text-128m, fastest server merge: loro-updates, 73.596; successful samples 1
