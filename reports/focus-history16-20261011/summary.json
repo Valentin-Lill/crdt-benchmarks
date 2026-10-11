@@ -1,0 +1,84 @@
+[
+  {
+    "library": "loro-updates",
+    "case": "cluster",
+    "trial": 1,
+    "status": "memory-limit",
+    "failed_stage": "check-merged-server",
+    "server_edit_ms": 399.50015099999996,
+    "server_edit_peak_rss_bytes": 149467136,
+    "server_load_ms": 237.290429,
+    "offline_edit_ms": 278.69103399999995,
+    "offline_edit_peak_rss_bytes": 126398464,
+    "offline_load_ms": 237.503569,
+    "server_merge_merge_ms": 20.657346999999998,
+    "server_merge_merge_peak_rss_bytes": 153980928,
+    "server_merge_load_ms": 580.7931480000001,
+    "client_merge_merge_ms": 14468.931410000001,
+    "client_merge_merge_peak_rss_bytes": 983289856,
+    "client_merge_load_ms": 466.716607,
+    "history_points": [
+      {
+        "deleted_bytes": 2097152,
+        "edit_ms_cumulative": 6.892026,
+        "edit_peak_rss_bytes": 153673728,
+        "inserted_bytes": 2097152,
+        "latencies": {
+          "max_ms": 0.843089,
+          "median_ms": 0.39447800000000005,
+          "p95_ms": 0.843089,
+          "p99_ms": 0.843089,
+          "samples": 16,
+          "total_ms": 6.892026
+        },
+        "round": 16,
+        "storage": {
+          "compress_ms": 392.694321,
+          "compress_peak_rss_bytes": 286359552,
+          "compressed_roundtrip_pass": true,
+          "decompress_ms": 74.718837,
+          "decompress_peak_rss_bytes": 395427840,
+          "minimum_payload_bytes": 24844222,
+          "persist_raw_fsync_ms": 81.698451,
+          "raw_bytes": 107224504,
+          "resident_before_save_bytes": 153673728,
+          "save_ms": 163.303054,
+          "save_peak_rss_bytes": 366575616,
+          "zstd3_bytes": 24844222
+        }
+      },
+      {
+        "deleted_bytes": 16777216,
+        "edit_ms_cumulative": 52.59846400000002,
+        "edit_peak_rss_bytes": 169066496,
+        "inserted_bytes": 16777216,
+        "latencies": {
+          "max_ms": 0.843089,
+          "median_ms": 0.38924800000000004,
+          "p95_ms": 0.5319079999999999,
+          "p99_ms": 0.665021,
+          "samples": 128,
+          "total_ms": 52.598463999999986
+        },
+        "round": 128,
+        "storage": {
+          "compress_ms": 466.772902,
+          "compress_peak_rss_bytes": 324505600,
+          "compressed_roundtrip_pass": true,
+          "decompress_ms": 76.433009,
+          "decompress_peak_rss_bytes": 448577536,
+          "minimum_payload_bytes": 33695436,
+          "persist_raw_fsync_ms": 94.124072,
+          "raw_bytes": 121924168,
+          "resident_before_save_bytes": 169066496,
+          "save_ms": 186.13548699999998,
+          "save_peak_rss_bytes": 401485824,
+          "zstd3_bytes": 33695436
+        }
+      }
+    ],
+    "persisted_storage": null,
+    "probes": null,
+    "cold_after_history": null
+  }
+]
