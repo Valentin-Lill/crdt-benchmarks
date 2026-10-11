@@ -1,9 +1,6 @@
 {
-  "state": "running",
-  "at": "2026-10-11T07:22:55.954912+00:00",
+  "state": "complete",
+  "at": "2026-10-11T07:22:57.424024+00:00",
   "pid": 137860,
-  "library": "loro-updates",
-  "stage": "reverse-check",
-  "case": "cluster",
-  "recorded": 2
+  "recorded": 3
 }
