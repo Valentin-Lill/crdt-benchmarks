@@ -1,9 +1,9 @@
 {
   "state": "running",
-  "at": "2026-10-11T07:44:00.552975+00:00",
+  "at": "2026-10-11T07:45:06.397247+00:00",
   "pid": 138166,
-  "library": "yrs",
+  "library": "loro",
   "stage": "reverse-check",
   "case": "random",
-  "recorded": 9
+  "recorded": 10
 }
