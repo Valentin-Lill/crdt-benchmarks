@@ -18103,5 +18103,523 @@
     "finished": "2026-10-11T08:29:30.190757+00:00",
     "wall_s": 152.63810381200165,
     "partial_history_points": []
+  },
+  {
+    "case": "random",
+    "library": "yrs",
+    "trial": 11,
+    "started": "2026-10-11T08:29:31.978020+00:00",
+    "status": "ok",
+    "phases": {
+      "init": {
+        "status": "ok",
+        "wall_s": 0.48847257099987473,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "init",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 111185920,
+        "log": "logs/random-yrs-11-init.stderr.log",
+        "process": {
+          "max_rss_kib": 315456,
+          "elapsed_s": 0.4594690320009249,
+          "user_s": 0.37321699999999997,
+          "system_s": 0.083419
+        },
+        "action": "init",
+        "baseline_rss_bytes": 3297280,
+        "library": "yrs",
+        "result": {
+          "init_ms": 201.882465,
+          "init_peak_rss_bytes": 423268352,
+          "peak_reset_supported": true,
+          "save_ms": 213.338245,
+          "save_peak_rss_bytes": 323026944,
+          "snapshot_bytes": 105035246
+        }
+      },
+      "server": {
+        "status": "ok",
+        "wall_s": 59.69335088400112,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 322363392,
+        "log": "logs/random-yrs-11-server.stderr.log",
+        "process": {
+          "max_rss_kib": 356080,
+          "elapsed_s": 59.66665363700304,
+          "user_s": 59.177763,
+          "system_s": 0.189652
+        },
+        "action": "server",
+        "baseline_rss_bytes": 3346432,
+        "library": "yrs",
+        "result": {
+          "batch_p99_ms": 282.551956,
+          "checkpoint_load_ms": 191.973108,
+          "checkpoint_peak_rss_bytes": 364867584,
+          "checkpoint_save_ms": 187.42072100000001,
+          "commands": 10002,
+          "edit_ms": 58797.39840899999,
+          "edit_peak_rss_bytes": 216621056,
+          "encode_ms": 1.305005,
+          "export_and_save_peak_rss_bytes": 364625920,
+          "last_delta_bytes": 60415,
+          "load_ms": 222.038939,
+          "load_peak_rss_bytes": 217268224,
+          "peak_reset_supported": true,
+          "save_ms": 187.785224
+        }
+      },
+      "check-server": {
+        "status": "ok",
+        "wall_s": 0.35265187400364084,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 219406336,
+        "log": "logs/random-yrs-11-check-server.stderr.log",
+        "process": {
+          "max_rss_kib": 215172,
+          "elapsed_s": 0.32790146300249035,
+          "user_s": 0.25497,
+          "system_s": 0.07058199999999999
+        },
+        "action": "check-server",
+        "baseline_rss_bytes": 3428352,
+        "library": "yrs",
+        "result": {
+          "duplicate_updates_pass": false,
+          "hash": "cffc987b4cb5e47d914efbbbca43c14cdfa380bf0953e9c35b48b0d5d346544e",
+          "map_keys": 5407,
+          "text_bytes": 104864180
+        }
+      },
+      "offline": {
+        "status": "ok",
+        "wall_s": 15.875810023004306,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 236625920,
+        "log": "logs/random-yrs-11-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 354032,
+          "elapsed_s": 15.850919554999564,
+          "user_s": 15.655755,
+          "system_s": 0.11519
+        },
+        "action": "offline",
+        "baseline_rss_bytes": 3432448,
+        "library": "yrs",
+        "result": {
+          "batch_p99_ms": 602.117568,
+          "checkpoint_load_ms": 0.0,
+          "checkpoint_peak_rss_bytes": 0,
+          "checkpoint_save_ms": 0.0,
+          "commands": 2502,
+          "edit_ms": 15429.092487,
+          "edit_peak_rss_bytes": 216735744,
+          "encode_ms": 0.332673,
+          "export_and_save_peak_rss_bytes": 362528768,
+          "last_delta_bytes": 27447,
+          "load_ms": 195.004549,
+          "load_peak_rss_bytes": 217292800,
+          "peak_reset_supported": true,
+          "save_ms": 187.964414
+        }
+      },
+      "check-offline": {
+        "status": "ok",
+        "wall_s": 0.34896447299979627,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-offline",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 217722880,
+        "log": "logs/random-yrs-11-check-offline.stderr.log",
+        "process": {
+          "max_rss_kib": 213892,
+          "elapsed_s": 0.32391108499723487,
+          "user_s": 0.235342,
+          "system_s": 0.086272
+        },
+        "action": "check-offline",
+        "baseline_rss_bytes": 3239936,
+        "library": "yrs",
+        "result": {
+          "duplicate_updates_pass": false,
+          "hash": "df13427450d0254d2bb3e9842bb871078dd1ef583a0578227e4285e14ec1af6e",
+          "map_keys": 5797,
+          "text_bytes": 104859257
+        }
+      },
+      "merge-server-history": {
+        "status": "ok",
+        "wall_s": 0.5203897900064476,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "merge-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 221609984,
+        "log": "logs/random-yrs-11-merge-server-history.stderr.log",
+        "process": {
+          "max_rss_kib": 320368,
+          "elapsed_s": 0.49567375399783487,
+          "user_s": 0.38695199999999996,
+          "system_s": 0.105254
+        },
+        "action": "merge-server",
+        "baseline_rss_bytes": 3436544,
+        "library": "yrs",
+        "result": {
+          "load_ms": 229.866319,
+          "load_peak_rss_bytes": 220434432,
+          "merge_ms": 32.411837,
+          "merge_peak_rss_bytes": 116420608,
+          "merge_rss_bytes": 116334592,
+          "peak_reset_supported": true,
+          "save_ms": 188.520453,
+          "save_peak_rss_bytes": 328056832,
+          "snapshot_bytes": 105130227
+        }
+      },
+      "merge-client-history": {
+        "status": "ok",
+        "wall_s": 0.7146923610052909,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "merge-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 217841664,
+        "log": "logs/random-yrs-11-merge-client-history.stderr.log",
+        "process": {
+          "max_rss_kib": 321716,
+          "elapsed_s": 0.6895256570060155,
+          "user_s": 0.542078,
+          "system_s": 0.143074
+        },
+        "action": "merge-client",
+        "baseline_rss_bytes": 3424256,
+        "library": "yrs",
+        "result": {
+          "load_ms": 223.323432,
+          "load_peak_rss_bytes": 218525696,
+          "merge_ms": 231.76187800000002,
+          "merge_peak_rss_bytes": 117469184,
+          "merge_rss_bytes": 117469184,
+          "peak_reset_supported": true,
+          "save_ms": 190.01288399999999,
+          "save_peak_rss_bytes": 329437184,
+          "snapshot_bytes": 105130227
+        }
+      },
+      "check-merged-server": {
+        "status": "ok",
+        "wall_s": 0.42372873200656613,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-merged-server",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 219951104,
+        "log": "logs/random-yrs-11-check-merged-server.stderr.log",
+        "process": {
+          "max_rss_kib": 217456,
+          "elapsed_s": 0.3987620190018788,
+          "user_s": 0.30988,
+          "system_s": 0.08631899999999999
+        },
+        "action": "check-merged-server",
+        "baseline_rss_bytes": 3198976,
+        "library": "yrs",
+        "result": {
+          "duplicate_updates_pass": true,
+          "hash": "81c371155e1433d7a63e362d641a8a097e7b7f4496bc077fe31ee3afe456ee5b",
+          "map_keys": 5468,
+          "text_bytes": 104865837
+        }
+      },
+      "check-merged-client": {
+        "status": "ok",
+        "wall_s": 0.4268419699947117,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "check-merged-client",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 219983872,
+        "log": "logs/random-yrs-11-check-merged-client.stderr.log",
+        "process": {
+          "max_rss_kib": 215656,
+          "elapsed_s": 0.4021595679951133,
+          "user_s": 0.308877,
+          "system_s": 0.090518
+        },
+        "action": "check-merged-client",
+        "baseline_rss_bytes": 3297280,
+        "library": "yrs",
+        "result": {
+          "duplicate_updates_pass": true,
+          "hash": "81c371155e1433d7a63e362d641a8a097e7b7f4496bc077fe31ee3afe456ee5b",
+          "map_keys": 5468,
+          "text_bytes": 104865837
+        }
+      },
+      "final-storage": {
+        "status": "ok",
+        "wall_s": 1.0415343860004214,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "focus",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "storage",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 250011648,
+        "log": "logs/random-yrs-11-final-storage.stderr.log",
+        "process": {
+          "max_rss_kib": 347756,
+          "elapsed_s": 1.0170219279971207,
+          "user_s": 0.7817069999999999,
+          "system_s": 0.167266
+        },
+        "action": "storage",
+        "library": "yrs",
+        "result": {
+          "load_ms": 230.802401,
+          "storage": {
+            "compress_ms": 384.41979399999997,
+            "compress_peak_rss_bytes": 248852480,
+            "compressed_roundtrip_pass": true,
+            "decompress_ms": 68.632064,
+            "decompress_peak_rss_bytes": 356151296,
+            "minimum_payload_bytes": 23688802,
+            "persist_raw_fsync_ms": 104.918859,
+            "raw_bytes": 105130227,
+            "resident_before_save_bytes": 115531776,
+            "save_ms": 187.349554,
+            "save_peak_rss_bytes": 326266880,
+            "zstd3_bytes": 23688802
+          }
+        }
+      },
+      "cold-after-history": {
+        "status": "ok",
+        "wall_s": 0.3288481750059873,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "night",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "cold",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 219959296,
+        "log": "logs/random-yrs-11-cold-after-history.stderr.log",
+        "process": {
+          "max_rss_kib": 112720,
+          "elapsed_s": 0.3043166299976292,
+          "user_s": 0.238593,
+          "system_s": 0.06357499999999999
+        },
+        "action": "cold",
+        "baseline_rss_bytes": 3276800,
+        "library": "yrs",
+        "result": {
+          "allocation_metrics": false,
+          "edited_live_bytes": 0,
+          "edited_rss_bytes": 115490816,
+          "first_edit_ms": 24.772773,
+          "first_edit_peak_rss_bytes": 115490816,
+          "load_ms": 231.032389,
+          "load_peak_rss_bytes": 220684288,
+          "loaded_rss_bytes": 115367936,
+          "peak_reset_supported": true,
+          "read_ms": 19.91217,
+          "read_peak_rss_bytes": 222498816
+        }
+      },
+      "probe": {
+        "status": "ok",
+        "wall_s": 28.27590725399932,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "focus",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "probe",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 171802624,
+        "log": "logs/random-yrs-11-probe.stderr.log",
+        "process": {
+          "max_rss_kib": 251116,
+          "elapsed_s": 28.25123127700499,
+          "user_s": 27.188487,
+          "system_s": 0.921083
+        },
+        "action": "probe",
+        "library": "yrs",
+        "result": {
+          "edited_rss_bytes": 150253568,
+          "full_read_ms": 21.801292,
+          "full_read_peak_rss_bytes": 257077248,
+          "hash": "ec3ef7c465940be38ef2e1f41b9c469f5107cbbc3c2395cdedc578ffc62a9ad8",
+          "latencies": {
+            "delete-1048576": {
+              "max_ms": 25.811844,
+              "median_ms": 25.811844,
+              "p95_ms": 25.811844,
+              "p99_ms": 25.811844,
+              "samples": 1,
+              "total_ms": 25.811844
+            },
+            "delete-10485760": {
+              "max_ms": 65.658722,
+              "median_ms": 65.658722,
+              "p95_ms": 65.658722,
+              "p99_ms": 65.658722,
+              "samples": 1,
+              "total_ms": 65.658722
+            },
+            "edges": {
+              "max_ms": 103.025414,
+              "median_ms": 59.757329,
+              "p95_ms": 103.025414,
+              "p99_ms": 103.025414,
+              "samples": 3,
+              "total_ms": 187.07288799999998
+            },
+            "first-edit-before-read": {
+              "max_ms": 140.30783399999999,
+              "median_ms": 140.30783399999999,
+              "p95_ms": 140.30783399999999,
+              "p99_ms": 140.30783399999999,
+              "samples": 1,
+              "total_ms": 140.30783399999999
+            },
+            "local-single": {
+              "max_ms": 84.168814,
+              "median_ms": 54.05764,
+              "p95_ms": 56.063536,
+              "p99_ms": 60.927747,
+              "samples": 256,
+              "total_ms": 13931.278603999985
+            },
+            "paste-1048576": {
+              "max_ms": 25.997517000000002,
+              "median_ms": 25.997517000000002,
+              "p95_ms": 25.997517000000002,
+              "p99_ms": 25.997517000000002,
+              "samples": 1,
+              "total_ms": 25.997517000000002
+            },
+            "paste-10485760": {
+              "max_ms": 41.183971,
+              "median_ms": 41.183971,
+              "p95_ms": 41.183971,
+              "p99_ms": 41.183971,
+              "samples": 1,
+              "total_ms": 41.183971
+            },
+            "random-single": {
+              "max_ms": 92.54034399999999,
+              "median_ms": 25.165499,
+              "p95_ms": 48.522626,
+              "p99_ms": 66.519059,
+              "samples": 512,
+              "total_ms": 13508.138046000002
+            }
+          },
+          "load_ms": 194.112239,
+          "load_peak_rss_bytes": 217206784,
+          "loaded_rss_bytes": 111964160,
+          "operation_peak_rss_bytes": {
+            "delete-1048576": 160743424,
+            "delete-10485760": 150253568,
+            "edges": 175939584,
+            "first-edit-before-read": 228294656,
+            "local-single": 175988736,
+            "paste-1048576": 161710080,
+            "paste-10485760": 160677888,
+            "random-single": 197128192
+          },
+          "text_bytes": 104857600
+        }
+      },
+      "reverse-check": {
+        "status": "ok",
+        "wall_s": 0.6258017729996936,
+        "command": [
+          "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+          "focus",
+          "yrs",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+          "reverse-check",
+          "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/random-yrs-11"
+        ],
+        "observed_rss_bytes": 224514048,
+        "log": "logs/random-yrs-11-reverse-check.stderr.log",
+        "process": {
+          "max_rss_kib": 219252,
+          "elapsed_s": 0.6008493569970597,
+          "user_s": 0.469348,
+          "system_s": 0.127412
+        },
+        "action": "reverse-check",
+        "library": "yrs",
+        "result": {
+          "hash": "81c371155e1433d7a63e362d641a8a097e7b7f4496bc077fe31ee3afe456ee5b",
+          "load_ms": 224.795524,
+          "peak_rss_bytes": 224514048,
+          "reverse_and_duplicate_delivery_pass": true
+        }
+      }
+    },
+    "converged": true,
+    "performance_limits": [],
+    "finished": "2026-10-11T08:31:21.103749+00:00",
+    "wall_s": 109.12572869999713,
+    "partial_history_points": []
   }
 ]
