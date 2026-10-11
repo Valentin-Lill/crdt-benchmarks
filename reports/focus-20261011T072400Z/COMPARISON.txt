@@ -1,0 +1,98 @@
+FOCUSED 100-MiB CRDT DECISION COMPARISON
+Generated 2026-10-11T08:33:02.045170+00:00
+
+All three tested with the same actual 100-MiB text and 6000 scalar fields. Native Rust versions verified immediately before this run. Single logical CPU on Ryzen 7 3700X.
+Core history replaces the same 128 KiB 512 times (64 MiB inserted AND deleted); visible size remains near 100 MiB. The old client branches before server edits and this history. This simulates causal divergence, not an elapsed calendar interval.
+Server storage below is the equivalent server-only state before offline return. All required causal data is retained; optional Zstd-3 is lossless and verified. Baseline includes initial 6000 server commands.
+
+| Configuration | Replaced MiB | Raw MiB | Zstd MiB |
+| --- | --- | --- | --- |
+| Yrs V2 / GC | 0 | 100.18 | 22.47 |
+| Yrs V2 / GC | 2 | 100.18 | 22.52 |
+| Yrs V2 / GC | 16 | 100.18 | 22.52 |
+| Yrs V2 / GC | 64 | 100.18 | 22.53 |
+| Loro full snapshot | 0 | 78.41 | 51.95 |
+| Loro full snapshot | 2 | 80.49 | 53.20 |
+| Loro full snapshot | 16 | 94.51 | 61.66 |
+| Loro full snapshot | 64 | 142.60 | 90.63 |
+| Loro full operations | 0 | 100.25 | 22.49 |
+| Loro full operations | 2 | 102.26 | 23.69 |
+| Loro full operations | 16 | 116.28 | 32.13 |
+| Loro full operations | 64 | 164.34 | 61.07 |
+
+Core correctness/resource status:
+  Yrs V2 / GC: ok; interrupted stage None
+  Loro full snapshot: ok; interrupted stage None
+  Loro full operations: memory-limit; interrupted stage check-merged-server
+    memory-limit; observed process RSS 12.13 GiB
+
+Single-operation latency on the unedited 100-MiB base. Local and random groups have 256 and 512 samples per run. Numbers are medians across run-specific medians/p99 values; not a pooled p99. First-edit/paste/delete groups have one sample per run.
+
+| Configuration | Group | Runs | Median ms | Median run-p99 ms | Peak MiB |
+| --- | --- | --- | --- | --- | --- |
+| Yrs V2 / GC | delete-1048576 | 12 | 25.399 | 25.399 | 153.3 |
+| Yrs V2 / GC | delete-10485760 | 12 | 34.083 | 34.083 | 143.3 |
+| Yrs V2 / GC | edges | 12 | 59.514 | 102.575 | 167.8 |
+| Yrs V2 / GC | first-edit-before-read | 12 | 139.657 | 139.657 | 217.7 |
+| Yrs V2 / GC | local-single | 12 | 54.038 | 59.847 | 167.8 |
+| Yrs V2 / GC | paste-1048576 | 12 | 26.000 | 26.000 | 154.2 |
+| Yrs V2 / GC | paste-10485760 | 12 | 40.833 | 40.833 | 153.2 |
+| Yrs V2 / GC | random-single | 12 | 25.166 | 66.510 | 187.9 |
+| Loro full snapshot | delete-1048576 | 11 | 1.276 | 1.276 | 199.9 |
+| Loro full snapshot | delete-10485760 | 11 | 12.721 | 12.721 | 206.9 |
+| Loro full snapshot | edges | 11 | 29.120 | 63.476 | 196.9 |
+| Loro full snapshot | first-edit-before-read | 11 | 356.040 | 356.040 | 397.3 |
+| Loro full snapshot | local-single | 11 | 0.003 | 0.008 | 197.0 |
+| Loro full snapshot | paste-1048576 | 11 | 2.868 | 2.868 | 199.9 |
+| Loro full snapshot | paste-10485760 | 11 | 21.915 | 21.915 | 220.9 |
+| Loro full snapshot | random-single | 11 | 0.642 | 24.162 | 197.1 |
+| Loro full operations | delete-1048576 | 11 | 1.274 | 1.274 | 131.3 |
+| Loro full operations | delete-10485760 | 11 | 12.981 | 12.981 | 142.5 |
+| Loro full operations | edges | 11 | 28.866 | 63.570 | 131.0 |
+| Loro full operations | first-edit-before-read | 11 | 92.595 | 92.595 | 131.0 |
+| Loro full operations | local-single | 11 | 0.003 | 0.007 | 131.0 |
+| Loro full operations | paste-1048576 | 11 | 1.851 | 1.851 | 131.3 |
+| Loro full operations | paste-10485760 | 11 | 19.132 | 19.132 | 142.5 |
+| Loro full operations | random-single | 11 | 0.640 | 24.226 | 131.1 |
+
+
+Merge and cold-open costs must include load and any later materialization: a fast import alone can defer substantial work. The raw comparison.json records phase wall times, load, merge, read, first-edit and save separately.
+
+Yrs V2 / GC / cluster + 64 MiB history / server: wall 8.815 s, load 193.16222399999998, edit 7952.742264999997, merge None, read None, first edit None, save 188.864928 ms, phase peak 355.7 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / cluster + 64 MiB history / offline: wall 2.930 s, load 193.447929, edit 2484.8314590000005, merge None, read None, first edit None, save 188.371601 ms, phase peak 349.2 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / cluster + 64 MiB history / merge-server-history: wall 0.517 s, load 214.234305, edit None, merge 49.176482, read None, first edit None, save 187.17957399999997 ms, phase peak 324.1 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / cluster + 64 MiB history / merge-client-history: wall 0.673 s, load 204.180564, edit None, merge 218.516363, read None, first edit None, save 186.050636 ms, phase peak 333.0 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / cluster + 64 MiB history / cold-after-history: wall 0.316 s, load 218.960368, edit None, merge None, read 21.122843, first edit 24.829395, save None ms, phase peak 209.1 MiB, post-edit RSS 108.1 MiB
+Yrs V2 / GC / random, no extra churn history / server: wall 59.645 s, load 213.14940099999998, edit 58752.36253099995, merge None, read None, first edit None, save 188.233814 ms, phase peak 349.1 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / random, no extra churn history / offline: wall 15.740 s, load 194.488565, edit 15296.07465, merge None, read None, first edit None, save 187.503095 ms, phase peak 345.6 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / random, no extra churn history / merge-server-history: wall 0.521 s, load 229.591148, edit None, merge 32.411837, read None, first edit None, save 189.266179 ms, phase peak 312.1 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / random, no extra churn history / merge-client-history: wall 0.715 s, load 223.45175, edit None, merge 231.76187800000002, read None, first edit None, save 189.625245 ms, phase peak 313.4 MiB, post-edit RSS 0.0 MiB
+Yrs V2 / GC / random, no extra churn history / cold-after-history: wall 0.329 s, load 230.863353, edit None, merge None, read 19.928336, first edit 24.660431, save None ms, phase peak 212.0 MiB, post-edit RSS 110.2 MiB
+Loro full snapshot / cluster + 64 MiB history / server: wall 4.177 s, load 116.472347, edit 3249.019252000001, merge None, read None, first edit None, save 269.278601 ms, phase peak 529.9 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / cluster + 64 MiB history / offline: wall 1.021 s, load 108.540384, edit 546.7572729999999, merge None, read None, first edit None, save 271.47953800000005 ms, phase peak 529.5 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / cluster + 64 MiB history / merge-server-history: wall 103.984 s, load 133.605338, edit None, merge 103453.996527, read None, first edit None, save 308.400336 ms, phase peak 3643.0 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / cluster + 64 MiB history / merge-client-history: wall 60.671 s, load 106.81561, edit None, merge 60067.657852, read None, first edit None, save 411.252167 ms, phase peak 3791.3 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / cluster + 64 MiB history / cold-after-history: wall 6.540 s, load 212.91950300000002, edit None, merge None, read 129.17155599999998, first edit 6145.553854, save None ms, phase peak 453.8 MiB, post-edit RSS 252.8 MiB
+Loro full snapshot / random, no extra churn history / server: wall 10.787 s, load 116.434675, edit 9842.46186850001, merge None, read None, first edit None, save 275.38703799999996 ms, phase peak 530.9 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / random, no extra churn history / offline: wall 1.445 s, load 108.5002385, edit 969.538048, merge None, read None, first edit None, save 272.6031095 ms, phase peak 530.0 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / random, no extra churn history / merge-server-history: wall 18.558 s, load 109.7060155, edit None, merge 18114.489783999998, read None, first edit None, save 275.041299 ms, phase peak 751.0 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / random, no extra churn history / merge-client-history: wall 5.888 s, load 108.94812199999998, edit None, merge 5443.0914219999995, read None, first edit None, save 276.0563325 ms, phase peak 749.9 MiB, post-edit RSS 0.0 MiB
+Loro full snapshot / random, no extra churn history / cold-after-history: wall 21.413 s, load 190.8588915, edit None, merge None, read 128.990068, first edit 21050.7206715, save None ms, phase peak 389.2 MiB, post-edit RSS 189.6 MiB
+Loro full operations / cluster + 64 MiB history / server: wall 1.629 s, load 258.65832, edit 434.25930399999953, merge None, read None, first edit None, save 159.634951 ms, phase peak 372.0 MiB, post-edit RSS 0.0 MiB
+Loro full operations / cluster + 64 MiB history / offline: wall 0.738 s, load 235.77113599999998, edit 278.73833, merge None, read None, first edit None, save 162.183761 ms, phase peak 340.4 MiB, post-edit RSS 0.0 MiB
+Loro full operations / cluster + 64 MiB history / merge-server-history: wall 1.088 s, load 699.542273, edit None, merge 26.936279, read None, first edit None, save 278.418144 ms, phase peak 665.2 MiB, post-edit RSS 0.0 MiB
+Loro full operations / cluster + 64 MiB history / merge-client-history: wall 58.613 s, load 466.232891, edit None, merge 57784.411098, read None, first edit None, save 278.97807600000004 ms, phase peak 3507.3 MiB, post-edit RSS 0.0 MiB
+Loro full operations / random, no extra churn history / server: wall 2.184 s, load 257.835439, edit 768.5667259999999, merge None, read None, first edit None, save 161.746463 ms, phase peak 372.7 MiB, post-edit RSS 0.0 MiB
+Loro full operations / random, no extra churn history / offline: wall 1.163 s, load 237.57229099999998, edit 701.0882489999997, merge None, read None, first edit None, save 162.583411 ms, phase peak 341.3 MiB, post-edit RSS 0.0 MiB
+Loro full operations / random, no extra churn history / merge-server-history: wall 1.052 s, load 793.142292, edit None, merge 29.624821999999998, read None, first edit None, save 165.15606799999998 ms, phase peak 343.6 MiB, post-edit RSS 0.0 MiB
+Loro full operations / random, no extra churn history / merge-client-history: wall 1.180 s, load 802.6911719999999, edit None, merge 149.224246, read None, first edit None, save 164.212223 ms, phase peak 344.3 MiB, post-edit RSS 0.0 MiB
+Loro full operations / random, no extra churn history / cold-after-history: wall 35.232 s, load 34989.775582999995, edit None, merge None, read 11.744621, first edit 0.262038, save None ms, phase peak 2937.5 MiB, post-edit RSS 2771.2 MiB
+
+Smaller-history diagnostic (16 MiB; separate workload, not a substitute for the failed 64-MiB case):
+  loro-updates: memory-limit, failed stage check-merged-server; complete phase data in comparison.json and follow-up report.
+
+Interpretation: use measured bytes after churn, not initial saved size alone. History growth is workload-dependent; this pattern does not establish a universal bound for GC or a long-term compression ratio.
+A RAM/time guard is an incomplete operational result, not proof of a correctness defect. Never rank an incomplete variant as fully validated.
+Only successful full paths verify local Rope reference hashes, merged replica hashes, independent sentinels and duplicate/reverse delivery.
+Process RSS includes allocator-retained pages, runtime and buffers. Timing includes OS scheduling; page cache was not flushed. One process owns one replica, references run separately.
+No measured Flutter bridge/UI, Unicode, rich-text schema, database indexes, backups, replication, encrypted storage or crash-recovery protocol. App/library executable size is not part of these figures.

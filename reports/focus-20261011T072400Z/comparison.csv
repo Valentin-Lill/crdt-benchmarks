@@ -1,0 +1,66 @@
+case,category,compressed_roundtrip_pass,cost_scope,edit_ms,edit_peak_rss_bytes,edited_rss_bytes,first_edit_ms,group,history_deleted_bytes,history_inserted_bytes,library,load_ms,maximum_observed_ms,median_of_run_medians_ms,median_of_run_p95_ms,median_of_run_p99_ms,median_operation_peak_rss_bytes,merge_ms,merge_peak_rss_bytes,offline_roundtrip_status,operations_per_run,phase_peak_rss_bytes,phase_wall_s,processing_peak_rss_bytes,raw_bytes,read_ms,runs,save_ms,stage,zstd3_bytes
+,cost,True,server branch before offline return; full causal data retained,,,,,,0,0,yrs,,,,,,,,,ok,,,,,105048311,,,,,23560266
+,cost,True,server branch before offline return; full causal data retained,,,,,,2097152,2097152,yrs,,,,,,,,,ok,,,,,105048373,,,,,23615741
+,cost,True,server branch before offline return; full causal data retained,,,,,,16777216,16777216,yrs,,,,,,,,,ok,,,,,105048374,,,,,23615755
+,cost,True,server branch before offline return; full causal data retained,,,,,,67108864,67108864,yrs,,,,,,,,,ok,,,,,105048373,,,,,23619634
+,cost,True,server branch before offline return; full causal data retained,,,,,,0,0,loro,,,,,,,,,ok,,,,,82214940,,,,,54469343
+,cost,True,server branch before offline return; full causal data retained,,,,,,2097152,2097152,loro,,,,,,,,,ok,,,,,84397195,,,,,55789357
+,cost,True,server branch before offline return; full causal data retained,,,,,,16777216,16777216,loro,,,,,,,,,ok,,,,,99103577,,,,,64655048
+,cost,True,server branch before offline return; full causal data retained,,,,,,67108864,67108864,loro,,,,,,,,,ok,,,,,149525468,,,,,95027622
+,cost,True,server branch before offline return; full causal data retained,,,,,,0,0,loro-updates,,,,,,,,,memory-limit,,,,,105124555,,,,,23580029
+,cost,True,server branch before offline return; full causal data retained,,,,,,2097152,2097152,loro-updates,,,,,,,,,memory-limit,,,,,107224504,,,,,24844222
+,cost,True,server branch before offline return; full causal data retained,,,,,,16777216,16777216,loro-updates,,,,,,,,,memory-limit,,,,,121924168,,,,,33695436
+,cost,True,server branch before offline return; full causal data retained,,,,,,67108864,67108864,loro-updates,,,,,,,,,memory-limit,,,,,172323016,,,,,64041359
+,latency,,,,,,,delete-1048576,,,yrs,,25.811844,25.3991355,25.3991355,25.3991355,160716800.0,,,,1,,,,,,12,,,
+,latency,,,,,,,delete-10485760,,,yrs,,65.658722,34.083439999999996,34.083439999999996,34.083439999999996,150226944.0,,,,1,,,,,,12,,,
+,latency,,,,,,,edges,,,yrs,,103.992768,59.51384,102.5746,102.5746,175935488.0,,,,3,,,,,,12,,,
+,latency,,,,,,,first-edit-before-read,,,yrs,,140.48334100000002,139.6574455,139.6574455,139.6574455,228294656.0,,,,1,,,,,,12,,,
+,latency,,,,,,,local-single,,,yrs,,84.98029,54.038395,55.351226999999994,59.846958,175984640.0,,,,256,,,,,,12,,,
+,latency,,,,,,,paste-1048576,,,yrs,,27.114756,25.999759499999996,25.999759499999996,25.999759499999996,161705984.0,,,,1,,,,,,12,,,
+,latency,,,,,,,paste-10485760,,,yrs,,67.941507,40.832596499999994,40.832596499999994,40.832596499999994,160673792.0,,,,1,,,,,,12,,,
+,latency,,,,,,,random-single,,,yrs,,94.48105299999999,25.1664035,48.175135499999996,66.50965,197068800.0,,,,512,,,,,,12,,,
+,latency,,,,,,,delete-1048576,,,loro,,1.585429,1.2757580000000002,1.2757580000000002,1.2757580000000002,209649664,,,,1,,,,,,11,,,
+,latency,,,,,,,delete-10485760,,,loro,,13.902051,12.721245000000001,12.721245000000001,12.721245000000001,216993792,,,,1,,,,,,11,,,
+,latency,,,,,,,edges,,,loro,,64.56474299999999,29.12017,63.475773,63.475773,206508032,,,,3,,,,,,11,,,
+,latency,,,,,,,first-edit-before-read,,,loro,,359.278118,356.039869,356.039869,356.039869,416571392,,,,1,,,,,,11,,,
+,latency,,,,,,,local-single,,,loro,,29.246962,0.002866,0.003637,0.007995,206540800,,,,256,,,,,,11,,,
+,latency,,,,,,,paste-1048576,,,loro,,3.4572320000000003,2.867537,2.867537,2.867537,209649664,,,,1,,,,,,11,,,
+,latency,,,,,,,paste-10485760,,,loro,,22.144124,21.915418,21.915418,21.915418,231661568,,,,1,,,,,,11,,,
+,latency,,,,,,,random-single,,,loro,,62.764877999999996,0.641654,6.028269,24.162224,206630912,,,,512,,,,,,11,,,
+,latency,,,,,,,delete-1048576,,,loro-updates,,1.300236,1.2742149999999999,1.2742149999999999,1.2742149999999999,137728000,,,,1,,,,,,11,,,
+,latency,,,,,,,delete-10485760,,,loro-updates,,13.120744,12.981016,12.981016,12.981016,149405696,,,,1,,,,,,11,,,
+,latency,,,,,,,edges,,,loro-updates,,64.635166,28.865787,63.570243,63.570243,137379840,,,,3,,,,,,11,,,
+,latency,,,,,,,first-edit-before-read,,,loro-updates,,93.97359700000001,92.59471099999999,92.59471099999999,92.59471099999999,137379840,,,,1,,,,,,11,,,
+,latency,,,,,,,local-single,,,loro-updates,,29.358786000000002,0.002846,0.0035269999999999998,0.0071330000000000005,137379840,,,,256,,,,,,11,,,
+,latency,,,,,,,paste-1048576,,,loro-updates,,2.5305079999999998,1.850586,1.850586,1.850586,137728000,,,,1,,,,,,11,,,
+,latency,,,,,,,paste-10485760,,,loro-updates,,20.739335,19.131831,19.131831,19.131831,149405696,,,,1,,,,,,11,,,
+,latency,,,,,,,random-single,,,loro-updates,,62.583873,0.639578,6.047829999999999,24.225647,137453568,,,,512,,,,,,11,,,
+cluster + 64 MiB history,operations,,,7952.742264999997,,,,,,,yrs,193.16222399999998,,,,,,,,,,372940800,8.8151048570071,221159424,,,,188.864928,server,
+cluster + 64 MiB history,operations,,,2484.8314590000005,,,,,,,yrs,193.447929,,,,,,,,,,366112768,2.9297723939962452,216727552,,,,188.371601,offline,
+cluster + 64 MiB history,operations,,,,,,,,,,yrs,214.234305,,,,,,49.176482,,,,339808256,0.5167533659987384,123330560,,,,187.17957399999997,merge-server-history,
+cluster + 64 MiB history,operations,,,,,,,,,,yrs,204.180564,,,,,,218.516363,,,,349204480,0.6725332440037164,131788800,,,,186.050636,merge-client-history,
+cluster + 64 MiB history,operations,,,,,113364992,24.829395,,,,yrs,218.960368,,,,,,,,,,219283456,0.3160069280056632,,,21.122843,,,cold-after-history,
+"random, no extra churn history",operations,,,58752.36253099995,216621056,,,,,,yrs,213.14940099999998,,,,,,,,,,366080000,59.644811867998214,,,,11,188.233814,server,
+"random, no extra churn history",operations,,,15296.07465,216711168,,,,,,yrs,194.488565,,,,,,,,,,362397696,15.740252028001123,,,,11,187.503095,offline,
+"random, no extra churn history",operations,,,,,,,,,,yrs,229.591148,,,,,,32.411837,116326400,,,327225344,0.521230201004073,,,,11,189.266179,merge-server-history,
+"random, no extra churn history",operations,,,,,,,,,,yrs,223.45175,,,,,,231.76187800000002,117444608,,,328650752,0.7149344770004973,,,,11,189.625245,merge-client-history,
+"random, no extra churn history",operations,,,,,115576832,24.660431,,,,yrs,230.863353,,,,,,,,,,222330880,0.3288481750059873,,,19.928336,11,,cold-after-history,
+cluster + 64 MiB history,operations,,,3249.019252000001,,,,,,,loro,116.472347,,,,,,,,,,555675648,4.1771389310015365,407068672,,,,269.278601,server,
+cluster + 64 MiB history,operations,,,546.7572729999999,,,,,,,loro,108.540384,,,,,,,,,,555196416,1.0207540880001034,404844544,,,,271.47953800000005,offline,
+cluster + 64 MiB history,operations,,,,,,,,,,loro,133.605338,,,,,,103453.996527,,,,3819958272,103.9837823659982,3819880448,,,,308.400336,merge-server-history,
+cluster + 64 MiB history,operations,,,,,,,,,,loro,106.81561,,,,,,60067.657852,,,,3975462912,60.670521249005105,3975434240,,,,411.252167,merge-client-history,
+cluster + 64 MiB history,operations,,,,,265048064,6145.553854,,,,loro,212.91950300000002,,,,,,,,,,475873280,6.540256460000819,,,129.17155599999998,,,cold-after-history,
+"random, no extra churn history",operations,,,9842.46186850001,408117248.0,,,,,,loro,116.434675,,,,,,,,,,556648448.0,10.786723058503412,,,,10,275.38703799999996,server,
+"random, no extra churn history",operations,,,969.538048,404877312.0,,,,,,loro,108.5002385,,,,,,,,,,555732992.0,1.4445084585022414,,,,10,272.6031095,offline,
+"random, no extra churn history",operations,,,,,,,,,,loro,109.7060155,,,,,,18114.489783999998,636973056.0,,,787451904.0,18.558063706499524,,,,10,275.041299,merge-server-history,
+"random, no extra churn history",operations,,,,,,,,,,loro,108.94812199999998,,,,,,5443.0914219999995,636571648.0,,,786327552.0,5.887701488998573,,,,10,276.0563325,merge-client-history,
+"random, no extra churn history",operations,,,,,198774784.0,21050.7206715,,,,loro,190.8588915,,,,,,,,,,408133632.0,21.41341592450044,,,128.990068,10,,cold-after-history,
+cluster + 64 MiB history,operations,,,434.25930399999953,,,,,,,loro-updates,258.65832,,,,,,,,,,390070272,1.6293502209955477,150798336,,,,159.634951,server,
+cluster + 64 MiB history,operations,,,278.73833,,,,,,,loro-updates,235.77113599999998,,,,,,,,,,356954112,0.7381209660015884,127438848,,,,162.183761,offline,
+cluster + 64 MiB history,operations,,,,,,,,,,loro-updates,699.542273,,,,,,26.936279,,,,697561088,1.0878034669949557,373284864,,,,278.418144,merge-server-history,
+cluster + 64 MiB history,operations,,,,,,,,,,loro-updates,466.232891,,,,,,57784.411098,,,,3677622272,58.61344787500275,3677548544,,,,278.97807600000004,merge-client-history,
+"random, no extra churn history",operations,,,768.5667259999999,151420928,,,,,,loro-updates,257.835439,,,,,,,,,,390766592,2.1838248080021003,,,,11,161.746463,server,
+"random, no extra churn history",operations,,,701.0882489999997,128294912,,,,,,loro-updates,237.57229099999998,,,,,,,,,,357855232,1.1633804320008494,,,,11,162.583411,offline,
+"random, no extra churn history",operations,,,,,,,,,,loro-updates,793.142292,,,,,,29.624821999999998,131715072,,,360243200,1.05247331999999,,,,11,165.15606799999998,merge-server-history,
+"random, no extra churn history",operations,,,,,,,,,,loro-updates,802.6911719999999,,,,,,149.224246,132890624,,,361009152,1.1796540590003133,,,,11,164.212223,merge-client-history,
+"random, no extra churn history",operations,,,,,2905866240,0.262038,,,,loro-updates,34989.775582999995,,,,,,,,,,3080179712,35.23203147100139,,,11.744621,11,,cold-after-history,
