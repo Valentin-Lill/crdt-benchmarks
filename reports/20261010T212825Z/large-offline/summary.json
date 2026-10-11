@@ -1802,7 +1802,7 @@
       {
         "trial": 1,
         "stage": "init",
-        "status": "failed"
+        "status": "stopped"
       }
     ]
   }

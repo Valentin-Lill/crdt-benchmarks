@@ -18766,7 +18766,7 @@
     "library": "loro-tail",
     "trial": 1,
     "started": "2026-10-11T04:08:29.689624+00:00",
-    "status": "failed",
+    "status": "stopped",
     "phases": {
       "init": {
         "status": "failed",
@@ -18803,7 +18803,9 @@
       "returncode": -15
     },
     "wall_s": 2.841741386000649,
-    "finished": "2026-10-11T04:08:32.531371+00:00"
+    "finished": "2026-10-11T04:08:32.531371+00:00",
+    "original_status": "failed",
+    "harness_interruption": "Safe controller handoff stopped the paused init wrapper before CRDT execution; not an engine failure."
   },
   {
     "scenario": "mixed-32m-250k",

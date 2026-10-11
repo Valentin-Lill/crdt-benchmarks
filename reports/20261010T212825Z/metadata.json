@@ -214,5 +214,9 @@
       }
     }
   ],
-  "time_policy": "No global, phase or trial deadlines; finish all planned work"
+  "time_policy": "No global, phase or trial deadlines; finish all planned work",
+  "large_stopped_by_user": true,
+  "monitoring_stopped": true,
+  "final_analysis_scope": "completed standard tests only",
+  "standard_analysis_generated": "2026-10-11T06:45:46.015375+00:00"
 }

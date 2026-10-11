@@ -1,0 +1,49 @@
+STANDARD CRDT BENCHMARK ANALYSIS
+All planned standard checks passed: 89 smoke, 267 isolated offline, 1123 upstream.
+13 native Rust variants and 18 JS/WASM variants. Version verification: 2026-10-10.
+Only completed standard results are included; no partial large-test ranking.
+
+Offline workloads: 104852 bytes ASCII text, 0 or 6000 flat scalar fields,
+6000 server commands and 1500 offline-client commands. Text-only, mixed and
+random scenarios, three samples each; reported values are medians.
+One logical CPU on Ryzen 7 3700X Linux; compiled release Rust and Node.
+
+In standard mixed data, native Yrs V2+GC: edits 15.7 ms, server merge 1.2 ms,
+steady process RSS 8.3 MiB, raw saved state 288.0 KiB, Zstd-3 66.2 KiB.
+Native Loro full operations: edits 5.6 ms, server merge 5.2 ms, steady RSS
+9.8 MiB, raw 385.5 KiB, Zstd-3 82.6 KiB; cold open 15.4 ms.
+Native Loro full snapshot: edits 16.8 ms, server merge 16.3 ms, steady RSS
+9.1 MiB, raw 272.2 KiB, Zstd-3 180.5 KiB; cold open 8.5 ms.
+Native Automerge full save: edits 137.3 ms, server merge 49.1 ms, steady RSS
+10.7 MiB, raw 108.8 KiB; extra Zstd has no useful reduction here.
+
+Random mixed edits: Yrs 92.9 ms vs Loro full operations 6.5 ms, Loro full
+snapshot 19.8 ms and Automerge 144.9 ms. Editing rankings depend on workload.
+Native upstream real editing trace, 259778 edits (ONE sample per variant):
+Yrs 17694.8 ms; Loro full snapshot 353.6 ms; Automerge 3259.3 ms;
+Diamond Types 19.7 ms. Native trace omits per-operation wire serialization;
+compare native engines within this test, not directly with JS trace timings.
+Diamond Types covers text only in this harness and is not a complete mixed
+text/structured-data candidate based on these measurements.
+
+Tail means a full CRDT base snapshot plus persisted incremental changes in
+an application frame. It does not mean destructive history pruning. Tail
+variants are not uniformly better; native Automerge tail doubles steady RAM
+in the mixed workload and slows cold open. Every variant retained the causal
+metadata needed by the tested divergent offline client. Loro full snapshots
+passed persistence/offline merge checks; shallow snapshots were not tested.
+A virtual offline month is represented by divergent states and save/reload
+boundaries, not an actual elapsed month or every possible production history.
+
+RSS includes runtime and buffers. Editing/merge peaks and final resident RAM
+are separate; each phase owns one replica. It is valid for an edit peak to be
+lower than cold-open final RSS, because these belong to separate processes.
+Node/WASM results include Node overhead and do not predict native Flutter
+process RAM. Zstd is optional lossless compression of saved state; database
+indexes, fsync and storage wrappers were not measured. Flutter bridge costs,
+mobile/Web builds, Unicode and production schemas were not measured.
+
+The standard results keep Yrs and Loro as the principal native candidates:
+Yrs for low RAM/quick merges; Loro for text-editing-heavy workloads. There is
+no validated overall winner for huge documents or all Flutter platforms from
+this standard suite alone. Exact variant metrics are in the HTML/JSON/CSV.
