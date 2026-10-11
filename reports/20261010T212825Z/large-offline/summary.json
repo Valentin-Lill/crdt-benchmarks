@@ -1,0 +1,1648 @@
+[
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 100194.1144559999,
+    "offline_edit_ms": 24366.42142400001,
+    "server_merge_ms": 601.539754,
+    "client_merge_ms": 2476.970856,
+    "server_merge_peak_rss_bytes": 200093696,
+    "client_merge_peak_rss_bytes": 207319040,
+    "server_merge_load_peak_rss_bytes": 247455744,
+    "client_merge_load_peak_rss_bytes": 221855744,
+    "server_merge_rss_bytes": 200093696,
+    "client_merge_rss_bytes": 207319040,
+    "init_peak_rss_bytes": 208674816,
+    "server_edit_peak_rss_bytes": 209633280,
+    "offline_edit_peak_rss_bytes": 191643648,
+    "server_worker_peak_rss_bytes": 299270144,
+    "offline_worker_peak_rss_bytes": 267223040,
+    "cold_ms": 733.052764,
+    "cold_peak_rss_bytes": 252436480,
+    "steady_rss_bytes": 205123584,
+    "live_bytes": 171725198,
+    "best_disk_bytes": 9008701,
+    "snapshot_bytes": 41682030,
+    "zstd3_bytes": 9008701,
+    "upload_bytes": 434109,
+    "download_bytes": 1794005,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      100194.1144559999,
+      100194.1144559999
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "loro",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 23757.99671300002,
+    "offline_edit_ms": 780.0672689999977,
+    "server_merge_ms": 52329.947052999996,
+    "client_merge_ms": 16406.003312,
+    "server_merge_peak_rss_bytes": 423751680,
+    "client_merge_peak_rss_bytes": 462446592,
+    "server_merge_load_peak_rss_bytes": 120123392,
+    "client_merge_load_peak_rss_bytes": 116322304,
+    "server_merge_rss_bytes": 385003520,
+    "client_merge_rss_bytes": 400601088,
+    "init_peak_rss_bytes": 268443648,
+    "server_edit_peak_rss_bytes": 276783104,
+    "offline_edit_peak_rss_bytes": 205049856,
+    "server_worker_peak_rss_bytes": 370208768,
+    "offline_worker_peak_rss_bytes": 328818688,
+    "cold_ms": 56111.713821,
+    "cold_peak_rss_bytes": 253841408,
+    "steady_rss_bytes": 187842560,
+    "live_bytes": 174640767,
+    "best_disk_bytes": 22961959,
+    "snapshot_bytes": 35071864,
+    "zstd3_bytes": 22961959,
+    "upload_bytes": 979669,
+    "download_bytes": 3917177,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      23757.99671300002,
+      23757.99671300002
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "loro-updates",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 479.8120239999995,
+    "offline_edit_ms": 307.08115100000066,
+    "server_merge_ms": 304.741628,
+    "client_merge_ms": 693.896686,
+    "server_merge_peak_rss_bytes": 263294976,
+    "client_merge_peak_rss_bytes": 276635648,
+    "server_merge_load_peak_rss_bytes": 307122176,
+    "client_merge_load_peak_rss_bytes": 291033088,
+    "server_merge_rss_bytes": 263294976,
+    "client_merge_rss_bytes": 276635648,
+    "init_peak_rss_bytes": 228483072,
+    "server_edit_peak_rss_bytes": 221995008,
+    "offline_edit_peak_rss_bytes": 157294592,
+    "server_worker_peak_rss_bytes": 306466816,
+    "offline_worker_peak_rss_bytes": 268644352,
+    "cold_ms": 6887.637544,
+    "cold_peak_rss_bytes": 816455680,
+    "steady_rss_bytes": 694587392,
+    "live_bytes": 196133644,
+    "best_disk_bytes": 10060666,
+    "snapshot_bytes": 45097486,
+    "zstd3_bytes": 10060666,
+    "upload_bytes": 979669,
+    "download_bytes": 3917177,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      479.8120239999995,
+      479.8120239999995
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "automerge",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-client",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "automerge-chunked",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-client",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "automerge-bounded",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-client",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-v1",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 103069.21469900013,
+    "offline_edit_ms": 25084.90137999999,
+    "server_merge_ms": 611.669234,
+    "client_merge_ms": 2478.009374,
+    "server_merge_peak_rss_bytes": 200880128,
+    "client_merge_peak_rss_bytes": 208211968,
+    "server_merge_load_peak_rss_bytes": 249266176,
+    "client_merge_load_peak_rss_bytes": 223174656,
+    "server_merge_rss_bytes": 200880128,
+    "client_merge_rss_bytes": 208211968,
+    "init_peak_rss_bytes": 168288256,
+    "server_edit_peak_rss_bytes": 209711104,
+    "offline_edit_peak_rss_bytes": 191582208,
+    "server_worker_peak_rss_bytes": 266596352,
+    "offline_worker_peak_rss_bytes": 234946560,
+    "cold_ms": 707.904984,
+    "cold_peak_rss_bytes": 255201280,
+    "steady_rss_bytes": 206036992,
+    "live_bytes": 171725198,
+    "best_disk_bytes": 10339583,
+    "snapshot_bytes": 43030528,
+    "zstd3_bytes": 10339583,
+    "upload_bytes": 646480,
+    "download_bytes": 2578379,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      103069.21469900013,
+      103069.21469900013
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 102345.69530300007,
+    "offline_edit_ms": 24736.062224000012,
+    "server_merge_ms": 582.8042479999999,
+    "client_merge_ms": 2499.7978789999997,
+    "server_merge_peak_rss_bytes": 216215552,
+    "client_merge_peak_rss_bytes": 221315072,
+    "server_merge_load_peak_rss_bytes": 263811072,
+    "client_merge_load_peak_rss_bytes": 226467840,
+    "server_merge_rss_bytes": 216215552,
+    "client_merge_rss_bytes": 221315072,
+    "init_peak_rss_bytes": 208498688,
+    "server_edit_peak_rss_bytes": 218873856,
+    "offline_edit_peak_rss_bytes": 191578112,
+    "server_worker_peak_rss_bytes": 309768192,
+    "offline_worker_peak_rss_bytes": 267083776,
+    "cold_ms": 1409.166044,
+    "cold_peak_rss_bytes": 277192704,
+    "steady_rss_bytes": 226750464,
+    "live_bytes": 189530570,
+    "best_disk_bytes": 8915195,
+    "snapshot_bytes": 43369853,
+    "zstd3_bytes": 8915195,
+    "upload_bytes": 439758,
+    "download_bytes": 1842756,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      102345.69530300007,
+      102345.69530300007
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-v1-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 102324.48297600006,
+    "offline_edit_ms": 24763.798109999974,
+    "server_merge_ms": 579.5690030000001,
+    "client_merge_ms": 2505.488058,
+    "server_merge_peak_rss_bytes": 216018944,
+    "client_merge_peak_rss_bytes": 223531008,
+    "server_merge_load_peak_rss_bytes": 266342400,
+    "client_merge_load_peak_rss_bytes": 227389440,
+    "server_merge_rss_bytes": 216018944,
+    "client_merge_rss_bytes": 223531008,
+    "init_peak_rss_bytes": 168132608,
+    "server_edit_peak_rss_bytes": 218742784,
+    "offline_edit_peak_rss_bytes": 191754240,
+    "server_worker_peak_rss_bytes": 277856256,
+    "offline_worker_peak_rss_bytes": 234274816,
+    "cold_ms": 1397.10225,
+    "cold_peak_rss_bytes": 278446080,
+    "steady_rss_bytes": 226095104,
+    "live_bytes": 189530570,
+    "best_disk_bytes": 10178152,
+    "snapshot_bytes": 45072186,
+    "zstd3_bytes": 10178152,
+    "upload_bytes": 658415,
+    "download_bytes": 2671852,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      102324.48297600006,
+      102324.48297600006
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-tail",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 104621.8360690001,
+    "offline_edit_ms": 25903.744266999995,
+    "server_merge_ms": 605.915706,
+    "client_merge_ms": 2489.477532,
+    "server_merge_peak_rss_bytes": 258371584,
+    "client_merge_peak_rss_bytes": 251695104,
+    "server_merge_load_peak_rss_bytes": 313880576,
+    "client_merge_load_peak_rss_bytes": 284524544,
+    "server_merge_rss_bytes": 258371584,
+    "client_merge_rss_bytes": 251695104,
+    "init_peak_rss_bytes": 216064000,
+    "server_edit_peak_rss_bytes": 252764160,
+    "offline_edit_peak_rss_bytes": 232710144,
+    "server_worker_peak_rss_bytes": 299876352,
+    "offline_worker_peak_rss_bytes": 276123648,
+    "cold_ms": 4131.513624,
+    "cold_peak_rss_bytes": 323342336,
+    "steady_rss_bytes": 282460160,
+    "live_bytes": 212911020,
+    "best_disk_bytes": 8863670,
+    "snapshot_bytes": 43166787,
+    "zstd3_bytes": 8863670,
+    "upload_bytes": 434109,
+    "download_bytes": 1794005,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      104621.8360690001,
+      104621.8360690001
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "loro-tail",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 961.7069539999991,
+    "offline_edit_ms": 791.2561080000002,
+    "server_merge_ms": 546.791601,
+    "client_merge_ms": 1023.803884,
+    "server_merge_peak_rss_bytes": 397053952,
+    "client_merge_peak_rss_bytes": 412340224,
+    "server_merge_load_peak_rss_bytes": 422428672,
+    "client_merge_load_peak_rss_bytes": 380932096,
+    "server_merge_rss_bytes": 387682304,
+    "client_merge_rss_bytes": 396984320,
+    "init_peak_rss_bytes": 269000704,
+    "server_edit_peak_rss_bytes": 342183936,
+    "offline_edit_peak_rss_bytes": 237133824,
+    "server_worker_peak_rss_bytes": 378875904,
+    "offline_worker_peak_rss_bytes": 293429248,
+    "cold_ms": 4951.383927,
+    "cold_peak_rss_bytes": 439980032,
+    "steady_rss_bytes": 324972544,
+    "live_bytes": 251072444,
+    "best_disk_bytes": 22256917,
+    "snapshot_bytes": 36869483,
+    "zstd3_bytes": 22256917,
+    "upload_bytes": 979669,
+    "download_bytes": 3917177,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      961.7069539999991,
+      961.7069539999991
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "automerge-chunked-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yjs-v2-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 5868.357006999983,
+    "offline_edit_ms": 1568.4222650000008,
+    "server_merge_ms": 1969.1158439999995,
+    "client_merge_ms": 4427.3325859999995,
+    "server_merge_peak_rss_bytes": 421294080,
+    "client_merge_peak_rss_bytes": 440893440,
+    "server_merge_load_peak_rss_bytes": 606957568,
+    "client_merge_load_peak_rss_bytes": 537206784,
+    "server_merge_rss_bytes": 421265408,
+    "client_merge_rss_bytes": 440803328,
+    "init_peak_rss_bytes": 413188096,
+    "server_edit_peak_rss_bytes": 393539584,
+    "offline_edit_peak_rss_bytes": 321323008,
+    "server_worker_peak_rss_bytes": 567304192,
+    "offline_worker_peak_rss_bytes": 494153728,
+    "cold_ms": 2940.7833250000003,
+    "cold_peak_rss_bytes": 633331712,
+    "steady_rss_bytes": 463368192,
+    "live_bytes": 187702640,
+    "best_disk_bytes": 9301509,
+    "snapshot_bytes": 42771295,
+    "zstd3_bytes": 9301509,
+    "upload_bytes": 644473,
+    "download_bytes": 2691168,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      5868.357006999983,
+      5868.357006999983
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yjs-v1-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 5770.712366999914,
+    "offline_edit_ms": 1507.2334150000054,
+    "server_merge_ms": 1422.255344,
+    "client_merge_ms": 4155.435966999999,
+    "server_merge_peak_rss_bytes": 389775360,
+    "client_merge_peak_rss_bytes": 431763456,
+    "server_merge_load_peak_rss_bytes": 524619776,
+    "client_merge_load_peak_rss_bytes": 479870976,
+    "server_merge_rss_bytes": 389664768,
+    "client_merge_rss_bytes": 431599616,
+    "init_peak_rss_bytes": 349089792,
+    "server_edit_peak_rss_bytes": 419475456,
+    "offline_edit_peak_rss_bytes": 308092928,
+    "server_worker_peak_rss_bytes": 492032000,
+    "offline_worker_peak_rss_bytes": 432422912,
+    "cold_ms": 2061.180255,
+    "cold_peak_rss_bytes": 539660288,
+    "steady_rss_bytes": 421302272,
+    "live_bytes": 201667720,
+    "best_disk_bytes": 10513906,
+    "snapshot_bytes": 44683348,
+    "zstd3_bytes": 10513906,
+    "upload_bytes": 946004,
+    "download_bytes": 3833270,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      5770.712366999914,
+      5770.712366999914
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yjs-v2-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 8211.964757000003,
+    "offline_edit_ms": 2400.604489000001,
+    "server_merge_ms": 2106.754452,
+    "client_merge_ms": 3901.819138,
+    "server_merge_peak_rss_bytes": 405204992,
+    "client_merge_peak_rss_bytes": 417976320,
+    "server_merge_load_peak_rss_bytes": 591990784,
+    "client_merge_load_peak_rss_bytes": 529633280,
+    "server_merge_rss_bytes": 405176320,
+    "client_merge_rss_bytes": 417841152,
+    "init_peak_rss_bytes": 404766720,
+    "server_edit_peak_rss_bytes": 373682176,
+    "offline_edit_peak_rss_bytes": 318099456,
+    "server_worker_peak_rss_bytes": 547344384,
+    "offline_worker_peak_rss_bytes": 493694976,
+    "cold_ms": 2591.2688100000005,
+    "cold_peak_rss_bytes": 625926144,
+    "steady_rss_bytes": 453271552,
+    "live_bytes": 200628520,
+    "best_disk_bytes": 9171078,
+    "snapshot_bytes": 44502141,
+    "zstd3_bytes": 9171078,
+    "upload_bytes": 652806,
+    "download_bytes": 2759521,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      8211.964757000003,
+      8211.964757000003
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yjs-v1-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 6198.940317,
+    "offline_edit_ms": 1962.4724369999974,
+    "server_merge_ms": 1392.540446,
+    "client_merge_ms": 6604.560768000001,
+    "server_merge_peak_rss_bytes": 415825920,
+    "client_merge_peak_rss_bytes": 437575680,
+    "server_merge_load_peak_rss_bytes": 554041344,
+    "client_merge_load_peak_rss_bytes": 482979840,
+    "server_merge_rss_bytes": 415731712,
+    "client_merge_rss_bytes": 437501952,
+    "init_peak_rss_bytes": 343994368,
+    "server_edit_peak_rss_bytes": 398901248,
+    "offline_edit_peak_rss_bytes": 307134464,
+    "server_worker_peak_rss_bytes": 515997696,
+    "offline_worker_peak_rss_bytes": 431321088,
+    "cold_ms": 2169.165252999999,
+    "cold_peak_rss_bytes": 571252736,
+    "steady_rss_bytes": 448069632,
+    "live_bytes": 233973348,
+    "best_disk_bytes": 10327766,
+    "snapshot_bytes": 46737819,
+    "zstd3_bytes": 10327766,
+    "upload_bytes": 968319,
+    "download_bytes": 3926743,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      6198.940317,
+      6198.940317
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-wasm-v2-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-wasm-v1-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-wasm-v2-no-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-wasm-v1-no-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "loro-snapshot",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 68979.49705700034,
+    "offline_edit_ms": 1967.5557990000016,
+    "server_merge_ms": 131341.992854,
+    "client_merge_ms": 34432.659352999995,
+    "server_merge_peak_rss_bytes": 512380928,
+    "client_merge_peak_rss_bytes": 508710912,
+    "server_merge_load_peak_rss_bytes": 178397184,
+    "client_merge_load_peak_rss_bytes": 172535808,
+    "server_merge_rss_bytes": 512274432,
+    "client_merge_rss_bytes": 508645376,
+    "init_peak_rss_bytes": 457895936,
+    "server_edit_peak_rss_bytes": 555581440,
+    "offline_edit_peak_rss_bytes": 332615680,
+    "server_worker_peak_rss_bytes": 609853440,
+    "offline_worker_peak_rss_bytes": 550211584,
+    "cold_ms": 163102.14653,
+    "cold_peak_rss_bytes": 348430336,
+    "steady_rss_bytes": 335605760,
+    "live_bytes": 316616,
+    "best_disk_bytes": 23849070,
+    "snapshot_bytes": 33952549,
+    "zstd3_bytes": 23849070,
+    "upload_bytes": 979669,
+    "download_bytes": 3917177,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      68979.49705700034,
+      68979.49705700034
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "loro-operations",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 1790.452114999991,
+    "offline_edit_ms": 1055.829709000001,
+    "server_merge_ms": 510.86453400000005,
+    "client_merge_ms": 1064.1950440000003,
+    "server_merge_peak_rss_bytes": 352399360,
+    "client_merge_peak_rss_bytes": 315445248,
+    "server_merge_load_peak_rss_bytes": 396492800,
+    "client_merge_load_peak_rss_bytes": 354795520,
+    "server_merge_rss_bytes": 352309248,
+    "client_merge_rss_bytes": 315260928,
+    "init_peak_rss_bytes": 440000512,
+    "server_edit_peak_rss_bytes": 466485248,
+    "offline_edit_peak_rss_bytes": 345489408,
+    "server_worker_peak_rss_bytes": 540098560,
+    "offline_worker_peak_rss_bytes": 499642368,
+    "cold_ms": 13326.108031999998,
+    "cold_peak_rss_bytes": 758726656,
+    "steady_rss_bytes": 698863616,
+    "live_bytes": 337976,
+    "best_disk_bytes": 10058663,
+    "snapshot_bytes": 45097486,
+    "zstd3_bytes": 10058663,
+    "upload_bytes": 979669,
+    "download_bytes": 3917177,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      1790.452114999991,
+      1790.452114999991
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "automerge-js",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "init",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "json-joy-adapter",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-client",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yjs-v2-gc-tail",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 6368.198073000034,
+    "offline_edit_ms": 2339.6898210000004,
+    "server_merge_ms": 1561.9724489999999,
+    "client_merge_ms": 7077.870064999999,
+    "server_merge_peak_rss_bytes": 476065792,
+    "client_merge_peak_rss_bytes": 468979712,
+    "server_merge_load_peak_rss_bytes": 632832000,
+    "client_merge_load_peak_rss_bytes": 532078592,
+    "server_merge_rss_bytes": 475889664,
+    "client_merge_rss_bytes": 468877312,
+    "init_peak_rss_bytes": 418304000,
+    "server_edit_peak_rss_bytes": 432128000,
+    "offline_edit_peak_rss_bytes": 360378368,
+    "server_worker_peak_rss_bytes": 575455232,
+    "offline_worker_peak_rss_bytes": 538296320,
+    "cold_ms": 8943.077980999999,
+    "cold_peak_rss_bytes": 663785472,
+    "steady_rss_bytes": 529780736,
+    "live_bytes": 231206586,
+    "best_disk_bytes": 9159563,
+    "snapshot_bytes": 44256058,
+    "zstd3_bytes": 9159563,
+    "upload_bytes": 644473,
+    "download_bytes": 2691168,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      6368.198073000034,
+      6368.198073000034
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "yrs-wasm-v2-gc-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "loro-snapshot-tail",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 2770.18614599998,
+    "offline_edit_ms": 2007.8225209999912,
+    "server_merge_ms": 615.914765,
+    "client_merge_ms": 1177.118374,
+    "server_merge_peak_rss_bytes": 508801024,
+    "client_merge_peak_rss_bytes": 494669824,
+    "server_merge_load_peak_rss_bytes": 451006464,
+    "client_merge_load_peak_rss_bytes": 405819392,
+    "server_merge_rss_bytes": 508772352,
+    "client_merge_rss_bytes": 494604288,
+    "init_peak_rss_bytes": 489996288,
+    "server_edit_peak_rss_bytes": 470077440,
+    "offline_edit_peak_rss_bytes": 364720128,
+    "server_worker_peak_rss_bytes": 508792832,
+    "offline_worker_peak_rss_bytes": 398807040,
+    "cold_ms": 2296.622921,
+    "cold_peak_rss_bytes": 556802048,
+    "steady_rss_bytes": 496939008,
+    "live_bytes": 32684265,
+    "best_disk_bytes": 22675694,
+    "snapshot_bytes": 35704113,
+    "zstd3_bytes": 22675694,
+    "upload_bytes": 979669,
+    "download_bytes": 3917177,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      2770.18614599998,
+      2770.18614599998
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "automerge-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "init",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "mixed-32m-250k",
+    "library": "json-joy-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-server",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "loro",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 74029.4947749998,
+    "offline_edit_ms": 446.4207899999996,
+    "server_merge_ms": 148296.93988400002,
+    "client_merge_ms": 37940.036207,
+    "server_merge_peak_rss_bytes": 293240832,
+    "client_merge_peak_rss_bytes": 269516800,
+    "server_merge_load_peak_rss_bytes": 109985792,
+    "client_merge_load_peak_rss_bytes": 106008576,
+    "server_merge_rss_bytes": 255275008,
+    "client_merge_rss_bytes": 269516800,
+    "init_peak_rss_bytes": 219975680,
+    "server_edit_peak_rss_bytes": 218161152,
+    "offline_edit_peak_rss_bytes": 203530240,
+    "server_worker_peak_rss_bytes": 356528128,
+    "offline_worker_peak_rss_bytes": 343781376,
+    "cold_ms": 183327.94648299998,
+    "cold_peak_rss_bytes": 168697856,
+    "steady_rss_bytes": 129200128,
+    "live_bytes": 134531235,
+    "best_disk_bytes": 20832101,
+    "snapshot_bytes": 30146143,
+    "zstd3_bytes": 20832101,
+    "upload_bytes": 307116,
+    "download_bytes": 1232680,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      74029.4947749998,
+      74029.4947749998
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "loro-updates",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 512.7398100000004,
+    "offline_edit_ms": 366.68719300000015,
+    "server_merge_ms": 216.525057,
+    "client_merge_ms": 522.874955,
+    "server_merge_peak_rss_bytes": 237355008,
+    "client_merge_peak_rss_bytes": 242032640,
+    "server_merge_load_peak_rss_bytes": 175349760,
+    "client_merge_load_peak_rss_bytes": 145993728,
+    "server_merge_rss_bytes": 174800896,
+    "client_merge_rss_bytes": 242032640,
+    "init_peak_rss_bytes": 126779392,
+    "server_edit_peak_rss_bytes": 123850752,
+    "offline_edit_peak_rss_bytes": 90693632,
+    "server_worker_peak_rss_bytes": 210472960,
+    "offline_worker_peak_rss_bytes": 175554560,
+    "cold_ms": 1247.16761,
+    "cold_peak_rss_bytes": 291340288,
+    "steady_rss_bytes": 200622080,
+    "live_bytes": 156554357,
+    "best_disk_bytes": 8480093,
+    "snapshot_bytes": 35094263,
+    "zstd3_bytes": 8480093,
+    "upload_bytes": 307116,
+    "download_bytes": 1232680,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      512.7398100000004,
+      512.7398100000004
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "automerge",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-server",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "automerge-chunked",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-server",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "automerge-bounded",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-server",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "diamond",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 103.02475400000006,
+    "offline_edit_ms": 29.465705999999997,
+    "server_merge_ms": 186.67921,
+    "client_merge_ms": 316.676719,
+    "server_merge_peak_rss_bytes": 220930048,
+    "client_merge_peak_rss_bytes": 221085696,
+    "server_merge_load_peak_rss_bytes": 197136384,
+    "client_merge_load_peak_rss_bytes": 142954496,
+    "server_merge_rss_bytes": 220930048,
+    "client_merge_rss_bytes": 221085696,
+    "init_peak_rss_bytes": 202174464,
+    "server_edit_peak_rss_bytes": 184545280,
+    "offline_edit_peak_rss_bytes": 129839104,
+    "server_worker_peak_rss_bytes": 269684736,
+    "offline_worker_peak_rss_bytes": 214482944,
+    "cold_ms": 391.554848,
+    "cold_peak_rss_bytes": 254586880,
+    "steady_rss_bytes": 220782592,
+    "live_bytes": 229942899,
+    "best_disk_bytes": 9527444,
+    "snapshot_bytes": 14126670,
+    "zstd3_bytes": 9527444,
+    "upload_bytes": 201759,
+    "download_bytes": 806097,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      103.02475400000006,
+      103.02475400000006
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-v1",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-no-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-v1-no-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "loro-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "check-merged-client",
+        "status": "trial-timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "automerge-chunked-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yjs-v2-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 11804.690422999973,
+    "offline_edit_ms": 978.8654150000001,
+    "server_merge_ms": 4573.502396,
+    "client_merge_ms": 19133.275734,
+    "server_merge_peak_rss_bytes": 282779648,
+    "client_merge_peak_rss_bytes": 269635584,
+    "server_merge_load_peak_rss_bytes": 411791360,
+    "client_merge_load_peak_rss_bytes": 294174720,
+    "server_merge_rss_bytes": 282746880,
+    "client_merge_rss_bytes": 267591680,
+    "init_peak_rss_bytes": 272293888,
+    "server_edit_peak_rss_bytes": 263663616,
+    "offline_edit_peak_rss_bytes": 154710016,
+    "server_worker_peak_rss_bytes": 369905664,
+    "offline_worker_peak_rss_bytes": 272609280,
+    "cold_ms": 1136.438497,
+    "cold_peak_rss_bytes": 422637568,
+    "steady_rss_bytes": 279363584,
+    "live_bytes": 73816480,
+    "best_disk_bytes": 8825483,
+    "snapshot_bytes": 35438732,
+    "zstd3_bytes": 8825483,
+    "upload_bytes": 293271,
+    "download_bytes": 1218505,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      11804.690422999973,
+      11804.690422999973
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yjs-v1-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 15411.042864000001,
+    "offline_edit_ms": 1091.2870160000011,
+    "server_merge_ms": 4500.537671,
+    "client_merge_ms": 21309.439542999997,
+    "server_merge_peak_rss_bytes": 257327104,
+    "client_merge_peak_rss_bytes": 254218240,
+    "server_merge_load_peak_rss_bytes": 360595456,
+    "client_merge_load_peak_rss_bytes": 294453248,
+    "server_merge_rss_bytes": 257191936,
+    "client_merge_rss_bytes": 250408960,
+    "init_peak_rss_bytes": 241258496,
+    "server_edit_peak_rss_bytes": 317997056,
+    "offline_edit_peak_rss_bytes": 153776128,
+    "server_worker_peak_rss_bytes": 352313344,
+    "offline_worker_peak_rss_bytes": 239222784,
+    "cold_ms": 1000.0332269999999,
+    "cold_peak_rss_bytes": 383221760,
+    "steady_rss_bytes": 266752000,
+    "live_bytes": 105599288,
+    "best_disk_bytes": 10966185,
+    "snapshot_bytes": 37766772,
+    "zstd3_bytes": 10966185,
+    "upload_bytes": 528073,
+    "download_bytes": 2181098,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      15411.042864000001,
+      15411.042864000001
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yjs-v2-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 10600.861873000014,
+    "offline_edit_ms": 737.6354890000008,
+    "server_merge_ms": 4411.503908,
+    "client_merge_ms": 10253.297877,
+    "server_merge_peak_rss_bytes": 258539520,
+    "client_merge_peak_rss_bytes": 242266112,
+    "server_merge_load_peak_rss_bytes": 395112448,
+    "client_merge_load_peak_rss_bytes": 286486528,
+    "server_merge_rss_bytes": 258523136,
+    "client_merge_rss_bytes": 240586752,
+    "init_peak_rss_bytes": 239529984,
+    "server_edit_peak_rss_bytes": 244555776,
+    "offline_edit_peak_rss_bytes": 152281088,
+    "server_worker_peak_rss_bytes": 359514112,
+    "offline_worker_peak_rss_bytes": 272666624,
+    "cold_ms": 1113.0227120000002,
+    "cold_peak_rss_bytes": 424456192,
+    "steady_rss_bytes": 279212032,
+    "live_bytes": 74619232,
+    "best_disk_bytes": 8652175,
+    "snapshot_bytes": 35550865,
+    "zstd3_bytes": 8652175,
+    "upload_bytes": 293218,
+    "download_bytes": 1218177,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      10600.861873000014,
+      10600.861873000014
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yjs-v1-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 12705.622368000018,
+    "offline_edit_ms": 945.5669039999999,
+    "server_merge_ms": 4391.628688999999,
+    "client_merge_ms": 6311.41934,
+    "server_merge_peak_rss_bytes": 302071808,
+    "client_merge_peak_rss_bytes": 244211712,
+    "server_merge_load_peak_rss_bytes": 340619264,
+    "client_merge_load_peak_rss_bytes": 274432000,
+    "server_merge_rss_bytes": 232648704,
+    "client_merge_rss_bytes": 244121600,
+    "init_peak_rss_bytes": 239173632,
+    "server_edit_peak_rss_bytes": 280891392,
+    "offline_edit_peak_rss_bytes": 148107264,
+    "server_worker_peak_rss_bytes": 327942144,
+    "offline_worker_peak_rss_bytes": 238981120,
+    "cold_ms": 867.751798,
+    "cold_peak_rss_bytes": 368906240,
+    "steady_rss_bytes": 252649472,
+    "live_bytes": 98154660,
+    "best_disk_bytes": 11127410,
+    "snapshot_bytes": 38004034,
+    "zstd3_bytes": 11127410,
+    "upload_bytes": 528123,
+    "download_bytes": 2182626,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      12705.622368000018,
+      12705.622368000018
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-wasm-v2-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-wasm-v1-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-wasm-v2-no-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-wasm-v1-no-gc",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "loro-snapshot",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "cold",
+        "status": "trial-timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "loro-operations",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 1560.9185710000186,
+    "offline_edit_ms": 1110.6509470000021,
+    "server_merge_ms": 503.56887400000005,
+    "client_merge_ms": 1082.9448249999998,
+    "server_merge_peak_rss_bytes": 288559104,
+    "client_merge_peak_rss_bytes": 320385024,
+    "server_merge_load_peak_rss_bytes": 295448576,
+    "client_merge_load_peak_rss_bytes": 289820672,
+    "server_merge_rss_bytes": 288550912,
+    "client_merge_rss_bytes": 320319488,
+    "init_peak_rss_bytes": 419090432,
+    "server_edit_peak_rss_bytes": 391282688,
+    "offline_edit_peak_rss_bytes": 249913344,
+    "server_worker_peak_rss_bytes": 430788608,
+    "offline_worker_peak_rss_bytes": 397733888,
+    "cold_ms": 1944.395131,
+    "cold_peak_rss_bytes": 350683136,
+    "steady_rss_bytes": 315936768,
+    "live_bytes": 298696,
+    "best_disk_bytes": 8486586,
+    "snapshot_bytes": 35094263,
+    "zstd3_bytes": 8486586,
+    "upload_bytes": 307116,
+    "download_bytes": 1232680,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      1560.9185710000186,
+      1560.9185710000186
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "automerge-js",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "init",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "json-joy-adapter",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-client",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "diamond-types",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 216.71154099999836,
+    "offline_edit_ms": 76.22472400000021,
+    "server_merge_ms": 26.21218799999997,
+    "client_merge_ms": 124.61563600000005,
+    "server_merge_peak_rss_bytes": 260468736,
+    "client_merge_peak_rss_bytes": 257667072,
+    "server_merge_load_peak_rss_bytes": 308490240,
+    "client_merge_load_peak_rss_bytes": 286117888,
+    "server_merge_rss_bytes": 260407296,
+    "client_merge_rss_bytes": 257552384,
+    "init_peak_rss_bytes": 340574208,
+    "server_edit_peak_rss_bytes": 359231488,
+    "offline_edit_peak_rss_bytes": 231219200,
+    "server_worker_peak_rss_bytes": 387629056,
+    "offline_worker_peak_rss_bytes": 329990144,
+    "cold_ms": 1026.8303389999999,
+    "cold_peak_rss_bytes": 445882368,
+    "steady_rss_bytes": 412192768,
+    "live_bytes": 212712,
+    "best_disk_bytes": 10084106,
+    "snapshot_bytes": 13693527,
+    "zstd3_bytes": 10084106,
+    "upload_bytes": 200368,
+    "download_bytes": 800244,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      216.71154099999836,
+      216.71154099999836
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yjs-v2-gc-tail",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 13188.289316000013,
+    "offline_edit_ms": 959.4732009999994,
+    "server_merge_ms": 6765.385646000001,
+    "client_merge_ms": 20945.334912000002,
+    "server_merge_peak_rss_bytes": 298962944,
+    "client_merge_peak_rss_bytes": 303841280,
+    "server_merge_load_peak_rss_bytes": 336605184,
+    "client_merge_load_peak_rss_bytes": 306503680,
+    "server_merge_rss_bytes": 297398272,
+    "client_merge_rss_bytes": 300347392,
+    "init_peak_rss_bytes": 272637952,
+    "server_edit_peak_rss_bytes": 274325504,
+    "offline_edit_peak_rss_bytes": 188411904,
+    "server_worker_peak_rss_bytes": 440840192,
+    "offline_worker_peak_rss_bytes": 306356224,
+    "cold_ms": 9512.322197999998,
+    "cold_peak_rss_bytes": 336986112,
+    "steady_rss_bytes": 298389504,
+    "live_bytes": 109413683,
+    "best_disk_bytes": 8272258,
+    "snapshot_bytes": 35028971,
+    "zstd3_bytes": 8272258,
+    "upload_bytes": 293271,
+    "download_bytes": 1218505,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      13188.289316000013,
+      13188.289316000013
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs-wasm-v2-gc-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "loro-snapshot-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "merge-client",
+        "status": "trial-timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "automerge-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "init",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "json-joy-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "scenario": "random-32m",
+    "library": "yrs",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "timeout"
+      }
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "loro-updates",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 1046.7235840000017,
+    "offline_edit_ms": 832.6990500000007,
+    "server_merge_ms": 73.596359,
+    "client_merge_ms": 230.04972199999997,
+    "server_merge_peak_rss_bytes": 328962048,
+    "client_merge_peak_rss_bytes": 331042816,
+    "server_merge_load_peak_rss_bytes": 563585024,
+    "client_merge_load_peak_rss_bytes": 560164864,
+    "server_merge_rss_bytes": 328962048,
+    "client_merge_rss_bytes": 331042816,
+    "init_peak_rss_bytes": 439521280,
+    "server_edit_peak_rss_bytes": 320581632,
+    "offline_edit_peak_rss_bytes": 293937152,
+    "server_worker_peak_rss_bytes": 589684736,
+    "offline_worker_peak_rss_bytes": 579203072,
+    "cold_ms": 62614.87070000001,
+    "cold_peak_rss_bytes": 5430935552,
+    "steady_rss_bytes": 5131792384,
+    "live_bytes": 428615461,
+    "best_disk_bytes": 30459616,
+    "snapshot_bytes": 135050571,
+    "zstd3_bytes": 30459616,
+    "upload_bytes": 165233,
+    "download_bytes": 661439,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      1046.7235840000017,
+      1046.7235840000017
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "automerge",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "init",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "automerge-chunked",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "automerge-bounded",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "server",
+        "status": "memory-limit"
+      }
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "diamond",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 16.67625700000001,
+    "offline_edit_ms": 4.829654000000002,
+    "server_merge_ms": 40.117836,
+    "client_merge_ms": 56.585244,
+    "server_merge_peak_rss_bytes": 411672576,
+    "client_merge_peak_rss_bytes": 413515776,
+    "server_merge_load_peak_rss_bytes": 456282112,
+    "client_merge_load_peak_rss_bytes": 450039808,
+    "server_merge_rss_bytes": 411672576,
+    "client_merge_rss_bytes": 413515776,
+    "init_peak_rss_bytes": 797921280,
+    "server_edit_peak_rss_bytes": 454635520,
+    "offline_edit_peak_rss_bytes": 399486976,
+    "server_worker_peak_rss_bytes": 790114304,
+    "offline_worker_peak_rss_bytes": 734203904,
+    "cold_ms": 387.552233,
+    "cold_peak_rss_bytes": 545808384,
+    "steady_rss_bytes": 411475968,
+    "live_bytes": 536866891,
+    "best_disk_bytes": 35076052,
+    "snapshot_bytes": 53009780,
+    "zstd3_bytes": 35076052,
+    "upload_bytes": 105849,
+    "download_bytes": 422563,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      16.67625700000001,
+      16.67625700000001
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "yrs-v1",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 251188.7906200002,
+    "offline_edit_ms": 39562.247683999936,
+    "server_merge_ms": 87.65034200000001,
+    "client_merge_ms": 410.954517,
+    "server_merge_peak_rss_bytes": 155639808,
+    "client_merge_peak_rss_bytes": 157265920,
+    "server_merge_load_peak_rss_bytes": 286740480,
+    "client_merge_load_peak_rss_bytes": 276697088,
+    "server_merge_rss_bytes": 155639808,
+    "client_merge_rss_bytes": 157265920,
+    "init_peak_rss_bytes": 540786688,
+    "server_edit_peak_rss_bytes": 272322560,
+    "offline_edit_peak_rss_bytes": 272482304,
+    "server_worker_peak_rss_bytes": 326524928,
+    "offline_worker_peak_rss_bytes": 326541312,
+    "cold_ms": 294.829582,
+    "cold_peak_rss_bytes": 289996800,
+    "steady_rss_bytes": 154009600,
+    "live_bytes": 148170559,
+    "best_disk_bytes": 31178915,
+    "snapshot_bytes": 135145294,
+    "zstd3_bytes": 31178915,
+    "upload_bytes": 181547,
+    "download_bytes": 733813,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      251188.7906200002,
+      251188.7906200002
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "yrs-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 252373.96024300047,
+    "offline_edit_ms": 53182.61874699988,
+    "server_merge_ms": 87.725194,
+    "client_merge_ms": 405.678401,
+    "server_merge_peak_rss_bytes": 155811840,
+    "client_merge_peak_rss_bytes": 157057024,
+    "server_merge_load_peak_rss_bytes": 286658560,
+    "client_merge_load_peak_rss_bytes": 276668416,
+    "server_merge_rss_bytes": 155811840,
+    "client_merge_rss_bytes": 157057024,
+    "init_peak_rss_bytes": 540844032,
+    "server_edit_peak_rss_bytes": 272474112,
+    "offline_edit_peak_rss_bytes": 272588800,
+    "server_worker_peak_rss_bytes": 461463552,
+    "offline_worker_peak_rss_bytes": 460267520,
+    "cold_ms": 422.896779,
+    "cold_peak_rss_bytes": 289636352,
+    "steady_rss_bytes": 153841664,
+    "live_bytes": 148196955,
+    "best_disk_bytes": 30420318,
+    "snapshot_bytes": 134911320,
+    "zstd3_bytes": 30420318,
+    "upload_bytes": 122943,
+    "download_bytes": 497518,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      252373.96024300047,
+      252373.96024300047
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "yrs-v1-no-gc",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 258434.27856500007,
+    "offline_edit_ms": 51956.49219400002,
+    "server_merge_ms": 87.471834,
+    "client_merge_ms": 404.29879,
+    "server_merge_peak_rss_bytes": 155738112,
+    "client_merge_peak_rss_bytes": 157241344,
+    "server_merge_load_peak_rss_bytes": 286904320,
+    "client_merge_load_peak_rss_bytes": 276635648,
+    "server_merge_rss_bytes": 155738112,
+    "client_merge_rss_bytes": 157241344,
+    "init_peak_rss_bytes": 540835840,
+    "server_edit_peak_rss_bytes": 272379904,
+    "offline_edit_peak_rss_bytes": 272461824,
+    "server_worker_peak_rss_bytes": 326664192,
+    "offline_worker_peak_rss_bytes": 326692864,
+    "cold_ms": 331.419651,
+    "cold_peak_rss_bytes": 290066432,
+    "steady_rss_bytes": 153800704,
+    "live_bytes": 148196955,
+    "best_disk_bytes": 31470951,
+    "snapshot_bytes": 135381654,
+    "zstd3_bytes": 31470951,
+    "upload_bytes": 181547,
+    "download_bytes": 734159,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      258434.27856500007,
+      258434.27856500007
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "yrs-tail",
+    "successful": 1,
+    "attempted": 1,
+    "failures": [],
+    "edit_ms": 254923.48176000034,
+    "offline_edit_ms": 50230.32473399994,
+    "server_merge_ms": 79.49548800000001,
+    "client_merge_ms": 360.193257,
+    "server_merge_peak_rss_bytes": 356155392,
+    "client_merge_peak_rss_bytes": 329814016,
+    "server_merge_load_peak_rss_bytes": 547733504,
+    "client_merge_load_peak_rss_bytes": 542494720,
+    "server_merge_rss_bytes": 356155392,
+    "client_merge_rss_bytes": 329814016,
+    "init_peak_rss_bytes": 540721152,
+    "server_edit_peak_rss_bytes": 406503424,
+    "offline_edit_peak_rss_bytes": 406896640,
+    "server_worker_peak_rss_bytes": 727179264,
+    "offline_worker_peak_rss_bytes": 460943360,
+    "cold_ms": 1685.043164,
+    "cold_peak_rss_bytes": 549326848,
+    "steady_rss_bytes": 357433344,
+    "live_bytes": 282392773,
+    "best_disk_bytes": 30379146,
+    "snapshot_bytes": 134831550,
+    "zstd3_bytes": 30379146,
+    "upload_bytes": 122943,
+    "download_bytes": 497206,
+    "peak_reset_supported": true,
+    "edit_range_ms": [
+      254923.48176000034,
+      254923.48176000034
+    ]
+  },
+  {
+    "scenario": "text-128m",
+    "library": "loro-tail",
+    "successful": 0,
+    "attempted": 1,
+    "failures": [
+      {
+        "trial": 1,
+        "stage": "init",
+        "status": "failed"
+      }
+    ]
+  }
+]

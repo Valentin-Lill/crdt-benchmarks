@@ -1,6 +1,5 @@
 {
-  "state": "standard-native-trace",
-  "updated": "2026-10-10T22:20:43.715368+00:00",
-  "pid": 93521,
-  "library": "yrs-v1-no-gc"
+  "state": "stopped",
+  "updated": "2026-10-11T04:08:34.762100+00:00",
+  "pid": 93521
 }

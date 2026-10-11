@@ -74804,5 +74804,284 @@
       "test": "B4-native",
       "verified": true
     }
+  },
+  {
+    "library": "yjs-v2-gc",
+    "test": "B4x100",
+    "trial": 1,
+    "status": "ok",
+    "measurement": {
+      "status": "ok",
+      "wall_s": 473.1789366920002,
+      "command": [
+        "node",
+        "--expose-gc",
+        "--max-old-space-size=8192",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/upstream-worker.mjs",
+        "yjs-v2-gc",
+        "B4x100",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v2-gc-B4x100-1.result.json"
+      ],
+      "observed_rss_bytes": 893001728,
+      "log": "logs/yjs-v2-gc-B4x100-1.stderr.log",
+      "process": {
+        "max_rss_kib": 872144,
+        "elapsed_s": 473.15146699400066,
+        "user_s": 468.682838,
+        "system_s": 1.7119900000000001
+      },
+      "verified": true,
+      "result_file": "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v2-gc-B4x100-1.result.json"
+    },
+    "result": {
+      "library": "yjs-v2-gc",
+      "test": "B4x100",
+      "results": {
+        "[B4x100] Apply real-world editing dataset 100 times (time)": {
+          "yjs-v2-gc": "467819 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": {
+          "yjs-v2-gc": "315 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (docSize)": {
+          "yjs-v2-gc": "15989245 bytes"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (parseTime)": {
+          "yjs-v2-gc": "4011 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (memUsed)": {
+          "yjs-v2-gc": "342.9 MB"
+        }
+      },
+      "memory": {
+        "rss": 787152896,
+        "heapTotal": 607518720,
+        "heapUsed": 377896480,
+        "external": 84048174,
+        "arrayBuffers": 16228896
+      },
+      "baseline_memory": {
+        "rss": 157290496,
+        "heapTotal": 54968320,
+        "heapUsed": 35525840,
+        "external": 7363172,
+        "arrayBuffers": 239651
+      }
+    }
+  },
+  {
+    "library": "yjs-v1-gc",
+    "test": "B4x100",
+    "trial": 1,
+    "status": "ok",
+    "measurement": {
+      "status": "ok",
+      "wall_s": 230.7719685709999,
+      "command": [
+        "node",
+        "--expose-gc",
+        "--max-old-space-size=8192",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/upstream-worker.mjs",
+        "yjs-v1-gc",
+        "B4x100",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v1-gc-B4x100-1.result.json"
+      ],
+      "observed_rss_bytes": 777138176,
+      "log": "logs/yjs-v1-gc-B4x100-1.stderr.log",
+      "process": {
+        "max_rss_kib": 782536,
+        "elapsed_s": 230.74706460299967,
+        "user_s": 228.365868,
+        "system_s": 1.057684
+      },
+      "verified": true,
+      "result_file": "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v1-gc-B4x100-1.result.json"
+    },
+    "result": {
+      "library": "yjs-v1-gc",
+      "test": "B4x100",
+      "results": {
+        "[B4x100] Apply real-world editing dataset 100 times (time)": {
+          "yjs-v1-gc": "227198 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": {
+          "yjs-v1-gc": "328 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (docSize)": {
+          "yjs-v1-gc": "33486888 bytes"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (parseTime)": {
+          "yjs-v1-gc": "2435 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (memUsed)": {
+          "yjs-v1-gc": "263.1 MB"
+        }
+      },
+      "memory": {
+        "rss": 666591232,
+        "heapTotal": 449183744,
+        "heapUsed": 298091096,
+        "external": 126721557,
+        "arrayBuffers": 33726539
+      },
+      "baseline_memory": {
+        "rss": 155951104,
+        "heapTotal": 54968320,
+        "heapUsed": 35525768,
+        "external": 7363172,
+        "arrayBuffers": 305287
+      }
+    }
+  },
+  {
+    "library": "yjs-v2-no-gc",
+    "test": "B4x100",
+    "trial": 1,
+    "status": "ok",
+    "measurement": {
+      "status": "ok",
+      "wall_s": 474.3610896600003,
+      "command": [
+        "node",
+        "--expose-gc",
+        "--max-old-space-size=8192",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/upstream-worker.mjs",
+        "yjs-v2-no-gc",
+        "B4x100",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v2-no-gc-B4x100-1.result.json"
+      ],
+      "observed_rss_bytes": 932986880,
+      "log": "logs/yjs-v2-no-gc-B4x100-1.stderr.log",
+      "process": {
+        "max_rss_kib": 910996,
+        "elapsed_s": 474.3361905970014,
+        "user_s": 469.964673,
+        "system_s": 1.6211929999999999
+      },
+      "verified": true,
+      "result_file": "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v2-no-gc-B4x100-1.result.json"
+    },
+    "result": {
+      "library": "yjs-v2-no-gc",
+      "test": "B4x100",
+      "results": {
+        "[B4x100] Apply real-world editing dataset 100 times (time)": {
+          "yjs-v2-no-gc": "469558 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": {
+          "yjs-v2-no-gc": "1215 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (docSize)": {
+          "yjs-v2-no-gc": "22694543 bytes"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (parseTime)": {
+          "yjs-v2-no-gc": "2526 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (memUsed)": {
+          "yjs-v2-no-gc": "296.4 MB"
+        }
+      },
+      "memory": {
+        "rss": 815435776,
+        "heapTotal": 505544704,
+        "heapUsed": 331404512,
+        "external": 191117808,
+        "arrayBuffers": 22934194
+      },
+      "baseline_memory": {
+        "rss": 157667328,
+        "heapTotal": 54968320,
+        "heapUsed": 35525840,
+        "external": 7363172,
+        "arrayBuffers": 305287
+      }
+    }
+  },
+  {
+    "library": "yjs-v1-no-gc",
+    "test": "B4x100",
+    "trial": 1,
+    "status": "ok",
+    "measurement": {
+      "status": "ok",
+      "wall_s": 231.06243107299997,
+      "command": [
+        "node",
+        "--expose-gc",
+        "--max-old-space-size=8192",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/upstream-worker.mjs",
+        "yjs-v1-no-gc",
+        "B4x100",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v1-no-gc-B4x100-1.result.json"
+      ],
+      "observed_rss_bytes": 831610880,
+      "log": "logs/yjs-v1-no-gc-B4x100-1.stderr.log",
+      "process": {
+        "max_rss_kib": 837160,
+        "elapsed_s": 231.03761768899858,
+        "user_s": 228.647288,
+        "system_s": 1.047759
+      },
+      "verified": true,
+      "result_file": "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yjs-v1-no-gc-B4x100-1.result.json"
+    },
+    "result": {
+      "library": "yjs-v1-no-gc",
+      "test": "B4x100",
+      "results": {
+        "[B4x100] Apply real-world editing dataset 100 times (time)": {
+          "yjs-v1-no-gc": "226293 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": {
+          "yjs-v1-no-gc": "623 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (docSize)": {
+          "yjs-v1-no-gc": "41233188 bytes"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (parseTime)": {
+          "yjs-v1-no-gc": "3238 ms"
+        },
+        "[B4x100] Apply real-world editing dataset 100 times (memUsed)": {
+          "yjs-v1-no-gc": "307.7 MB"
+        }
+      },
+      "memory": {
+        "rss": 737820672,
+        "heapTotal": 525467648,
+        "heapUsed": 342705312,
+        "external": 142214157,
+        "arrayBuffers": 41472839
+      },
+      "baseline_memory": {
+        "rss": 155521024,
+        "heapTotal": 54968320,
+        "heapUsed": 35525768,
+        "external": 7363172,
+        "arrayBuffers": 239651
+      }
+    }
+  },
+  {
+    "library": "yrs-wasm-v2-gc",
+    "test": "B4x100",
+    "trial": 1,
+    "status": "budget-limit",
+    "measurement": {
+      "status": "budget-limit",
+      "wall_s": 390.6687205170001,
+      "command": [
+        "node",
+        "--expose-gc",
+        "--max-old-space-size=8192",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/upstream-worker.mjs",
+        "yrs-wasm-v2-gc",
+        "B4x100",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/logs/yrs-wasm-v2-gc-B4x100-1.result.json"
+      ],
+      "observed_rss_bytes": 1784295424,
+      "log": "logs/yrs-wasm-v2-gc-B4x100-1.stderr.log",
+      "stderr": "",
+      "returncode": -9
+    }
   }
 ]

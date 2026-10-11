@@ -1,4 +1,4 @@
-CRDT decision benchmark — standard-native-trace
+CRDT decision benchmark — stopped
 
 Use native Rust results for Flutter/Rust decisions. JS/WASM results describe those runtimes separately. No mobile, Web or Flutter bridge integration has been measured.
 Only configurations that pass the persistence/offline checks are candidates. A timeout or memory guard is an operational limit, not evidence of incorrect CRDT behavior.
@@ -25,4 +25,23 @@ standard-offline:
   standard-text, smallest stored payload: yrs-tail, 43454.000; successful samples 3
   standard-text, lowest steady process RAM: yrs, 5267456.000; successful samples 3
   standard-text, lowest server merge peak RAM: yrs-v1, 5140480.000; successful samples 3
+  Per-metric leaders are provisional; compare the full tradeoffs and repeatability in the tables.
+large-offline:
+  mixed-32m-250k, fastest editing: loro-updates, 479.812; successful samples 1
+  mixed-32m-250k, fastest server merge: loro-updates, 304.742; successful samples 1
+  mixed-32m-250k, smallest stored payload: yrs-tail, 8863670.000; successful samples 1
+  mixed-32m-250k, lowest steady process RAM: loro, 187842560.000; successful samples 1
+  mixed-32m-250k, lowest server merge peak RAM: yrs, 200093696.000; successful samples 1
+  Per-metric leaders are provisional; compare the full tradeoffs and repeatability in the tables.
+  random-32m, fastest editing: loro-updates, 512.740; successful samples 1
+  random-32m, fastest server merge: loro-updates, 216.525; successful samples 1
+  random-32m, smallest stored payload: loro-updates, 8480093.000; successful samples 1
+  random-32m, lowest steady process RAM: loro, 129200128.000; successful samples 1
+  random-32m, lowest server merge peak RAM: loro-updates, 237355008.000; successful samples 1
+  Per-metric leaders are provisional; compare the full tradeoffs and repeatability in the tables.
+  text-128m, fastest editing: loro-updates, 1046.724; successful samples 1
+  text-128m, fastest server merge: loro-updates, 73.596; successful samples 1
+  text-128m, smallest stored payload: yrs-tail, 30379146.000; successful samples 1
+  text-128m, lowest steady process RAM: yrs-v1-no-gc, 153800704.000; successful samples 1
+  text-128m, lowest server merge peak RAM: yrs-v1, 155639808.000; successful samples 1
   Per-metric leaders are provisional; compare the full tradeoffs and repeatability in the tables.

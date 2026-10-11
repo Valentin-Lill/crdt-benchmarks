@@ -1,0 +1,967 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Large offline-first CRDT benchmark</title><style>body{font:16px/1.5 system-ui;background:#f1f4f7;color:#142336;margin:0}main{max-width:1600px;margin:auto;padding:24px}section,.intro{background:white;border:1px solid #dae1e8;border-radius:8px;padding:20px;margin:20px 0}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:10px;text-align:right;border-bottom:1px solid #ddd;white-space:nowrap}td:first-child,th:first-child{text-align:left}th{background:#edf3f9}pre{overflow:auto;white-space:pre-wrap}select{font:inherit;padding:8px}a{color:#0759a5}</style><main><h1>Large offline-first CRDT benchmark</h1><div class="intro"><p><strong>Status: stopped</strong>; updated 2026-10-11T04:08:32.545350+00:00</p><p>70 scenario trials recorded; 32 completed with verified convergence. Planned first-pass trials: 244. Untested combinations remain untested; budget exits are not correctness failures.</p><p>Native release Rust and Node on Linux; actual CPU affinity is recorded in metadata (the automated campaign pins one logical CPU). Each init, edit, merge, cold-open and verification stage uses a fresh process. Server and client merges each own exactly one document. Edits use identical procedural ASCII traces. A separate non-CRDT Rope reference computes expected states for each local branch. After two server save/reload boundaries and a client save/reload boundary, both replicas must converge and preserve branch sentinels. Duplicate updates are checked in separate verification processes. Reverse-order delivery is not part of this night campaign.</p>
+<p>Merge peak: resident-memory high-water mark reset immediately before importing updates, including update buffers and CRDT work. Editing peaks exclude the checkpoint serialization/loading operation itself; checkpoint peaks remain in raw results. Merge peaks start at already-resident post-load memory; cold-load and later persistence peaks are separately recorded in raw phase results. Linux /proc/self/clear_refs=5 resets VmHWM; support is recorded. The worker exit/kernel peak can be lower after a reset, so all phase peaks are retained. Verification/reference peaks are excluded from merge rankings. Lazy work triggered by merging remains inside merge cost.</p>
+<p>Cold open: load raw persisted document, read all text/map values, discard the returned view, perform one middle insertion. The table includes the largest cold-stage peak and final process RSS, not just retained CRDT heap. Native live heap is measured in a separate allocation-instrumented process; JavaScript post-GC heap + ArrayBuffers is approximate and not directly comparable. JavaScript forces GC at load/reload boundaries, outside load timing; total stage wall time includes it.</p>
+<p>Disk: smaller of native saved bytes and a lossless Zstd-3 wrapper; cold loads use raw bytes. Loro full operation exports retain all history; no shallow snapshots, CRDT resets or destructive history pruning. Yrs/Yjs GC and wire-format settings are encoded in each variant name (native Yrs defaults to GC and V2, with explicit V1 and no-GC variants). Snapshot-tail variants use an application frame containing a full base snapshot and the incremental tail, without deleting CRDT metadata. Native Automerge tuned variants use 64 KiB initial transactions; the bounded adapter uses compressed native changes imported 32 at a time with causal delivery. Diamond Types is text-only in this harness. All inputs are synthetic ASCII with unique random line IDs; mixed fields are flat scalars. No Flutter bridge, mobile/Web builds, rich text, nested structures, network, database fsync, UI, concurrent-server load or real elapsed month is measured. Inputs differ from the earlier small campaign; compare engines within this campaign. Small timing differences and production tail latency require more samples.</p><p>Global budget: 6.148898179862234 h; phase timeout: 600 s; trial budget: 1200 s; sampled per-process RSS guard: 12 GiB; host reserves: 4 GiB available RAM and 10 GiB free disk. Guards may overshoot between samples. First pass prioritizes coverage; subsequent passes repeat successful combinations up to 3 trials. Failed configurations are not retried in later passes. Jobs exceeding the wall budget are stopped and recorded. Work files are cleaned after every trial; timings/results/logs remain.</p><p><a href="summary.csv">CSV medians</a> · <a href="summary.json">Summary</a> · <a href="results.json">All raw phase results</a> · <a href="metadata.json">Environment, inputs, source hashes</a> · <a href="status.json">Current status</a></p></div><label>Workload: <select id="case"><option value="all">All workloads</option><option value="mixed-32m-250k">mixed-32m-250k</option><option value="random-32m">random-32m</option><option value="text-128m">text-128m</option></select></label><section data-case="mixed-32m-250k"><h2>mixed-32m-250k</h2><p>32 MiB initial text, 250,000 fields, 200,000 server + 50,000 offline commands; pattern cluster; 0.3 MiB total inserted payload. Batch 32.</p><div class="scroll"><table><tr><th>Engine</th><th>Server edits</th><th>Server merge</th><th>Client merge</th><th>Initial build peak MiB</th><th>Server editing peak MiB</th><th>Offline editing peak MiB</th><th>Server merge peak MiB</th><th>Client merge peak MiB</th><th>Cold open peak MiB</th><th>Steady RSS MiB</th><th>Disk MiB</th><th>Completed/tried</th><th>Upload MiB</th><th>Download MiB</th></tr><tr><td>Yrs GC + forward deltas</td><td>100.19 s</td><td>601.5 ms</td><td>2.48 s</td><td>199.0</td><td>199.9</td><td>182.8</td><td>190.8</td><td>197.7</td><td>240.7</td><td>195.6</td><td>8.6</td><td>1/1</td><td>0.4</td><td>1.7</td></tr><tr><td>Loro full snapshot</td><td>23.76 s</td><td>52.33 s</td><td>16.41 s</td><td>256.0</td><td>264.0</td><td>195.6</td><td>404.1</td><td>441.0</td><td>242.1</td><td>179.1</td><td>21.9</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>Loro full operations</td><td>479.8 ms</td><td>304.7 ms</td><td>693.9 ms</td><td>217.9</td><td>211.7</td><td>150.0</td><td>251.1</td><td>263.8</td><td>778.6</td><td>662.4</td><td>9.6</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>Automerge native full save</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-client&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Automerge 64 KiB initial import</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-client&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Automerge 64 KiB + 32-change imports</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-client&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-v1 / native Rust</td><td>103.07 s</td><td>611.7 ms</td><td>2.48 s</td><td>160.5</td><td>200.0</td><td>182.7</td><td>191.6</td><td>198.6</td><td>243.4</td><td>196.5</td><td>9.9</td><td>1/1</td><td>0.6</td><td>2.5</td></tr><tr><td>yrs-no-gc / native Rust</td><td>102.35 s</td><td>582.8 ms</td><td>2.50 s</td><td>198.8</td><td>208.7</td><td>182.7</td><td>206.2</td><td>211.1</td><td>264.4</td><td>216.2</td><td>8.5</td><td>1/1</td><td>0.4</td><td>1.8</td></tr><tr><td>yrs-v1-no-gc / native Rust</td><td>102.32 s</td><td>579.6 ms</td><td>2.51 s</td><td>160.3</td><td>208.6</td><td>182.9</td><td>206.0</td><td>213.2</td><td>265.5</td><td>215.6</td><td>9.7</td><td>1/1</td><td>0.6</td><td>2.5</td></tr><tr><td>yrs-tail / native Rust</td><td>104.62 s</td><td>605.9 ms</td><td>2.49 s</td><td>206.1</td><td>241.1</td><td>221.9</td><td>246.4</td><td>240.0</td><td>308.4</td><td>269.4</td><td>8.5</td><td>1/1</td><td>0.4</td><td>1.7</td></tr><tr><td>loro-tail / native Rust</td><td>961.7 ms</td><td>546.8 ms</td><td>1.02 s</td><td>256.5</td><td>326.3</td><td>226.1</td><td>378.7</td><td>393.2</td><td>419.6</td><td>309.9</td><td>21.2</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>automerge-chunked-tail / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yjs-v2-gc / JS or WASM</td><td>5.87 s</td><td>1.97 s</td><td>4.43 s</td><td>394.0</td><td>375.3</td><td>306.4</td><td>401.8</td><td>420.5</td><td>604.0</td><td>441.9</td><td>8.9</td><td>1/1</td><td>0.6</td><td>2.6</td></tr><tr><td>yjs-v1-gc / JS or WASM</td><td>5.77 s</td><td>1.42 s</td><td>4.16 s</td><td>332.9</td><td>400.0</td><td>293.8</td><td>371.7</td><td>411.8</td><td>514.7</td><td>401.8</td><td>10.0</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>yjs-v2-no-gc / JS or WASM</td><td>8.21 s</td><td>2.11 s</td><td>3.90 s</td><td>386.0</td><td>356.4</td><td>303.4</td><td>386.4</td><td>398.6</td><td>596.9</td><td>432.3</td><td>8.7</td><td>1/1</td><td>0.6</td><td>2.6</td></tr><tr><td>yjs-v1-no-gc / JS or WASM</td><td>6.20 s</td><td>1.39 s</td><td>6.60 s</td><td>328.1</td><td>380.4</td><td>292.9</td><td>396.6</td><td>417.3</td><td>544.8</td><td>427.3</td><td>9.8</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>yrs-wasm-v2-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-wasm-v1-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-wasm-v2-no-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-wasm-v1-no-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>loro-snapshot / JS or WASM</td><td>68.98 s</td><td>131.34 s</td><td>34.43 s</td><td>436.7</td><td>529.8</td><td>317.2</td><td>488.6</td><td>485.1</td><td>332.3</td><td>320.1</td><td>22.7</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>loro-operations / JS or WASM</td><td>1.79 s</td><td>510.9 ms</td><td>1.06 s</td><td>419.6</td><td>444.9</td><td>329.5</td><td>336.1</td><td>300.8</td><td>723.6</td><td>666.5</td><td>9.6</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>automerge-js / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;init&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>json-joy-adapter / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-client&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yjs-v2-gc-tail / JS or WASM</td><td>6.37 s</td><td>1.56 s</td><td>7.08 s</td><td>398.9</td><td>412.1</td><td>343.7</td><td>454.0</td><td>447.3</td><td>633.0</td><td>505.2</td><td>8.7</td><td>1/1</td><td>0.6</td><td>2.6</td></tr><tr><td>yrs-wasm-v2-gc-tail / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>loro-snapshot-tail / JS or WASM</td><td>2.77 s</td><td>615.9 ms</td><td>1.18 s</td><td>467.3</td><td>448.3</td><td>347.8</td><td>485.2</td><td>471.8</td><td>531.0</td><td>473.9</td><td>21.6</td><td>1/1</td><td>0.9</td><td>3.7</td></tr><tr><td>automerge-tail / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;init&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>json-joy-tail / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-server&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></table></div></section><section data-case="random-32m"><h2>random-32m</h2><p>32 MiB initial text, 0 fields, 100,000 server + 25,000 offline commands; pattern random; 0.5 MiB total inserted payload. Batch 32.</p><div class="scroll"><table><tr><th>Engine</th><th>Server edits</th><th>Server merge</th><th>Client merge</th><th>Initial build peak MiB</th><th>Server editing peak MiB</th><th>Offline editing peak MiB</th><th>Server merge peak MiB</th><th>Client merge peak MiB</th><th>Cold open peak MiB</th><th>Steady RSS MiB</th><th>Disk MiB</th><th>Completed/tried</th><th>Upload MiB</th><th>Download MiB</th></tr><tr><td>Loro full snapshot</td><td>74.03 s</td><td>148.30 s</td><td>37.94 s</td><td>209.8</td><td>208.1</td><td>194.1</td><td>279.7</td><td>257.0</td><td>160.9</td><td>123.2</td><td>19.9</td><td>1/1</td><td>0.3</td><td>1.2</td></tr><tr><td>Loro full operations</td><td>512.7 ms</td><td>216.5 ms</td><td>522.9 ms</td><td>120.9</td><td>118.1</td><td>86.5</td><td>226.4</td><td>230.8</td><td>277.8</td><td>191.3</td><td>8.1</td><td>1/1</td><td>0.3</td><td>1.2</td></tr><tr><td>Automerge native full save</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-server&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Automerge 64 KiB initial import</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-server&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Automerge 64 KiB + 32-change imports</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-server&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Diamond Types (text only)</td><td>103.0 ms</td><td>186.7 ms</td><td>316.7 ms</td><td>192.8</td><td>176.0</td><td>123.8</td><td>210.7</td><td>210.8</td><td>242.8</td><td>210.6</td><td>9.1</td><td>1/1</td><td>0.2</td><td>0.8</td></tr><tr><td>yrs-v1 / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-no-gc / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-v1-no-gc / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-tail / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>loro-tail / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;check-merged-client&#x27;, &#x27;status&#x27;: &#x27;trial-timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>automerge-chunked-tail / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yjs-v2-gc / JS or WASM</td><td>11.80 s</td><td>4.57 s</td><td>19.13 s</td><td>259.7</td><td>251.4</td><td>147.5</td><td>269.7</td><td>257.1</td><td>403.1</td><td>266.4</td><td>8.4</td><td>1/1</td><td>0.3</td><td>1.2</td></tr><tr><td>yjs-v1-gc / JS or WASM</td><td>15.41 s</td><td>4.50 s</td><td>21.31 s</td><td>230.1</td><td>303.3</td><td>146.7</td><td>245.4</td><td>242.4</td><td>365.5</td><td>254.4</td><td>10.5</td><td>1/1</td><td>0.5</td><td>2.1</td></tr><tr><td>yjs-v2-no-gc / JS or WASM</td><td>10.60 s</td><td>4.41 s</td><td>10.25 s</td><td>228.4</td><td>233.2</td><td>145.2</td><td>246.6</td><td>231.0</td><td>404.8</td><td>266.3</td><td>8.3</td><td>1/1</td><td>0.3</td><td>1.2</td></tr><tr><td>yjs-v1-no-gc / JS or WASM</td><td>12.71 s</td><td>4.39 s</td><td>6.31 s</td><td>228.1</td><td>267.9</td><td>141.2</td><td>288.1</td><td>232.9</td><td>351.8</td><td>240.9</td><td>10.6</td><td>1/1</td><td>0.5</td><td>2.1</td></tr><tr><td>yrs-wasm-v2-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-wasm-v1-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-wasm-v2-no-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>yrs-wasm-v1-no-gc / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>loro-snapshot / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;cold&#x27;, &#x27;status&#x27;: &#x27;trial-timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>loro-operations / JS or WASM</td><td>1.56 s</td><td>503.6 ms</td><td>1.08 s</td><td>399.7</td><td>373.2</td><td>238.3</td><td>275.2</td><td>305.5</td><td>334.4</td><td>301.3</td><td>8.1</td><td>1/1</td><td>0.3</td><td>1.2</td></tr><tr><td>automerge-js / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;init&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>json-joy-adapter / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-client&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>diamond-types / JS or WASM</td><td>216.7 ms</td><td>26.2 ms</td><td>124.6 ms</td><td>324.8</td><td>342.6</td><td>220.5</td><td>248.4</td><td>245.7</td><td>425.2</td><td>393.1</td><td>9.6</td><td>1/1</td><td>0.2</td><td>0.8</td></tr><tr><td>yjs-v2-gc-tail / JS or WASM</td><td>13.19 s</td><td>6.77 s</td><td>20.95 s</td><td>260.0</td><td>261.6</td><td>179.7</td><td>285.1</td><td>289.8</td><td>321.4</td><td>284.6</td><td>7.9</td><td>1/1</td><td>0.3</td><td>1.2</td></tr><tr><td>yrs-wasm-v2-gc-tail / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>loro-snapshot-tail / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;merge-client&#x27;, &#x27;status&#x27;: &#x27;trial-timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>automerge-tail / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;init&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>json-joy-tail / JS or WASM</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Yrs GC + forward deltas</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;timeout&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></table></div></section><section data-case="text-128m"><h2>text-128m</h2><p>128 MiB initial text, 0 fields, 100,000 server + 25,000 offline commands; pattern cluster; 0.5 MiB total inserted payload. Batch 32.</p><div class="scroll"><table><tr><th>Engine</th><th>Server edits</th><th>Server merge</th><th>Client merge</th><th>Initial build peak MiB</th><th>Server editing peak MiB</th><th>Offline editing peak MiB</th><th>Server merge peak MiB</th><th>Client merge peak MiB</th><th>Cold open peak MiB</th><th>Steady RSS MiB</th><th>Disk MiB</th><th>Completed/tried</th><th>Upload MiB</th><th>Download MiB</th></tr><tr><td>Loro full operations</td><td>1.05 s</td><td>73.6 ms</td><td>230.0 ms</td><td>419.2</td><td>305.7</td><td>280.3</td><td>313.7</td><td>315.7</td><td>5,179.3</td><td>4,894.1</td><td>29.0</td><td>1/1</td><td>0.2</td><td>0.6</td></tr><tr><td>Automerge native full save</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;init&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Automerge 64 KiB initial import</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Automerge 64 KiB + 32-change imports</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;server&#x27;, &#x27;status&#x27;: &#x27;memory-limit&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Diamond Types (text only)</td><td>16.7 ms</td><td>40.1 ms</td><td>56.6 ms</td><td>761.0</td><td>433.6</td><td>381.0</td><td>392.6</td><td>394.4</td><td>520.5</td><td>392.4</td><td>33.5</td><td>1/1</td><td>0.1</td><td>0.4</td></tr><tr><td>yrs-v1 / native Rust</td><td>251.19 s</td><td>87.7 ms</td><td>411.0 ms</td><td>515.7</td><td>259.7</td><td>259.9</td><td>148.4</td><td>150.0</td><td>276.6</td><td>146.9</td><td>29.7</td><td>1/1</td><td>0.2</td><td>0.7</td></tr><tr><td>yrs-no-gc / native Rust</td><td>252.37 s</td><td>87.7 ms</td><td>405.7 ms</td><td>515.8</td><td>259.9</td><td>260.0</td><td>148.6</td><td>149.8</td><td>276.2</td><td>146.7</td><td>29.0</td><td>1/1</td><td>0.1</td><td>0.5</td></tr><tr><td>yrs-v1-no-gc / native Rust</td><td>258.43 s</td><td>87.5 ms</td><td>404.3 ms</td><td>515.8</td><td>259.8</td><td>259.8</td><td>148.5</td><td>150.0</td><td>276.6</td><td>146.7</td><td>30.0</td><td>1/1</td><td>0.2</td><td>0.7</td></tr><tr><td>yrs-tail / native Rust</td><td>254.92 s</td><td>79.5 ms</td><td>360.2 ms</td><td>515.7</td><td>387.7</td><td>388.0</td><td>339.7</td><td>314.5</td><td>523.9</td><td>340.9</td><td>29.0</td><td>1/1</td><td>0.1</td><td>0.5</td></tr><tr><td>loro-tail / native Rust</td><td>[{&#x27;trial&#x27;: 1, &#x27;stage&#x27;: &#x27;init&#x27;, &#x27;status&#x27;: &#x27;failed&#x27;}]</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></table></div></section><details><summary>Failures, resource limits and timeouts</summary><pre>[
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;automerge&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;merge-client&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 23.325170378999246,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;merge-client&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13044387840,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-automerge-1-merge-client.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:3186286592,\&quot;rss_bytes\&quot;:85086208,\&quot;stage\&quot;:\&quot;merge input loaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;automerge-chunked&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;merge-client&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 22.43365069199899,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-chunked&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;merge-client&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-chunked-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13006540800,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-automerge-chunked-1-merge-client.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:3192299520,\&quot;rss_bytes\&quot;:117735424,\&quot;stage\&quot;:\&quot;merge input loaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;automerge-bounded&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;merge-client&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.0847844960008,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-bounded&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;merge-client&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-bounded-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 3057778688,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-automerge-bounded-1-merge-client.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:3192225792,\&quot;rss_bytes\&quot;:117739520,\&quot;stage\&quot;:\&quot;merge input loaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;automerge-chunked-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 38.77138857799946,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-chunked-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-chunked-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13901963264,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-automerge-chunked-tail-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v2-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1246181479983,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v2-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 408432640,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-yrs-wasm-v2-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;,\&quot;rss_bytes\&quot;:408297472,\&quot;peak_rss_bytes\&quot;:408363008}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v1-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1236182950015,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v1-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v1-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 352174080,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-yrs-wasm-v1-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;,\&quot;rss_bytes\&quot;:323112960,\&quot;peak_rss_bytes\&quot;:323178496}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v2-no-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1241971560012,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v2-no-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-no-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 384962560,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-yrs-wasm-v2-no-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;,\&quot;rss_bytes\&quot;:382070784,\&quot;peak_rss_bytes\&quot;:382070784}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v1-no-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1240720479982,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v1-no-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v1-no-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 362549248,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-yrs-wasm-v1-no-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;,\&quot;rss_bytes\&quot;:333455360,\&quot;peak_rss_bytes\&quot;:333520896}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;automerge-js&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;init&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 2.02570681999714,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;automerge&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;init&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-js-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 2538393600,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-automerge-js-1-init.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 2903784,
+        &quot;elapsed_s&quot;: 2.000785486998211,
+        &quot;user_s&quot;: 1.7544309999999999,
+        &quot;system_s&quot;: 0.23490999999999998
+      },
+      &quot;stderr&quot;: &quot;/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407\n        }throw new Error(&#x27;Module terminated&#x27;);\n               ^\n\nError: Module terminated\n    at __wbg_call_guard (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407:16)\n    at Automerge.rollback (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:1274:9)\n    at _change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:445:22)\n    at Module.change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:292:16)\n    at Object.transact (file:///home/valentin/Documents/crdt-benchmarks/campaign/factories.mjs:78:87)\n    at apply (file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:5:18)\n    at runNight (file:///home/valentin/Documents/crdt-benchmarks/campaign/night-js.mjs:39:77)\n    at file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:7:7\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;json-joy-adapter&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;merge-client&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 1.383996468000987,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;json-joy&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;merge-client&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-json-joy-adapter-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 408231936,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-json-joy-adapter-1-merge-client.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 415300,
+        &quot;elapsed_s&quot;: 1.3590106110023044,
+        &quot;user_s&quot;: 1.169689,
+        &quot;system_s&quot;: 0.179912
+      },
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;merge input loaded\&quot;,\&quot;rss_bytes\&quot;:283062272,\&quot;peak_rss_bytes\&quot;:290168832}\n/home/valentin/Documents/crdt-benchmarks/node_modules/sonic-forest/lib/splay/util.js:83\nconst llSplay = (root, c3, c2, c1) =&gt; {\n                ^\n\nRangeError: Maximum call stack size exceeded\n    at llSplay (/home/valentin/Documents/crdt-benchmarks/node_modules/sonic-forest/lib/splay/util.js:83:17)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:913:48)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v2-gc-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1242680930009,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v2-gc-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-yrs-wasm-v2-gc-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 471314432,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-yrs-wasm-v2-gc-tail-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;,\&quot;rss_bytes\&quot;:388689920,\&quot;peak_rss_bytes\&quot;:388689920}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;automerge-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;init&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 2.0598880290017405,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;automerge-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;init&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-automerge-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 2921549824,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-automerge-tail-1-init.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 2901824,
+        &quot;elapsed_s&quot;: 2.0350649790016178,
+        &quot;user_s&quot;: 1.803442,
+        &quot;system_s&quot;: 0.21964499999999998
+      },
+      &quot;stderr&quot;: &quot;/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407\n        }throw new Error(&#x27;Module terminated&#x27;);\n               ^\n\nError: Module terminated\n    at __wbg_call_guard (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407:16)\n    at Automerge.rollback (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:1274:9)\n    at _change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:445:22)\n    at Module.change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:292:16)\n    at Object.transact (file:///home/valentin/Documents/crdt-benchmarks/campaign/factories.mjs:78:87)\n    at apply (file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:5:18)\n    at runNight (file:///home/valentin/Documents/crdt-benchmarks/campaign/night-js.mjs:39:77)\n    at file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:7:7\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;mixed-32m-250k&quot;,
+    &quot;library&quot;: &quot;json-joy-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;merge-server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 1.5632970780025062,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;json-joy-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/mixed-32m-250k.json&quot;,
+        &quot;merge-server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/mixed-32m-250k-json-joy-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 470265856,
+      &quot;log&quot;: &quot;logs/mixed-32m-250k-json-joy-tail-1-merge-server.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 389108,
+        &quot;elapsed_s&quot;: 1.538433691002865,
+        &quot;user_s&quot;: 1.346987,
+        &quot;system_s&quot;: 0.18098799999999998
+      },
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;merge input loaded\&quot;,\&quot;rss_bytes\&quot;:389242880,\&quot;peak_rss_bytes\&quot;:470151168}\n/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:19\nconst updateLenOne = (chunk) =&gt; {\n                     ^\n\nRangeError: Maximum call stack size exceeded\n    at updateLenOne (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:19:22)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:927:9)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;automerge&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;merge-server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 23.435247892997722,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;merge-server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-automerge-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 12938706944,
+      &quot;log&quot;: &quot;logs/random-32m-automerge-1-merge-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:3249471488,\&quot;rss_bytes\&quot;:147378176,\&quot;stage\&quot;:\&quot;merge input loaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;automerge-chunked&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;merge-server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 22.681994899998244,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-chunked&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;merge-server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-automerge-chunked-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 12985331712,
+      &quot;log&quot;: &quot;logs/random-32m-automerge-chunked-1-merge-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:3245613056,\&quot;rss_bytes\&quot;:176820224,\&quot;stage\&quot;:\&quot;merge input loaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;automerge-bounded&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;merge-server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 22.48048754100091,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-bounded&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;merge-server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-automerge-bounded-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13596454912,
+      &quot;log&quot;: &quot;logs/random-32m-automerge-bounded-1-merge-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:3245649920,\&quot;rss_bytes\&quot;:176922624,\&quot;stage\&quot;:\&quot;merge input loaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-v1&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1024716329994,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;yrs-v1&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-v1-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 110886912,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-v1-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:79810560,\&quot;rss_bytes\&quot;:79810560,\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-no-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1020488260001,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;yrs-no-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-no-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 144224256,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-no-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:80666624,\&quot;rss_bytes\&quot;:80666624,\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-v1-no-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1027583529976,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;yrs-v1-no-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-v1-no-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 79769600,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-v1-no-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:79704064,\&quot;rss_bytes\&quot;:79704064,\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1025166389991,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;yrs-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 187957248,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-tail-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:153817088,\&quot;rss_bytes\&quot;:153817088,\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;loro-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;trial-timeout&quot;,
+    &quot;failed_stage&quot;: &quot;check-merged-client&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;budget-limit&quot;,
+      &quot;wall_s&quot;: 144.14128754500052,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;loro-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;check-merged-client&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-loro-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 368119808,
+      &quot;log&quot;: &quot;logs/random-32m-loro-tail-1-check-merged-client.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;automerge-chunked-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 38.485861356002715,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-chunked-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-automerge-chunked-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13685796864,
+      &quot;log&quot;: &quot;logs/random-32m-automerge-chunked-tail-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v2-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1147569819987,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v2-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-wasm-v2-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 258117632,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-wasm-v2-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v1-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.114856027998,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v1-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-wasm-v1-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 220258304,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-wasm-v1-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v2-no-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1137600850016,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v2-no-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-wasm-v2-no-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 254029824,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-wasm-v2-no-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v1-no-gc&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1152721520011,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v1-no-gc&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-wasm-v1-no-gc-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 216416256,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-wasm-v1-no-gc-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;loro-snapshot&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;trial-timeout&quot;,
+    &quot;failed_stage&quot;: &quot;cold&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;budget-limit&quot;,
+      &quot;wall_s&quot;: 318.60867746000076,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;loro-snapshot&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;cold&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-loro-snapshot-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 373035008,
+      &quot;log&quot;: &quot;logs/random-32m-loro-snapshot-1-cold.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;automerge-js&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;init&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 2.108847404997505,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;automerge&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;init&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-automerge-js-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 2845614080,
+      &quot;log&quot;: &quot;logs/random-32m-automerge-js-1-init.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 2901828,
+        &quot;elapsed_s&quot;: 2.083876889999374,
+        &quot;user_s&quot;: 1.812123,
+        &quot;system_s&quot;: 0.26048
+      },
+      &quot;stderr&quot;: &quot;/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407\n        }throw new Error(&#x27;Module terminated&#x27;);\n               ^\n\nError: Module terminated\n    at __wbg_call_guard (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407:16)\n    at Automerge.rollback (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:1274:9)\n    at _change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:445:22)\n    at Module.change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:292:16)\n    at Object.transact (file:///home/valentin/Documents/crdt-benchmarks/campaign/factories.mjs:78:87)\n    at apply (file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:5:18)\n    at runNight (file:///home/valentin/Documents/crdt-benchmarks/campaign/night-js.mjs:39:77)\n    at file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:7:7\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;json-joy-adapter&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;merge-client&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 8.62637214699862,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;json-joy&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;merge-client&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-json-joy-adapter-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 304578560,
+      &quot;log&quot;: &quot;logs/random-32m-json-joy-adapter-1-merge-client.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 310540,
+        &quot;elapsed_s&quot;: 8.601143141000648,
+        &quot;user_s&quot;: 8.40475,
+        &quot;system_s&quot;: 0.141057
+      },
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;merge input loaded\&quot;,\&quot;rss_bytes\&quot;:168681472,\&quot;peak_rss_bytes\&quot;:171405312}\n/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:894\n    splay(chunk) {\n         ^\n\nRangeError: Maximum call stack size exceeded\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:894:10)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs-wasm-v2-gc-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.1141015630019,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;yrs-wasm-v2-gc-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-wasm-v2-gc-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 289783808,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-wasm-v2-gc-tail-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;loro-snapshot-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;trial-timeout&quot;,
+    &quot;failed_stage&quot;: &quot;merge-client&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;budget-limit&quot;,
+      &quot;wall_s&quot;: 66.6885884809999,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;loro-snapshot-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;merge-client&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-loro-snapshot-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 496693248,
+      &quot;log&quot;: &quot;logs/random-32m-loro-snapshot-tail-1-merge-client.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;automerge-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;init&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 2.04757364499892,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;automerge-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;init&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-automerge-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 2942181376,
+      &quot;log&quot;: &quot;logs/random-32m-automerge-tail-1-init.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 2903460,
+        &quot;elapsed_s&quot;: 2.023401422997267,
+        &quot;user_s&quot;: 1.7801969999999998,
+        &quot;system_s&quot;: 0.231949
+      },
+      &quot;stderr&quot;: &quot;/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407\n        }throw new Error(&#x27;Module terminated&#x27;);\n               ^\n\nError: Module terminated\n    at __wbg_call_guard (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:2407:16)\n    at Automerge.rollback (/home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/wasm_bindgen_output/nodejs/automerge_wasm.cjs:1274:9)\n    at _change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:445:22)\n    at Module.change (file:///home/valentin/Documents/crdt-benchmarks/node_modules/@automerge/automerge/dist/mjs/implementation.js:292:16)\n    at Object.transact (file:///home/valentin/Documents/crdt-benchmarks/campaign/factories.mjs:78:87)\n    at apply (file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:5:18)\n    at runNight (file:///home/valentin/Documents/crdt-benchmarks/campaign/night-js.mjs:39:77)\n    at file:///home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs:7:7\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;json-joy-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 7.7626290260013775,
+      &quot;command&quot;: [
+        &quot;node&quot;,
+        &quot;--expose-gc&quot;,
+        &quot;--max-old-space-size=8192&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/adapter-night.mjs&quot;,
+        &quot;json-joy-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-json-joy-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 393883648,
+      &quot;log&quot;: &quot;logs/random-32m-json-joy-tail-1-server.stderr.log&quot;,
+      &quot;process&quot;: {
+        &quot;max_rss_kib&quot;: 283944,
+        &quot;elapsed_s&quot;: 7.737758033999853,
+        &quot;user_s&quot;: 7.536366,
+        &quot;system_s&quot;: 0.151974
+      },
+      &quot;stderr&quot;: &quot;{\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;,\&quot;rss_bytes\&quot;:289005568,\&quot;peak_rss_bytes\&quot;:289005568}\n/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:894\n    splay(chunk) {\n         ^\n\nRangeError: Maximum call stack size exceeded\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:894:10)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n    at StrNode.splay (/home/valentin/Documents/crdt-benchmarks/node_modules/json-joy/lib/json-crdt/nodes/rga/AbstractRga.js:930:14)\n\nNode.js v26.11.1\n&quot;,
+      &quot;returncode&quot;: 1
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;random-32m&quot;,
+    &quot;library&quot;: &quot;yrs&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;timeout&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;timeout&quot;,
+      &quot;wall_s&quot;: 600.100641093999,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;yrs&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/random-32m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/random-32m-yrs-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 80293888,
+      &quot;log&quot;: &quot;logs/random-32m-yrs-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;{\&quot;peak_rss_bytes\&quot;:80228352,\&quot;rss_bytes\&quot;:80228352,\&quot;stage\&quot;:\&quot;server checkpoint reloaded\&quot;}\n&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;text-128m&quot;,
+    &quot;library&quot;: &quot;automerge&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;init&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 7.188412875002541,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/text-128m.json&quot;,
+        &quot;init&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/text-128m-automerge-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13593657344,
+      &quot;log&quot;: &quot;logs/text-128m-automerge-1-init.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;text-128m&quot;,
+    &quot;library&quot;: &quot;automerge-chunked&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 93.86408171399671,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-chunked&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/text-128m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/text-128m-automerge-chunked-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13142302720,
+      &quot;log&quot;: &quot;logs/text-128m-automerge-chunked-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;text-128m&quot;,
+    &quot;library&quot;: &quot;automerge-bounded&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;memory-limit&quot;,
+    &quot;failed_stage&quot;: &quot;server&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;memory-limit&quot;,
+      &quot;wall_s&quot;: 97.87638614799653,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;automerge-bounded&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/text-128m.json&quot;,
+        &quot;server&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/text-128m-automerge-bounded-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 13074669568,
+      &quot;log&quot;: &quot;logs/text-128m-automerge-bounded-1-server.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -9
+    }
+  },
+  {
+    &quot;scenario&quot;: &quot;text-128m&quot;,
+    &quot;library&quot;: &quot;loro-tail&quot;,
+    &quot;trial&quot;: 1,
+    &quot;status&quot;: &quot;failed&quot;,
+    &quot;failed_stage&quot;: &quot;init&quot;,
+    &quot;failure&quot;: {
+      &quot;status&quot;: &quot;failed&quot;,
+      &quot;wall_s&quot;: 2.840119295004115,
+      &quot;command&quot;: [
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/bin/night-native&quot;,
+        &quot;night&quot;,
+        &quot;loro-tail&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/inputs/text-128m.json&quot;,
+        &quot;init&quot;,
+        &quot;/home/valentin/Documents/crdt-benchmarks/campaign/runs/20261010T212825Z/large-offline/work/text-128m-loro-tail-1&quot;
+      ],
+      &quot;observed_rss_bytes&quot;: 12636160,
+      &quot;log&quot;: &quot;logs/text-128m-loro-tail-1-init.stderr.log&quot;,
+      &quot;stderr&quot;: &quot;&quot;,
+      &quot;returncode&quot;: -15
+    }
+  }
+]</pre></details></main><script>document.querySelector("#case").addEventListener("change",e=>{for(const s of document.querySelectorAll("[data-case]"))s.hidden=e.target.value!=="all"&&s.dataset.case!==e.target.value})</script></html>

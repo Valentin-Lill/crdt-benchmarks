@@ -5712,5 +5712,70 @@
     "load_ms": 4.475258,
     "read_ms": 0.103167,
     "snapshot_bytes": 300877
+  },
+  {
+    "test": "B4x100",
+    "library": "yjs-v2-gc",
+    "passed": 1,
+    "attempted": 1,
+    "failures": [],
+    "peak_rss_bytes": 893075456,
+    "process_wall_s": 473.1789366920002,
+    "[B4x100] Apply real-world editing dataset 100 times (time)": "467819 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": "315 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (docSize)": "1.59892e+07 bytes",
+    "[B4x100] Apply real-world editing dataset 100 times (parseTime)": "4011 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (memUsed)": "3.429e+08 bytes of JS heap only"
+  },
+  {
+    "test": "B4x100",
+    "library": "yjs-v1-gc",
+    "passed": 1,
+    "attempted": 1,
+    "failures": [],
+    "peak_rss_bytes": 801316864,
+    "process_wall_s": 230.7719685709999,
+    "[B4x100] Apply real-world editing dataset 100 times (time)": "227198 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": "328 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (docSize)": "3.34869e+07 bytes",
+    "[B4x100] Apply real-world editing dataset 100 times (parseTime)": "2435 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (memUsed)": "2.631e+08 bytes of JS heap only"
+  },
+  {
+    "test": "B4x100",
+    "library": "yjs-v2-no-gc",
+    "passed": 1,
+    "attempted": 1,
+    "failures": [],
+    "peak_rss_bytes": 932859904,
+    "process_wall_s": 474.3610896600003,
+    "[B4x100] Apply real-world editing dataset 100 times (time)": "469558 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": "1215 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (docSize)": "2.26945e+07 bytes",
+    "[B4x100] Apply real-world editing dataset 100 times (parseTime)": "2526 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (memUsed)": "2.964e+08 bytes of JS heap only"
+  },
+  {
+    "test": "B4x100",
+    "library": "yjs-v1-no-gc",
+    "passed": 1,
+    "attempted": 1,
+    "failures": [],
+    "peak_rss_bytes": 857251840,
+    "process_wall_s": 231.06243107299997,
+    "[B4x100] Apply real-world editing dataset 100 times (time)": "226293 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (encodeTime)": "623 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (docSize)": "4.12332e+07 bytes",
+    "[B4x100] Apply real-world editing dataset 100 times (parseTime)": "3238 ms",
+    "[B4x100] Apply real-world editing dataset 100 times (memUsed)": "3.077e+08 bytes of JS heap only"
+  },
+  {
+    "test": "B4x100",
+    "library": "yrs-wasm-v2-gc",
+    "passed": 0,
+    "attempted": 1,
+    "failures": [
+      "budget-limit"
+    ]
   }
 ]
