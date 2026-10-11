@@ -1,5 +1,5 @@
 FOCUSED 100-MiB CRDT COMPARISON
-Updated 2026-10-11T08:18:46.177389+00:00
+Updated 2026-10-11T08:21:20.458268+00:00
 
 Configuration: Yrs 0.28.0 V2/GC, Loro 1.16.2 full snapshot and full operations.
 All cases start with 104857600 actual ASCII text bytes plus 6000 scalar map fields.
@@ -360,4 +360,16 @@ random loro trial 9: ok
   paste-10485760: p50 21.994, p95 21.994, p99 21.994, max 21.994 ms (1 samples)
   random-single: p50 0.650, p95 6.059, p99 24.155, max 61.566 ms (512 samples)
   Cold after history: load 188.6 ms, full read 128.5 ms, first edit after read 21036.1 ms; final RSS 189.37 MiB
+
+random loro-updates trial 9: ok
+  Final stored raw 100.37 MiB / Zstd 22.54 MiB; save 157.3 ms, compress 393.2 ms, decompress 68.7 ms
+  delete-1048576: p50 1.274, p95 1.274, p99 1.274, max 1.274 ms (1 samples)
+  delete-10485760: p50 12.742, p95 12.742, p99 12.742, max 12.742 ms (1 samples)
+  edges: p50 28.860, p95 64.635, p99 64.635, max 64.635 ms (3 samples)
+  first-edit-before-read: p50 93.974, p95 93.974, p99 93.974, max 93.974 ms (1 samples)
+  local-single: p50 0.003, p95 0.003, p99 0.007, max 29.272 ms (256 samples)
+  paste-1048576: p50 1.817, p95 1.817, p99 1.817, max 1.817 ms (1 samples)
+  paste-10485760: p50 18.909, p95 18.909, p99 18.909, max 18.909 ms (1 samples)
+  random-single: p50 0.642, p95 6.103, p99 24.962, max 62.455 ms (512 samples)
+  Cold after history: load 35028.2 ms, full read 12.5 ms, first edit after read 0.3 ms; final RSS 2774.69 MiB
 
