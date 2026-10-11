@@ -133,5 +133,140 @@
         ]
       }
     }
+  },
+  "random": {
+    "reference-server": {
+      "status": "ok",
+      "wall_s": 0.2265042020007968,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "night",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+        "reference-server",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 0,
+      "log": "logs/random-reference-server.stderr.log",
+      "process": {
+        "max_rss_kib": 222880,
+        "elapsed_s": 0.19868019300338347,
+        "user_s": 0.128528,
+        "system_s": 0.06869
+      },
+      "action": "reference-server",
+      "baseline_rss_bytes": 3239936,
+      "library": "yrs",
+      "result": {
+        "commands": 10002,
+        "deleted_bytes": 6308,
+        "hash": "cffc987b4cb5e47d914efbbbca43c14cdfa380bf0953e9c35b48b0d5d346544e",
+        "inserted_bytes": 12888,
+        "map_keys": 5407,
+        "text_bytes": 104864180
+      }
+    },
+    "reference-offline": {
+      "status": "ok",
+      "wall_s": 0.2199351610033773,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "night",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+        "reference-offline",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 0,
+      "log": "logs/random-reference-offline.stderr.log",
+      "process": {
+        "max_rss_kib": 222936,
+        "elapsed_s": 0.19270054400112713,
+        "user_s": 0.12159199999999999,
+        "system_s": 0.069698
+      },
+      "action": "reference-offline",
+      "baseline_rss_bytes": 3297280,
+      "library": "yrs",
+      "result": {
+        "commands": 2502,
+        "deleted_bytes": 1576,
+        "hash": "df13427450d0254d2bb3e9842bb871078dd1ef583a0578227e4285e14ec1af6e",
+        "inserted_bytes": 3233,
+        "map_keys": 5797,
+        "text_bytes": 104859257
+      }
+    },
+    "probe-reference": {
+      "status": "ok",
+      "wall_s": 0.2284136359958211,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "focus",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+        "probe-reference",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 0,
+      "log": "logs/random-probe-reference.stderr.log",
+      "process": {
+        "max_rss_kib": 223044,
+        "elapsed_s": 0.20137614299892448,
+        "user_s": 0.12135499999999999,
+        "system_s": 0.07854499999999999
+      },
+      "action": "probe-reference",
+      "library": "yrs",
+      "result": {
+        "hash": "ec3ef7c465940be38ef2e1f41b9c469f5107cbbc3c2395cdedc578ffc62a9ad8",
+        "map_keys": 6000,
+        "text_bytes": 104857600
+      }
+    },
+    "history-reference": {
+      "status": "ok",
+      "wall_s": 0.5178500900001382,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "focus",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/random.json",
+        "history-reference",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 127148032,
+      "log": "logs/random-history-reference.stderr.log",
+      "process": {
+        "max_rss_kib": 223060,
+        "elapsed_s": 0.4909393280031509,
+        "user_s": 0.414909,
+        "system_s": 0.072698
+      },
+      "action": "history-reference",
+      "library": "yrs",
+      "result": {
+        "points": [
+          {
+            "hash": "e44bc7bfb6f367680b5bf237a3d3c69ea52cd0b49204edff660acf1386647ba9",
+            "map_keys": 5407,
+            "round": 16,
+            "text_bytes": 104864180
+          },
+          {
+            "hash": "404b3ebddc9148c28723e1e3d1ee4966497fdba23105a4d9f68ab219496917d0",
+            "map_keys": 5407,
+            "round": 128,
+            "text_bytes": 104864180
+          },
+          {
+            "hash": "5f2370a398c14e1b9f8f00139ab10497257dd8a91dd194f5499de981bf766d4a",
+            "map_keys": 5407,
+            "round": 512,
+            "text_bytes": 104864180
+          }
+        ]
+      }
+    }
   }
 }

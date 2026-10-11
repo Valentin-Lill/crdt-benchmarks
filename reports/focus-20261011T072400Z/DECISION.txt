@@ -1,5 +1,5 @@
 FOCUSED 100-MiB CRDT COMPARISON
-Updated 2026-10-11T07:30:58.456215+00:00
+Updated 2026-10-11T07:32:10.159229+00:00
 
 Configuration: Yrs 0.28.0 V2/GC, Loro 1.16.2 full snapshot and full operations.
 All cases start with 104857600 actual ASCII text bytes plus 6000 scalar map fields.
@@ -48,4 +48,16 @@ cluster loro-updates trial 1: memory-limit
   After 2.00 MiB replaced: raw 102.26 MiB / Zstd 23.69 MiB
   After 16.00 MiB replaced: raw 116.28 MiB / Zstd 32.13 MiB
   After 64.00 MiB replaced: raw 164.34 MiB / Zstd 61.07 MiB
+
+random loro trial 1: ok
+  Final stored raw 78.56 MiB / Zstd 52.10 MiB; save 110.5 ms, compress 716.3 ms, decompress 84.1 ms
+  delete-1048576: p50 1.268, p95 1.268, p99 1.268, max 1.268 ms (1 samples)
+  delete-10485760: p50 12.711, p95 12.711, p99 12.711, max 12.711 ms (1 samples)
+  edges: p50 29.090, p95 63.486, p99 63.486, max 63.486 ms (3 samples)
+  first-edit-before-read: p50 356.447, p95 356.447, p99 356.447, max 356.447 ms (1 samples)
+  local-single: p50 0.003, p95 0.004, p99 0.008, max 28.868 ms (256 samples)
+  paste-1048576: p50 2.867, p95 2.867, p99 2.867, max 2.867 ms (1 samples)
+  paste-10485760: p50 21.764, p95 21.764, p99 21.764, max 21.764 ms (1 samples)
+  random-single: p50 0.643, p95 6.022, p99 24.147, max 61.635 ms (512 samples)
+  Cold after history: load 189.8 ms, full read 129.8 ms, first edit after read 20967.0 ms; final RSS 189.50 MiB
 
