@@ -1,5 +1,5 @@
 <!doctype html><meta charset="utf-8"><title>Focused 100 MiB CRDT results</title><style>body{font:16px/1.5 system-ui;max-width:1300px;margin:30px auto;padding:20px}pre{white-space:pre-wrap}a{color:#0759a5}</style><h1>Focused 100 MiB CRDT results</h1><p>Status: running</p><p><a href="summary.json">Normalized measurements</a> · <a href="results.json">Raw phase data</a> · <a href="metadata.json">Environment and methodology</a></p><pre>FOCUSED 100-MiB CRDT COMPARISON
-Updated 2026-10-11T07:53:21.984252+00:00
+Updated 2026-10-11T07:55:56.637546+00:00
 
 Configuration: Yrs 0.28.0 V2/GC, Loro 1.16.2 full snapshot and full operations.
 All cases start with 104857600 actual ASCII text bytes plus 6000 scalar map fields.
@@ -192,4 +192,16 @@ random yrs trial 4: ok
   paste-10485760: p50 40.593, p95 40.593, p99 40.593, max 40.593 ms (1 samples)
   random-single: p50 25.167, p95 48.317, p99 65.900, max 93.261 ms (512 samples)
   Cold after history: load 232.3 ms, full read 20.2 ms, first edit after read 24.8 ms; final RSS 110.28 MiB
+
+random loro-updates trial 5: ok
+  Final stored raw 100.37 MiB / Zstd 22.54 MiB; save 156.5 ms, compress 390.0 ms, decompress 68.5 ms
+  delete-1048576: p50 1.284, p95 1.284, p99 1.284, max 1.284 ms (1 samples)
+  delete-10485760: p50 13.011, p95 13.011, p99 13.011, max 13.011 ms (1 samples)
+  edges: p50 29.517, p95 64.074, p99 64.074, max 64.074 ms (3 samples)
+  first-edit-before-read: p50 93.792, p95 93.792, p99 93.792, max 93.792 ms (1 samples)
+  local-single: p50 0.003, p95 0.004, p99 0.008, max 29.359 ms (256 samples)
+  paste-1048576: p50 1.848, p95 1.848, p99 1.848, max 1.848 ms (1 samples)
+  paste-10485760: p50 19.132, p95 19.132, p99 19.132, max 19.132 ms (1 samples)
+  random-single: p50 0.638, p95 6.048, p99 24.450, max 61.369 ms (512 samples)
+  Cold after history: load 35165.5 ms, full read 11.6 ms, first edit after read 0.3 ms; final RSS 2771.22 MiB
 </pre>
