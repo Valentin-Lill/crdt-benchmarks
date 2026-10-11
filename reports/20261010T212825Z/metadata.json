@@ -1,7 +1,7 @@
 {
   "started": "2026-10-10T21:28:25.444838+00:00",
   "gate_berlin": "2026-10-11T03:00:00+02:00",
-  "stop_berlin": "2026-10-11T07:00:00+02:00",
+  "stop_berlin": null,
   "source_commit": "4bad82cdffddc0afac37b6a78c96c193d7196f39",
   "versions": {
     "checked_utc": "2026-10-10T21:20:11.405327+00:00",
@@ -201,5 +201,18 @@
     "automerge-tail",
     "json-joy-tail"
   ],
-  "large_complete": false
+  "large_complete": false,
+  "resumptions": [
+    {
+      "at": "2026-10-11T04:08:38.753555+00:00",
+      "prior_stop_berlin": "2026-10-11T07:00:00+02:00",
+      "source_commit": "6f855b57ce1c53fc0de011f347d1c5ed942cb562",
+      "source_sha256": {
+        "campaign/resume.py": "43754e09dc5507292e940019f5ff1d0b748f23c42399fc6114848298339472b4",
+        "campaign/campaign.py": "aa5cbea7cbd26c958894312e94ee2f964afe75882442bcf0f8beed9b5ae7b247",
+        "campaign/overnight.py": "f32d33f1106f8625d683b568c6e8d5faf02483b399bb804bd3e2c59086dfd133"
+      }
+    }
+  ],
+  "time_policy": "No global, phase or trial deadlines; finish all planned work"
 }
