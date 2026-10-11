@@ -1,0 +1,137 @@
+{
+  "cluster": {
+    "reference-server": {
+      "status": "ok",
+      "wall_s": 0.19940954000048805,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "night",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/cluster.json",
+        "reference-server",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 0,
+      "log": "logs/cluster-reference-server.stderr.log",
+      "process": {
+        "max_rss_kib": 222824,
+        "elapsed_s": 0.17465686200011987,
+        "user_s": 0.110001,
+        "system_s": 0.063356
+      },
+      "action": "reference-server",
+      "baseline_rss_bytes": 3231744,
+      "library": "yrs",
+      "result": {
+        "commands": 6002,
+        "deleted_bytes": 3780,
+        "hash": "173ce9aa3bc55cbf50ea58553bf6c47a8361fcb8d983362d77b36a9631462c92",
+        "inserted_bytes": 7729,
+        "map_keys": 5590,
+        "text_bytes": 104861549
+      }
+    },
+    "reference-offline": {
+      "status": "ok",
+      "wall_s": 0.19674338799813995,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "night",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/cluster.json",
+        "reference-offline",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 0,
+      "log": "logs/cluster-reference-offline.stderr.log",
+      "process": {
+        "max_rss_kib": 222884,
+        "elapsed_s": 0.17198602000280516,
+        "user_s": 0.11419499999999999,
+        "system_s": 0.056554999999999994
+      },
+      "action": "reference-offline",
+      "baseline_rss_bytes": 3293184,
+      "library": "yrs",
+      "result": {
+        "commands": 1502,
+        "deleted_bytes": 944,
+        "hash": "a045a26655b632c7075ef58dcc552fe4adb7e35d8087a1e0fe01e26faacf37d1",
+        "inserted_bytes": 1946,
+        "map_keys": 5878,
+        "text_bytes": 104858602
+      }
+    },
+    "probe-reference": {
+      "status": "ok",
+      "wall_s": 0.2078559219953604,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "focus",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/cluster.json",
+        "probe-reference",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 0,
+      "log": "logs/cluster-probe-reference.stderr.log",
+      "process": {
+        "max_rss_kib": 223104,
+        "elapsed_s": 0.18330375499499496,
+        "user_s": 0.118046,
+        "system_s": 0.063983
+      },
+      "action": "probe-reference",
+      "library": "yrs",
+      "result": {
+        "hash": "ec3ef7c465940be38ef2e1f41b9c469f5107cbbc3c2395cdedc578ffc62a9ad8",
+        "map_keys": 6000,
+        "text_bytes": 104857600
+      }
+    },
+    "history-reference": {
+      "status": "ok",
+      "wall_s": 0.4662042490017484,
+      "command": [
+        "/home/valentin/Documents/crdt-benchmarks/campaign/bin/focus-native",
+        "focus",
+        "yrs",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/inputs/cluster.json",
+        "history-reference",
+        "/home/valentin/Documents/crdt-benchmarks/campaign/runs/focus-20261011T072400Z/work/reference"
+      ],
+      "observed_rss_bytes": 124510208,
+      "log": "logs/cluster-history-reference.stderr.log",
+      "process": {
+        "max_rss_kib": 222956,
+        "elapsed_s": 0.4416589869942982,
+        "user_s": 0.382426,
+        "system_s": 0.056563999999999996
+      },
+      "action": "history-reference",
+      "library": "yrs",
+      "result": {
+        "points": [
+          {
+            "hash": "922e084c705bb625460d21dfb7d0d1b9d84446055d79a1e675a6476aaab4624d",
+            "map_keys": 5590,
+            "round": 16,
+            "text_bytes": 104861549
+          },
+          {
+            "hash": "7c684ff796c1b54ef23933d6a3dd7cbd227fa7294aad492adcd601be14e58759",
+            "map_keys": 5590,
+            "round": 128,
+            "text_bytes": 104861549
+          },
+          {
+            "hash": "f338a7e823329f1ff54e1bd63d8dce40e3464113214cb451392120bb18a6bd62",
+            "map_keys": 5590,
+            "round": 512,
+            "text_bytes": 104861549
+          }
+        ]
+      }
+    }
+  }
+}
