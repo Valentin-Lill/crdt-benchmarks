@@ -1,5 +1,5 @@
 FOCUSED 100-MiB CRDT COMPARISON
-Updated 2026-10-11T08:31:21.128922+00:00
+Updated 2026-10-11T08:31:22.899308+00:00
 
 Configuration: Yrs 0.28.0 V2/GC, Loro 1.16.2 full snapshot and full operations.
 All cases start with 104857600 actual ASCII text bytes plus 6000 scalar map fields.
