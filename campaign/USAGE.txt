@@ -97,3 +97,15 @@ Stopping
 Use systemctl --user stop <unit-name> from RUNNING.json, or create a STOP file in
 the active campaign/runs/<id> directory. The controller then stops its workers,
 retains partial results and attempts a final commit/push.
+
+Finish a validated existing campaign, preserving completed trials:
+  python3 campaign/resume.py --job-dir campaign/runs/<id>
+
+This resume entry point disables global, phase and trial timeouts. Successful
+trials are skipped; earlier clock-limited or stopped trials are retried, with
+all attempts retained in raw results. Summaries use the latest attempt for each
+trial. Engine errors and per-process memory limits are recorded and other
+configurations continue. Host RAM/disk reserve interruptions wait and resume.
+Progress is committed/pushed hourly and after each major stage, then the final
+report and decision notes are published automatically. A systemd service has
+RuntimeMaxSec=infinity and inhibits sleep; no model polling is required.

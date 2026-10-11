@@ -56,12 +56,15 @@ def child(args,job,deadline):
  global ACTIVE
  with (job/'controller.log').open('a') as f:
   ACTIVE=subprocess.Popen(args,cwd=REPO,stdout=f,stderr=subprocess.STDOUT,start_new_session=True)
+  checkpoint_at=time.monotonic()
   while ACTIVE.poll() is None:
    if STOP or (job/'STOP').exists() or time.time()>deadline:
     os.killpg(ACTIVE.pid,signal.SIGTERM)
     try:ACTIVE.wait(timeout=20)
     except subprocess.TimeoutExpired:os.killpg(ACTIVE.pid,signal.SIGKILL);ACTIVE.wait()
     break
+   if time.monotonic()-checkpoint_at>3600:
+    render(job);publish(job,'Record automatic CRDT benchmark progress');checkpoint_at=time.monotonic()
    time.sleep(5)
   code=ACTIVE.returncode
  ACTIVE=None;return code
@@ -69,6 +72,7 @@ def child(args,job,deadline):
 def upstream(job,deadline,libraries,repeats,large=False):
  if not libraries:return True,set(),set()
  records=json.loads((job/'upstream-results.json').read_text()) if (job/'upstream-results.json').exists() else []
+ latest={(r['library'],r['test'],r['trial']):r for r in records}
  invalid=set();limited=set();failed_pairs=set()
  tests=['B4x100'] if large else TESTS
  for trial in range(1,repeats+1):
@@ -76,13 +80,15 @@ def upstream(job,deadline,libraries,repeats,large=False):
    libs=libraries[index%len(libraries):]+libraries[:index%len(libraries)]
    for lib in libs:
     if (lib,test) in failed_pairs:continue
+    prior=latest.get((lib,test,trial))
+    if prior and prior['status'] not in ['timeout','trial-timeout','budget-limit','stopped','host-memory-reserve','host-disk-reserve']:continue
     if lib=='diamond-types' and test not in ['B1.1','B1.2','B1.3','B1.4','B1.5','B1.6','B1.7','B2.1','B2.2','B2.3','B2.4','B3.5','B4','B4x100']:continue
     if STOP or (job/'STOP').exists() or time.time()>=deadline:return False,invalid,limited
-    stem=f'{lib}-{test}-{trial}';out=job/'logs'/(stem+'.result.json')
+    attempt=1+sum(r['library']==lib and r['test']==test and r['trial']==trial for r in records);stem=f'{lib}-{test}-{trial}'+(f'-attempt{attempt}' if attempt>1 else '');out=job/'logs'/(stem+'.result.json')
     status(job,'large-upstream' if large else 'standard-upstream',library=lib,test=test,trial=trial)
     cmd=['node','--expose-gc','--max-old-space-size=8192',str(ROOT/'upstream-worker.mjs'),ALIASES.get(lib,lib),test,str(out)]
     # night.measured captures wait4 CPU and kernel max RSS independently of JS heap.
-    data=night.measured(cmd,stem,job,time.monotonic()+max(0,deadline-time.time()),600 if large else 120,12*1024**3)
+    data=night.measured(cmd,stem,job,time.monotonic()+max(0,deadline-time.time()),(0 if deadline==float('inf') else 600 if large else 120),12*1024**3)
     row={'library':lib,'test':test,'trial':trial,'status':data['status'],'measurement':data}
     if data['status']=='ok' and out.exists():row['result']=json.loads(out.read_text())
     elif data['status']=='ok':row['status']='invalid-output'
@@ -110,7 +116,8 @@ def offline(job,name,profile,libs,deadline,repeats,smoke=False):
  if not libs:return False
  remaining=max(0,deadline-time.time())
  if remaining<30:return False
- cmd=[sys.executable,str(ROOT/'overnight.py'),'--job-dir',str(job/name),'--hours',str(remaining/3600),'--profile',profile,'--repeats',str(repeats),'--phase-timeout','600' if profile=='large' else '120','--trial-timeout','1200' if profile=='large' else '360','--libraries',*libs]
+ cmd=[sys.executable,str(ROOT/'overnight.py'),'--job-dir',str(job/name),'--hours',str(remaining/3600 if remaining!=float('inf') else 8),'--profile',profile,'--repeats',str(repeats),'--phase-timeout','600' if profile=='large' else '120','--trial-timeout','1200' if profile=='large' else '360','--libraries',*libs]
+ if deadline==float('inf'):cmd+=['--no-time-limit']
  if smoke:cmd+=['--smoke','--phase-timeout','30','--trial-timeout','90']
  status(job,name);code=child(cmd,job,deadline)
  if not (job/name/'status.json').exists():return False
@@ -123,7 +130,8 @@ def status(job,state,**extra):
 def render(job):
  records=json.loads((job/'upstream-results.json').read_text()) if (job/'upstream-results.json').exists() else []
  groups=collections.defaultdict(list)
- for r in records:groups[r['test'],r['library']].append(r)
+ latest={(r['test'],r['library'],r['trial']):r for r in records}
+ for r in latest.values():groups[r['test'],r['library']].append(r)
  rows=[]
  for (test,lib),rs in groups.items():
   good=[r for r in rs if r['status']=='ok'];row={'test':test,'library':lib,'passed':len(good),'attempted':len(rs),'failures':[r['status'] for r in rs if r['status']!='ok']}
@@ -177,11 +185,11 @@ def main():
  job=pathlib.Path(args.job_dir).resolve() if args.job_dir else ROOT/'runs'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
  job.mkdir(parents=True,exist_ok=True);(job/'logs').mkdir(exist_ok=True)
  current=datetime.datetime.now(BERLIN);next_day=current.date()+datetime.timedelta(days=1) if current.hour>=3 else current.date()
- gate=datetime.datetime.combine(next_day,datetime.time(3),BERLIN).timestamp();end=datetime.datetime.combine(next_day,datetime.time(7),BERLIN).timestamp()
+ gate=datetime.datetime.combine(next_day,datetime.time(3),BERLIN).timestamp();end=float('inf')
  # Stable single-core comparison; no overlapping benchmark workers.
  cpus=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{cpus[0]})
  signal.signal(signal.SIGTERM,stop);signal.signal(signal.SIGINT,stop)
- metadata={'started':now(),'gate_berlin':datetime.datetime.fromtimestamp(gate,BERLIN).isoformat(),'stop_berlin':datetime.datetime.fromtimestamp(end,BERLIN).isoformat(),'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),'versions':json.loads((ROOT/'VERSIONS.json').read_text()),'node':subprocess.check_output(['node','--version'],text=True).strip(),'rustc':subprocess.check_output(['rustc','+1.96.0','--version'],text=True).strip(),'cpu':subprocess.check_output(['lscpu'],text=True),'affinity':[cpus[0]],'libraries':night.LIBS,'upstream_tests':TESTS,'repeats':args.repeats,'resource_limits':{'per_process_rss_gib':12,'host_available_ram_reserve_gib':4,'disk_free_reserve_gib':10},'source_sha256':{str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'factories.mjs',ROOT/'campaign.py',ROOT/'overnight.py',ROOT/'bin/night-native',ROOT/'bin/night-native-memory',ROOT/'Cargo.lock',REPO/'package-lock.json']}}
+ metadata={'started':now(),'gate_berlin':datetime.datetime.fromtimestamp(gate,BERLIN).isoformat(),'stop_berlin':None,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPO,text=True).strip(),'versions':json.loads((ROOT/'VERSIONS.json').read_text()),'node':subprocess.check_output(['node','--version'],text=True).strip(),'rustc':subprocess.check_output(['rustc','+1.96.0','--version'],text=True).strip(),'cpu':subprocess.check_output(['lscpu'],text=True),'affinity':[cpus[0]],'libraries':night.LIBS,'upstream_tests':TESTS,'repeats':args.repeats,'resource_limits':{'per_process_rss_gib':12,'host_available_ram_reserve_gib':4,'disk_free_reserve_gib':10},'source_sha256':{str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'factories.mjs',ROOT/'campaign.py',ROOT/'overnight.py',ROOT/'bin/night-native',ROOT/'bin/night-native-memory',ROOT/'Cargo.lock',REPO/'package-lock.json']}}
  atomic(job/'metadata.json',metadata);(job/'upstream-trace.sha256').write_text(hashlib.sha256((ROOT/'upstream-trace.json').read_bytes()).hexdigest()+'\n');status(job,'validating');render(job)
  try:
   if command(['node','--expose-gc',str(ROOT/'validate.mjs'),str(job/'validation.json')],job/'validation.log')!=0:raise RuntimeError('Adapter persistence/offline validation failed')
@@ -197,8 +205,8 @@ def main():
    invalid.update(r['library'] for r in records if r['status']!='ok')
    eligible=[lib for lib in night.LIBS if lib not in invalid]
    metadata['large_started']=now();metadata['large_eligible']=eligible;atomic(job/'metadata.json',metadata)
-   # Leave time for large offline scenarios after a bounded real-trace expansion.
-   upstream(job,min(end,time.time()+1800),[x for x in JS if x in eligible],1,large=True)
+   # The expanded suite has no time cutoff.
+   upstream(job,end,[x for x in JS if x in eligible],1,large=True)
    large_ok=offline(job,'large-offline','large',eligible,end,args.repeats);metadata['large_complete']=large_ok;atomic(job/'metadata.json',metadata)
   else:
    metadata['large_skipped_reason']='standard tests incomplete at 03:00, adapter failure, or stop request';atomic(job/'metadata.json',metadata)

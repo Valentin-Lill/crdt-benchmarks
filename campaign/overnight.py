@@ -54,7 +54,7 @@ def measured(command,stem,job,deadline,timeout,memory_limit):
     except (FileNotFoundError,ProcessLookupError):pass
     if STOP or (job/'STOP').exists():reason='stopped'
     elif time.monotonic()>=deadline:reason='budget-limit'
-    elif time.monotonic()-start>timeout:reason='timeout'
+    elif timeout and time.monotonic()-start>timeout:reason='timeout'
     elif observed>memory_limit:reason='memory-limit'
     elif available_memory()<4*1024**3:reason='host-memory-reserve'
     elif shutil.disk_usage(job).free<10*1024**3:reason='host-disk-reserve'
@@ -103,7 +103,8 @@ def report(job):
  import statistics
  raw=json.loads((job/'results.json').read_text());meta=json.loads((job/'metadata.json').read_text());status=json.loads((job/'status.json').read_text())
  groups=collections.defaultdict(list)
- for r in raw:groups[(r['scenario'],r['library'])].append(r)
+ latest={(r['scenario'],r['library'],r['trial']):r for r in raw}
+ for r in latest.values():groups[(r['scenario'],r['library'])].append(r)
  rows=[]
  for (case,lib),records in groups.items():
   good=[x for x in records if x['status']=='ok'];row={'scenario':case,'library':lib,'successful':len(good),'attempted':len(records),'failures':[{'trial':x['trial'],'stage':x.get('failed_stage'),'status':x['status']} for x in records if x['status']!='ok']}
@@ -141,7 +142,7 @@ def report(job):
 <p>Merge peak: resident-memory high-water mark reset immediately before importing updates, including update buffers and CRDT work. Editing peaks exclude the checkpoint serialization/loading operation itself; checkpoint peaks remain in raw results. Merge peaks start at already-resident post-load memory; cold-load and later persistence peaks are separately recorded in raw phase results. Linux /proc/self/clear_refs=5 resets VmHWM; support is recorded. The worker exit/kernel peak can be lower after a reset, so all phase peaks are retained. Verification/reference peaks are excluded from merge rankings. Lazy work triggered by merging remains inside merge cost.</p>
 <p>Cold open: load raw persisted document, read all text/map values, discard the returned view, perform one middle insertion. The table includes the largest cold-stage peak and final process RSS, not just retained CRDT heap. Native live heap is measured in a separate allocation-instrumented process; JavaScript post-GC heap + ArrayBuffers is approximate and not directly comparable. JavaScript forces GC at load/reload boundaries, outside load timing; total stage wall time includes it.</p>
 <p>Disk: smaller of native saved bytes and a lossless Zstd-3 wrapper; cold loads use raw bytes. Loro full operation exports retain all history; no shallow snapshots, CRDT resets or destructive history pruning. Yrs/Yjs GC and wire-format settings are encoded in each variant name (native Yrs defaults to GC and V2, with explicit V1 and no-GC variants). Snapshot-tail variants use an application frame containing a full base snapshot and the incremental tail, without deleting CRDT metadata. Native Automerge tuned variants use 64 KiB initial transactions; the bounded adapter uses compressed native changes imported 32 at a time with causal delivery. Diamond Types is text-only in this harness. All inputs are synthetic ASCII with unique random line IDs; mixed fields are flat scalars. No Flutter bridge, mobile/Web builds, rich text, nested structures, network, database fsync, UI, concurrent-server load or real elapsed month is measured. Inputs differ from the earlier small campaign; compare engines within this campaign. Small timing differences and production tail latency require more samples.</p>'''
- limits=f'<p>Global budget: {meta["hours"]} h; phase timeout: {meta["phase_timeout_s"]} s; trial budget: {meta["trial_timeout_s"]} s; sampled per-process RSS guard: {meta["memory_limit_bytes"]/1024**3:g} GiB; host reserves: 4 GiB available RAM and 10 GiB free disk. Guards may overshoot between samples. First pass prioritizes coverage; subsequent passes repeat successful combinations up to {meta["repeats"]} trials. Failed configurations are not retried in later passes. Jobs exceeding the wall budget are stopped and recorded. Work files are cleaned after every trial; timings/results/logs remain.</p>'
+ limits=f'<p>Global budget: {meta["hours"]} h; phase timeout: {meta["phase_timeout_s"]} s; trial budget: {meta["trial_timeout_s"]} s; sampled per-process RSS guard: {meta["memory_limit_bytes"]/1024**3:g} GiB; host reserves: 4 GiB available RAM and 10 GiB free disk. Guards may overshoot between samples. First pass prioritizes coverage; subsequent passes repeat successful combinations up to {meta["repeats"]} trials. Failed configurations are not retried in later passes. A null global budget and zero phase/trial limits disable all time-based stops. Earlier attempts remain in raw results; summaries use the latest attempt per trial. Work files are cleaned after every trial; timings/results/logs remain.</p>'
  options='<option value="all">All workloads</option>'+''.join(f'<option value="{html.escape(c)}">{html.escape(c)}</option>' for c in meta['recipes'])
  doc='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Large offline-first CRDT benchmark</title><style>body{font:16px/1.5 system-ui;background:#f1f4f7;color:#142336;margin:0}main{max-width:1600px;margin:auto;padding:24px}section,.intro{background:white;border:1px solid #dae1e8;border-radius:8px;padding:20px;margin:20px 0}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:10px;text-align:right;border-bottom:1px solid #ddd;white-space:nowrap}td:first-child,th:first-child{text-align:left}th{background:#edf3f9}pre{overflow:auto;white-space:pre-wrap}select{font:inherit;padding:8px}a{color:#0759a5}</style><main><h1>Large offline-first CRDT benchmark</h1><div class="intro"><p><strong>Status: '+html.escape(status['state'])+'</strong>; updated '+html.escape(status['updated'])+'</p><p>'+coverage+'</p>'+method+limits+'<p><a href="summary.csv">CSV medians</a> · <a href="summary.json">Summary</a> · <a href="results.json">All raw phase results</a> · <a href="metadata.json">Environment, inputs, source hashes</a> · <a href="status.json">Current status</a></p></div><label>Workload: <select id="case">'+options+'</select></label>'+''.join(sections)+failures+'</main><script>document.querySelector("#case").addEventListener("change",e=>{for(const s of document.querySelectorAll("[data-case]"))s.hidden=e.target.value!=="all"&&s.dataset.case!==e.target.value})</script></html>'
  tmp=job/'report.html.tmp';tmp.write_text(doc);tmp.replace(job/'report.html')
@@ -151,17 +152,25 @@ class Failure(Exception):
 
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--hours',type=float,default=8);ap.add_argument('--memory-gib',type=float,default=12);ap.add_argument('--phase-timeout',type=int,default=600);ap.add_argument('--trial-timeout',type=int,default=1800);ap.add_argument('--repeats',type=int,default=3);ap.add_argument('--smoke',action='store_true');ap.add_argument('--job-dir');ap.add_argument('--report',action='store_true');ap.add_argument('--libraries',nargs='+',default=LIBS);ap.add_argument('--profile',choices=['standard','large'],default='large')
- args=ap.parse_args();job=pathlib.Path(args.job_dir).resolve() if args.job_dir else ROOT/'night-runs'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');job.mkdir(parents=True,exist_ok=True)
+ ap.add_argument('--resume',action='store_true');ap.add_argument('--no-time-limit',action='store_true')
+ args=ap.parse_args()
+ if args.no_time_limit:args.phase_timeout=0;args.trial_timeout=0
+ job=pathlib.Path(args.job_dir).resolve() if args.job_dir else ROOT/'night-runs'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');job.mkdir(parents=True,exist_ok=True)
  if args.report:report(job);return
  assert all(lib in LIBS for lib in args.libraries)
  for p in ['logs','inputs','work']: (job/p).mkdir(exist_ok=True)
- cases=SMOKE if args.smoke else STANDARD if args.profile=='standard' else CASES;deadline=time.monotonic()+args.hours*3600;started=utc();records=[];references={};recipes={}
+ cases=SMOKE if args.smoke else STANDARD if args.profile=='standard' else CASES;deadline=float('inf') if args.no_time_limit else time.monotonic()+args.hours*3600;started=utc();records=[];references={};recipes={}
+ previous=json.loads((job/'metadata.json').read_text()) if args.resume and (job/'metadata.json').exists() else None
+ if previous:
+  records=json.loads((job/'results.json').read_text());references=previous['references'];recipes=previous['recipes'];started=previous['started']
  signal.signal(signal.SIGTERM,request_stop);signal.signal(signal.SIGINT,request_stop)
  sources=['src/main.rs','src/night.rs','bench-js.mjs','night-js.mjs','overnight.py','factories.mjs','adapter-night.mjs','Cargo.toml','Cargo.lock','../package-lock.json','bin/night-native','bin/night-native-memory']
- metadata={'started':started,'deadline_utc':(datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(hours=args.hours)).isoformat(),'hours':args.hours,'memory_limit_bytes':int(args.memory_gib*1024**3),'phase_timeout_s':args.phase_timeout,'trial_timeout_s':args.trial_timeout,'repeats':args.repeats,'platform':platform.platform(),'cpu':subprocess.check_output(['lscpu'],text=True),'cpu_affinity':sorted(os.sched_getaffinity(0)),'node':subprocess.check_output(['node','--version'],text=True).strip(),'rustc':subprocess.check_output(['rustc','+1.96.0','--version'],text=True).strip(),'source_sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources},'recipes':recipes,'references':references,'libraries':args.libraries,'planned_first_pass':sum(not (lib in ['diamond','diamond-types'] and c[2]) for c in cases for lib in args.libraries),'versions':{'yrs':'0.28.0','loro':'1.16.2','automerge':'0.12.0','diamond-types':'1.0.0','yjs':'13.6.33','json-joy':'18.30.0','ywasm':'0.28.0','loro-crdt':'1.16.4','automerge-js':'3.5.0','diamond-types-node':'1.0.2'}}
- def status(state,**extra):atomic(job/'status.json',{'state':state,'pid':os.getpid(),'started':started,'updated':utc(),'deadline_utc':metadata['deadline_utc'],'remaining_s':max(0,deadline-time.monotonic()),'recorded':len(records),**extra})
+ metadata={'started':started,'deadline_utc':None if args.no_time_limit else (datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(hours=args.hours)).isoformat(),'hours':None if args.no_time_limit else args.hours,'memory_limit_bytes':int(args.memory_gib*1024**3),'phase_timeout_s':args.phase_timeout,'trial_timeout_s':args.trial_timeout,'repeats':args.repeats,'platform':platform.platform(),'cpu':subprocess.check_output(['lscpu'],text=True),'cpu_affinity':sorted(os.sched_getaffinity(0)),'node':subprocess.check_output(['node','--version'],text=True).strip(),'rustc':subprocess.check_output(['rustc','+1.96.0','--version'],text=True).strip(),'source_sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in sources},'recipes':recipes,'references':references,'libraries':args.libraries,'planned_first_pass':sum(not (lib in ['diamond','diamond-types'] and c[2]) for c in cases for lib in args.libraries),'versions':{'yrs':'0.28.0','loro':'1.16.2','automerge':'0.12.0','diamond-types':'1.0.0','yjs':'13.6.33','json-joy':'18.30.0','ywasm':'0.28.0','loro-crdt':'1.16.4','automerge-js':'3.5.0','diamond-types-node':'1.0.2'}}
+ if previous:
+  metadata['resumptions']=previous.get('resumptions',[])+[{'at':utc(),'prior_policy':{k:previous.get(k) for k in ['deadline_utc','hours','phase_timeout_s','trial_timeout_s']},'prior_source_sha256':previous.get('source_sha256',{})}]
+ def status(state,**extra):atomic(job/'status.json',{'state':state,'pid':os.getpid(),'started':started,'updated':utc(),'deadline_utc':metadata['deadline_utc'],'remaining_s':None if args.no_time_limit else max(0,deadline-time.monotonic()),'recorded':len(records),**extra})
  def flush():atomic(job/'results.json',records);atomic(job/'metadata.json',metadata);report(job)
- status('starting');flush();bad=set();aborted=False
+ status('starting');flush();latest={(r['scenario'],r['library'],r['trial']):r for r in records};retryable={'timeout','trial-timeout','budget-limit','stopped','host-memory-reserve','host-disk-reserve'};bad={(r['scenario'],r['library']) for r in latest.values() if r['status']!='ok' and r['status'] not in retryable};aborted=False
  try:
   for trial in range(1,args.repeats+1):
    for index,case in enumerate(cases):
@@ -176,12 +185,20 @@ def main():
       ref=measured(worker('yrs',recipe_path,stage,job/'work/reference'),name+'-'+stage,job,deadline,args.phase_timeout,metadata['memory_limit_bytes']);references[name][branch]=ref
       if ref['status']!='ok':raise Failure(stage,ref)
      flush()
-    recipe_path=job/'inputs'/f'{name}.json';libs=args.libraries[(index+trial-1)%len(args.libraries):]+args.libraries[:(index+trial-1)%len(args.libraries)]
+    recipe_path=job/'inputs'/f'{name}.json'
+    for branch in ['server','offline']:
+     if references.get(name,{}).get(branch,{}).get('status')!='ok':
+      stage='reference-'+branch;status('reference',scenario=name,stage=stage)
+      ref=measured(worker('yrs',recipe_path,stage,job/'work/reference'),name+'-'+stage,job,deadline,args.phase_timeout,metadata['memory_limit_bytes']);references.setdefault(name,{})[branch]=ref;flush()
+      if ref['status']!='ok':raise Failure(stage,ref)
+    libs=args.libraries[(index+trial-1)%len(args.libraries):]+args.libraries[:(index+trial-1)%len(args.libraries)]
     for lib in libs:
      if lib in ['diamond','diamond-types'] and keys:continue
      if (name,lib) in bad:continue
+     prior=latest.get((name,lib,trial))
+     if prior and prior['status']=='ok':continue
      if STOP or (job/'STOP').exists() or time.monotonic()>=deadline:aborted=True;break
-     work=job/'work'/f'{name}-{lib}-{trial}';work.mkdir(parents=True,exist_ok=True);stem=f'{name}-{lib}-{trial}';record={'scenario':name,'library':lib,'trial':trial,'started':utc(),'status':'running','phases':{}};recorded_start=time.monotonic();sample_deadline=min(deadline,recorded_start+args.trial_timeout)
+     work=job/'work'/f'{name}-{lib}-{trial}';work.mkdir(parents=True,exist_ok=True);attempt=1+sum(r['scenario']==name and r['library']==lib and r['trial']==trial for r in records);stem=f'{name}-{lib}-{trial}' + (f'-attempt{attempt}' if attempt>1 else '');record={'scenario':name,'library':lib,'trial':trial,'attempt':attempt,'started':utc(),'status':'running','phases':{}};recorded_start=time.monotonic();sample_deadline=min(deadline,recorded_start+args.trial_timeout) if args.trial_timeout else deadline
      print(f'{utc()} START {stem}',flush=True)
      try:
       stages=['init','server','check-server','offline','check-offline','merge-server','merge-client','check-merged-server','check-merged-client','cold','storage']
@@ -221,5 +238,7 @@ def main():
    except ProcessLookupError:pass
   shutil.rmtree(job/'work',ignore_errors=True)
  print(f'{utc()} REPORT {job / "report.html"}',flush=True)
- if args.smoke and (len(records)!=metadata['planned_first_pass']*args.repeats or any(r['status']!='ok' for r in records)):sys.exit(1)
+ if args.smoke:
+  final={(r['scenario'],r['library'],r['trial']):r for r in records}
+  if len(final)!=metadata['planned_first_pass']*args.repeats or any(r['status']!='ok' for r in final.values()):sys.exit(1)
 if __name__=='__main__':main()
