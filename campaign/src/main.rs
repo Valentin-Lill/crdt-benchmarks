@@ -793,6 +793,7 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
     match args[1].as_str() {
         "upstream-text" => upstream::run(&args[2], &args[3], &args[4]),
+        "focus" => night::focus(&args[2], &args[3], &args[4], &args[5]),
         "night" => night::run(&args[2], &args[3], &args[4], &args[5]),
         "run" => run(&args[2], &args[3], &args[4]),
         "memory" => memory(&args[2], &args[3]),

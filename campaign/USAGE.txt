@@ -52,7 +52,7 @@ Only if standard stages finish before the gate, a bounded larger real-text-trace
 stage runs, followed by offline scenarios with 32/128/500MiB text, up to one
 million fields, up to one million server edits, and 1GiB of replacement payload.
 Variants failing the standard checks are excluded from the larger stage.
-Larger tests stop by 07:00 Europe/Berlin. Timeouts/memory guards are recorded;
+The old overnight run originally had a 07:00 cutoff; that cutoff was removed. Timeouts/memory guards are recorded;
 successful configurations are repeated up to three times within the time budget.
 No AI polling is required. One logical CPU is pinned; no measured workers overlap.
 
@@ -109,3 +109,25 @@ configurations continue. Host RAM/disk reserve interruptions wait and resume.
 Progress is committed/pushed hourly and after each major stage, then the final
 report and decision notes are published automatically. A systemd service has
 RuntimeMaxSec=infinity and inhibits sleep; no model polling is required.
+
+Focused 100-MiB storage comparison (2026-10-11)
+--------------------------------------------
+Build release with cargo +1.96.0 build --manifest-path campaign/Cargo.toml --release --locked,
+copy campaign/target/release/crdt-benchmark to campaign/bin/focus-native.
+Run python3 campaign/focus.py --job-dir campaign/runs/<id>.
+The focused run tests native Yrs V2/GC and Loro full snapshot/full operations.
+100 MiB synthetic ASCII text, 6000 fields, fixed deterministic edit traces;
+full CRDT metadata remains intact for old offline clients. History replaces
+the same 128 KiB range 512 times (64 MiB inserted and deleted); final visible
+size remains stable. Stored bytes are sampled after 2, 16, and 64 MiB replaced.
+Raw and Zstd-3 sizes, compression/decompression time and exact byte roundtrip,
+snapshot fsync time, RAM peaks and single-operation latency distributions are
+recorded. Probe first-edit runs before full materialization; cold-after-history
+loads, materializes, then edits. Every worker has one replica. References are
+separate Rope workers. Pending/reversed and duplicate delivery are checked.
+Benchmark replicas, raw/Zstd alternatives and temporary snapshots are test-only
+fixtures, not cumulative server storage requirements. No database/backups/UI
+or elapsed real 3 months is measured. Core cases get 20 minutes; phases 8 minutes;
+resource guards remain. Incomplete tests are explicitly marked. Optional random
+cases/repeats run until 10:30 Berlin, worker budget ends 10:50 for reporting
+before 11:00 as requested. A separate --smoke validates the complete protocol.

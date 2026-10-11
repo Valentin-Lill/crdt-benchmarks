@@ -453,3 +453,6 @@ pub fn run(lib: &str, recipe_path: &str, action: &str, dir: &str) {
         json!({"action":action,"library":lib,"baseline_rss_bytes":baseline,"result":result})
     );
 }
+
+mod focused;
+pub fn focus(lib: &str, recipe: &str, action: &str, dir: &str) {focused::run(lib,recipe,action,dir)}
